@@ -1,4 +1,4 @@
-package com.db.universityproperty.controller;
+package com.db.campus.property.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

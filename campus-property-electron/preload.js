@@ -1,4 +1,4 @@
-const {remote} = require('electron');
+const {remote} = require('campus-property-electron');
 const {dialog} = remote;
 
 window.versions = process.versions;

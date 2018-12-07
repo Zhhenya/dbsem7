@@ -1,4 +1,4 @@
-package com.db.universityproperty;
+package com.db.campus.property;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

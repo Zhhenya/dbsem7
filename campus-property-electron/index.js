@@ -1,4 +1,4 @@
-const electron = require('electron');
+const electron = require('campus-property-electron');
 const path = require('path');
 const url = require('url');
 const logger = require('electron-log');
