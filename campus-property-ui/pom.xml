@@ -7,12 +7,6 @@
     <artifactId>campus-property-ui</artifactId>
     <version>1.0-SNAPSHOT</version>
 
-    <parent>
-        <groupId>com.db</groupId>
-        <version>1.0-SNAPSHOT</version>
-        <artifactId>university-property</artifactId>
-    </parent>
-
     <build>
         <plugins>
             <plugin>
