@@ -19,7 +19,7 @@ public class CancellationRecordEntityPK implements Serializable {
         this.pkCancellationRecord = pkCancellationRecord;
     }
 
-    @Column(name = "PK_Cancellation_act", nullable = false)
+    @Column(name = "PK_Cancellation_act", nullable = false, insertable = false, updatable = false)
     @Id
     public long getPkCancellationAct() {
         return pkCancellationAct;

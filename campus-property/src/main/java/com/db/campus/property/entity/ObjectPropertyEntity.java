@@ -88,7 +88,7 @@ public class ObjectPropertyEntity {
     }
 
     @Basic
-    @Column(name = "PK_Room", nullable = false)
+    @Column(name = "PK_Room", nullable = false, insertable = false, updatable = false)
     public long getPkRoom() {
         return pkRoom;
     }
@@ -98,7 +98,7 @@ public class ObjectPropertyEntity {
     }
 
     @Basic
-    @Column(name = "PK_State", nullable = false)
+    @Column(name = "PK_State", nullable = false, insertable = false, updatable = false)
     public long getPkState() {
         return pkState;
     }
@@ -108,7 +108,7 @@ public class ObjectPropertyEntity {
     }
 
     @Basic
-    @Column(name = "PK_Economic_officer", nullable = false)
+    @Column(name = "PK_Economic_officer", nullable = false, insertable = false, updatable = false)
     public long getPkEconomicOfficer() {
         return pkEconomicOfficer;
     }
@@ -118,7 +118,7 @@ public class ObjectPropertyEntity {
     }
 
     @Basic
-    @Column(name = "PK_Accountant", nullable = false)
+    @Column(name = "PK_Accountant", nullable = false, insertable = false, updatable = false)
     public long getPkAccountant() {
         return pkAccountant;
     }

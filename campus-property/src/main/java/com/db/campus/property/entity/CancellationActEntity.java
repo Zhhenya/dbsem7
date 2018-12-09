@@ -35,7 +35,7 @@ public class CancellationActEntity {
     }
 
     @Basic
-    @Column(name = "PK_Accountant", nullable = false)
+    @Column(name = "PK_Accountant", nullable = false, insertable = false, updatable = false)
     public long getPkAccountant() {
         return pkAccountant;
     }

@@ -42,7 +42,7 @@ public class RequestEntity {
     }
 
     @Basic
-    @Column(name = "PK_Type_request", nullable = false)
+    @Column(name = "PK_Type_request", nullable = false, insertable = false, updatable = false)
     public long getPkTypeRequest() {
         return pkTypeRequest;
     }
@@ -52,7 +52,7 @@ public class RequestEntity {
     }
 
     @Basic
-    @Column(name = "PK_State_request", nullable = true)
+    @Column(name = "PK_State_request", nullable = true, insertable = false, updatable = false)
     public Long getPkStateRequest() {
         return pkStateRequest;
     }
@@ -62,7 +62,7 @@ public class RequestEntity {
     }
 
     @Basic
-    @Column(name = "PK_University_worker", nullable = false)
+    @Column(name = "PK_University_worker", nullable = false, insertable = false, updatable = false)
     public long getPkUniversityWorker() {
         return pkUniversityWorker;
     }
@@ -72,7 +72,7 @@ public class RequestEntity {
     }
 
     @Basic
-    @Column(name = "PK_Economic_officer", nullable = true)
+    @Column(name = "PK_Economic_officer", nullable = true, insertable = false, updatable = false)
     public Long getPkEconomicOfficer() {
         return pkEconomicOfficer;
     }
@@ -82,7 +82,7 @@ public class RequestEntity {
     }
 
     @Basic
-    @Column(name = "PK_Accountant", nullable = true)
+    @Column(name = "PK_Accountant", nullable = true, insertable = false, updatable = false)
     public Long getPkAccountant() {
         return pkAccountant;
     }

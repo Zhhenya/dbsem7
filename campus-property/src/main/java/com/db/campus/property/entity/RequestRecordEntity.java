@@ -35,7 +35,7 @@ public class RequestRecordEntity {
     }
 
     @Id
-    @Column(name = "PK_Request", nullable = false)
+    @Column(name = "PK_Request", nullable = false, insertable = false, updatable = false)
     public long getPkRequest() {
         return pkRequest;
     }
@@ -45,7 +45,7 @@ public class RequestRecordEntity {
     }
 
     @Basic
-    @Column(name = "PK_Object_property", nullable = true)
+    @Column(name = "PK_Object_property", nullable = true, insertable = false, updatable = false)
     public Long getPkObjectProperty() {
         return pkObjectProperty;
     }

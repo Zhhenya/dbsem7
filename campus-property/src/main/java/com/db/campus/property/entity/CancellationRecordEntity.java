@@ -35,7 +35,7 @@ public class CancellationRecordEntity {
     }
 
     @Id
-    @Column(name = "PK_Cancellation_act", nullable = false)
+    @Column(name = "PK_Cancellation_act", nullable = false, insertable = false, updatable = false)
     public long getPkCancellationAct() {
         return pkCancellationAct;
     }
@@ -45,7 +45,7 @@ public class CancellationRecordEntity {
     }
 
     @Basic
-    @Column(name = "PK_Object_property", nullable = false)
+    @Column(name = "PK_Object_property", nullable = false, insertable = false, updatable = false)
     public long getPkObjectProperty() {
         return pkObjectProperty;
     }

@@ -35,7 +35,7 @@ public class ResultinventarisationEntity {
     }
 
     @Id
-    @Column(name = "PK_Inventarisation", nullable = false)
+    @Column(name = "PK_Inventarisation", nullable = false, insertable = false, updatable = false)
     public long getPkInventarisation() {
         return pkInventarisation;
     }
@@ -45,7 +45,7 @@ public class ResultinventarisationEntity {
     }
 
     @Basic
-    @Column(name = "PK_Object_property", nullable = false)
+    @Column(name = "PK_Object_property", nullable = false, insertable = false, updatable = false)
     public long getPkObjectProperty() {
         return pkObjectProperty;
     }

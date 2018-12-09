@@ -19,7 +19,7 @@ public class ResultinventarisationEntityPK implements Serializable {
         this.pkResultInventarisation = pkResultInventarisation;
     }
 
-    @Column(name = "PK_Inventarisation", nullable = false)
+    @Column(name = "PK_Inventarisation", nullable = false, insertable = false, updatable = false)
     @Id
     public long getPkInventarisation() {
         return pkInventarisation;

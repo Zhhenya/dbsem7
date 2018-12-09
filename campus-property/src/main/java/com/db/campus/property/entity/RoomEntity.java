@@ -45,7 +45,7 @@ public class RoomEntity {
     }
 
     @Basic
-    @Column(name = "PK_Building", nullable = false)
+    @Column(name = "PK_Building", nullable = false, insertable = false, updatable = false)
     public long getPkBuilding() {
         return pkBuilding;
     }

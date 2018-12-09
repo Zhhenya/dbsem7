@@ -19,7 +19,7 @@ public class RequestRecordEntityPK implements Serializable {
         this.pkRequestRecord = pkRequestRecord;
     }
 
-    @Column(name = "PK_Request", nullable = false)
+    @Column(name = "PK_Request", nullable = false, insertable = false, updatable = false)
     @Id
     public long getPkRequest() {
         return pkRequest;
