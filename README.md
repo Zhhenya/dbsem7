@@ -17,7 +17,7 @@
 
 1) Запустить сервер (CampusPropertyApplication в модуле campus-property)
 2) Запустить react `npm start`
-3) Запустить элестрон `npm run electron`
+3) Запустить электрон `npm run electron`
 
 или
 
