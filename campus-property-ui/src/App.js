@@ -1,8 +1,6 @@
-import React, { Component } from "react";
-import { Layout, DatePicker } from "antd";
+import React, {Component} from "react";
 import axios from "axios";
-
-const { Header, Content } = Layout;
+import TestTable from "./campus/TestTable";
 
 class App extends Component {
   state = {
@@ -15,14 +13,7 @@ class App extends Component {
 
   render() {
     return (
-      <Layout theme="light">
-        <Header theme="light">
-          {this.state.text}
-        </Header>
-        <Content theme="light">
-          <DatePicker/>
-        </Content>
-      </Layout>
+      <TestTable title={this.state.text}/>
     );
   }
 }
