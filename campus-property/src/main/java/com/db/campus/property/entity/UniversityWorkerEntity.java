@@ -10,6 +10,7 @@ public class UniversityWorkerEntity {
     private String name;
     private long id;
     private Collection<RequestEntity> requests;
+    private UserAccountEntity userAccount;
 
     @Basic
     @Column(name = "UI_Name", nullable = false, length = 100)
@@ -52,5 +53,15 @@ public class UniversityWorkerEntity {
 
     public void setRequests(Collection<RequestEntity> requests) {
         this.requests = requests;
+    }
+
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "fk_user", nullable = false)
+    public UserAccountEntity getUserAccount() {
+        return userAccount;
+    }
+
+    public void setUserAccount(UserAccountEntity userAccount) {
+        this.userAccount = userAccount;
     }
 }
