@@ -31,14 +31,14 @@ public class TestController {
     @RequestMapping("/hello")
     @ResponseBody
     public String getHelloString() {
-        //AccountantEntity accountantEntity = accountantRepository.findById(1L).get();
-        /*UserAccountEntity userAccountEntity = new UserAccountEntity();
+        /*AccountantEntity accountantEntity = accountantRepository.findById(1L).get();
+        UserAccountEntity userAccountEntity = new UserAccountEntity();
         userAccountEntity.setLogin("ZHULITOV-MV");
         userAccountEntity.setPassword(bCryptPasswordEncoder.encode("ZHULITOV-MV-pass"));
         userAccountEntity.setRole(roleRepository.findById(2).get());
-        userAccountEntity = userRepository.save(userAccountEntity);*/
-        //accountantEntity.setUserAccount(userRepository.findById(1).get());
-        //accountantRepository.save(accountantEntity);
+        userAccountEntity = userRepository.save(userAccountEntity);
+        accountantEntity.setUserAccount(userRepository.findById(1).get());
+        accountantRepository.save(accountantEntity);*/
         securityService.autoLogin("ZHULITOV-MV", "ZHULITOV-MV-pass");
         return "Hello World";
     }
