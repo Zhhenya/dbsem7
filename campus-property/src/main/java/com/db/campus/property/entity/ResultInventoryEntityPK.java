@@ -5,7 +5,7 @@ import javax.persistence.Id;
 import java.io.Serializable;
 import java.util.Objects;
 
-public class ResultinventarisationEntityPK implements Serializable {
+public class ResultInventoryEntityPK implements Serializable {
     private long pkResultInventarisation;
     private long pkInventarisation;
 
@@ -33,7 +33,7 @@ public class ResultinventarisationEntityPK implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ResultinventarisationEntityPK that = (ResultinventarisationEntityPK) o;
+        ResultInventoryEntityPK that = (ResultInventoryEntityPK) o;
         return pkResultInventarisation == that.pkResultInventarisation &&
                pkInventarisation == that.pkInventarisation;
     }
