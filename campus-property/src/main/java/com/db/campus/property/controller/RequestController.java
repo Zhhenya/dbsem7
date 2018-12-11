@@ -1,6 +1,6 @@
 package com.db.campus.property.controller;
 
-import com.db.campus.property.converter.CampusPropertyConversionService;
+import com.db.campus.property.converter.RequestConverter;
 import com.db.campus.property.dao.RequestRepository;
 import com.db.campus.property.dto.RequestDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,20 +13,20 @@ import java.util.List;
 @RestController
 public class RequestController {
 
-    private final CampusPropertyConversionService conversionService;
+    private final RequestConverter requestConverter;
     private final RequestRepository requestRepository;
 
     @Autowired
-    public RequestController(CampusPropertyConversionService conversionService,
+    public RequestController(RequestConverter requestConverter,
                              RequestRepository requestRepository) {
-        this.conversionService = conversionService;
+        this.requestConverter = requestConverter;
         this.requestRepository = requestRepository;
     }
 
     @RequestMapping("/request/list")
     @ResponseBody
     public List<RequestDto> getRequestList() {
-        return conversionService.convertAll(requestRepository.findAll(), RequestDto.class);
+        return requestConverter.convertAll(requestRepository.findAll());
     }
 
 }

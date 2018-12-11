@@ -2,9 +2,11 @@ package com.db.campus.property.converter;
 
 import com.db.campus.property.dto.RequestDto;
 import com.db.campus.property.entity.*;
+import org.springframework.stereotype.Service;
 
 import java.util.stream.Collectors;
 
+@Service
 public class RequestConverter extends CampusPropertyConverter<RequestEntity, RequestDto> {
 
     @Override
