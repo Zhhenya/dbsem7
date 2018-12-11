@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+    "-//Hibernate/Hibernate Configuration DTD//EN"
+    "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+  <session-factory>
+    <property name="connection.url">jdbc:mysql://localhost:3306/dbuniver</property>
+    <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+      <mapping class="com.db.campus.property.entity.AccountantEntity"/>
+      <mapping class="com.db.campus.property.entity.BuildingEntity"/>
+      <mapping class="com.db.campus.property.entity.CancellationActEntity"/>
+      <mapping class="com.db.campus.property.entity.CancellationRecordEntity"/>
+      <mapping class="com.db.campus.property.entity.EconomicOfficerEntity"/>
+      <mapping class="com.db.campus.property.entity.InventoryEntity"/>
+      <mapping class="com.db.campus.property.entity.ObjectPropertyEntity"/>
+      <mapping class="com.db.campus.property.entity.RequestEntity"/>
+      <mapping class="com.db.campus.property.entity.RequestRecordEntity"/>
+      <mapping class="com.db.campus.property.entity.ResultInventoryEntity"/>
+      <mapping class="com.db.campus.property.entity.RoomEntity"/>
+      <mapping class="com.db.campus.property.entity.StateEntity"/>
+      <mapping class="com.db.campus.property.entity.StateRequestEntity"/>
+      <mapping class="com.db.campus.property.entity.TypeRequestEntity"/>
+      <mapping class="com.db.campus.property.entity.UniversityWorkerEntity"/>
+      <!-- <property name="connection.username"/> -->
+    <!-- <property name="connection.password"/> -->
+
+    <!-- DB schema will be updated if needed -->
+    <!-- <property name="hbm2ddl.auto">update</property> -->
+  </session-factory>
+</hibernate-configuration>
