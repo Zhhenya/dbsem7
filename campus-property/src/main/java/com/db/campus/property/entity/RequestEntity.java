@@ -5,90 +5,35 @@ import java.util.Collection;
 import java.util.Objects;
 
 @Entity
-@Table(name = "request", schema = "dbuniver", catalog = "")
+@Table(name = "request", schema = "dbuniver")
 public class RequestEntity {
-    private String reqContent;
-    private long pkRequest;
-    private long pkTypeRequest;
-    private Long pkStateRequest;
-    private long pkUniversityWorker;
-    private Long pkEconomicOfficer;
-    private Long pkAccountant;
-    private TypeRequestEntity typeRequestByPkTypeRequest;
-    private StateRequestEntity stateRequestByPkStateRequest;
-    private UniversityWorkerEntity universityWorkerByPkUniversityWorker;
-    private EconomicOfficerEntity economicOfficerByPkEconomicOfficer;
-    private AccountantEntity accountantByPkAccountant;
-    private Collection<RequestRecordEntity> requestRecordsByPkRequest;
+    private String content;
+    private long id;
+    private TypeRequestEntity typeRequest;
+    private StateRequestEntity stateRequest;
+    private UniversityWorkerEntity universityWorker;
+    private EconomicOfficerEntity economicOfficer;
+    private AccountantEntity accountant;
+    private Collection<RequestRecordEntity> requestRecords;
 
     @Basic
     @Column(name = "Req_Content", nullable = false, length = 500)
-    public String getReqContent() {
-        return reqContent;
+    public String getContent() {
+        return content;
     }
 
-    public void setReqContent(String reqContent) {
-        this.reqContent = reqContent;
+    public void setContent(String reqContent) {
+        this.content = reqContent;
     }
 
     @Id
     @Column(name = "PK_Request", nullable = false)
-    public long getPkRequest() {
-        return pkRequest;
+    public long getId() {
+        return id;
     }
 
-    public void setPkRequest(long pkRequest) {
-        this.pkRequest = pkRequest;
-    }
-
-    @Basic
-    @Column(name = "PK_Type_request", nullable = false, insertable = false, updatable = false)
-    public long getPkTypeRequest() {
-        return pkTypeRequest;
-    }
-
-    public void setPkTypeRequest(long pkTypeRequest) {
-        this.pkTypeRequest = pkTypeRequest;
-    }
-
-    @Basic
-    @Column(name = "PK_State_request", nullable = true, insertable = false, updatable = false)
-    public Long getPkStateRequest() {
-        return pkStateRequest;
-    }
-
-    public void setPkStateRequest(Long pkStateRequest) {
-        this.pkStateRequest = pkStateRequest;
-    }
-
-    @Basic
-    @Column(name = "PK_University_worker", nullable = false, insertable = false, updatable = false)
-    public long getPkUniversityWorker() {
-        return pkUniversityWorker;
-    }
-
-    public void setPkUniversityWorker(long pkUniversityWorker) {
-        this.pkUniversityWorker = pkUniversityWorker;
-    }
-
-    @Basic
-    @Column(name = "PK_Economic_officer", nullable = true, insertable = false, updatable = false)
-    public Long getPkEconomicOfficer() {
-        return pkEconomicOfficer;
-    }
-
-    public void setPkEconomicOfficer(Long pkEconomicOfficer) {
-        this.pkEconomicOfficer = pkEconomicOfficer;
-    }
-
-    @Basic
-    @Column(name = "PK_Accountant", nullable = true, insertable = false, updatable = false)
-    public Long getPkAccountant() {
-        return pkAccountant;
-    }
-
-    public void setPkAccountant(Long pkAccountant) {
-        this.pkAccountant = pkAccountant;
+    public void setId(long pkRequest) {
+        this.id = pkRequest;
     }
 
     @Override
@@ -96,77 +41,72 @@ public class RequestEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         RequestEntity that = (RequestEntity) o;
-        return pkRequest == that.pkRequest &&
-               pkTypeRequest == that.pkTypeRequest &&
-               pkUniversityWorker == that.pkUniversityWorker &&
-               Objects.equals(reqContent, that.reqContent) &&
-               Objects.equals(pkStateRequest, that.pkStateRequest) &&
-               Objects.equals(pkEconomicOfficer, that.pkEconomicOfficer) &&
-               Objects.equals(pkAccountant, that.pkAccountant);
+        return id == that.id &&
+               Objects.equals(content, that.content);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(reqContent, pkRequest, pkTypeRequest, pkStateRequest, pkUniversityWorker, pkEconomicOfficer, pkAccountant);
+        return Objects.hash(content, id);
     }
 
     @ManyToOne
     @JoinColumn(name = "PK_Type_request", referencedColumnName = "PK_Type_request", nullable = false)
-    public TypeRequestEntity getTypeRequestByPkTypeRequest() {
-        return typeRequestByPkTypeRequest;
+    public TypeRequestEntity getTypeRequest() {
+        return typeRequest;
     }
 
-    public void setTypeRequestByPkTypeRequest(TypeRequestEntity typeRequestByPkTypeRequest) {
-        this.typeRequestByPkTypeRequest = typeRequestByPkTypeRequest;
+    public void setTypeRequest(TypeRequestEntity typeRequest) {
+        this.typeRequest = typeRequest;
     }
 
     @ManyToOne
     @JoinColumn(name = "PK_State_request", referencedColumnName = "PK_State_request")
-    public StateRequestEntity getStateRequestByPkStateRequest() {
-        return stateRequestByPkStateRequest;
+    public StateRequestEntity getStateRequest() {
+        return stateRequest;
     }
 
-    public void setStateRequestByPkStateRequest(StateRequestEntity stateRequestByPkStateRequest) {
-        this.stateRequestByPkStateRequest = stateRequestByPkStateRequest;
+    public void setStateRequest(StateRequestEntity stateRequest) {
+        this.stateRequest = stateRequest;
     }
 
     @ManyToOne
     @JoinColumn(name = "PK_University_worker", referencedColumnName = "PK_University_worker",
             nullable = false)
-    public UniversityWorkerEntity getUniversityWorkerByPkUniversityWorker() {
-        return universityWorkerByPkUniversityWorker;
+    public UniversityWorkerEntity getUniversityWorker() {
+        return universityWorker;
     }
 
-    public void setUniversityWorkerByPkUniversityWorker(UniversityWorkerEntity universityWorkerByPkUniversityWorker) {
-        this.universityWorkerByPkUniversityWorker = universityWorkerByPkUniversityWorker;
+    public void setUniversityWorker(UniversityWorkerEntity universityWorker) {
+        this.universityWorker = universityWorker;
     }
 
     @ManyToOne
     @JoinColumn(name = "PK_Economic_officer", referencedColumnName = "PK_Economic_officer")
-    public EconomicOfficerEntity getEconomicOfficerByPkEconomicOfficer() {
-        return economicOfficerByPkEconomicOfficer;
+    public EconomicOfficerEntity getEconomicOfficer() {
+        return economicOfficer;
     }
 
-    public void setEconomicOfficerByPkEconomicOfficer(EconomicOfficerEntity economicOfficerByPkEconomicOfficer) {
-        this.economicOfficerByPkEconomicOfficer = economicOfficerByPkEconomicOfficer;
+    public void setEconomicOfficer(EconomicOfficerEntity economicOfficer) {
+        this.economicOfficer = economicOfficer;
     }
 
     @ManyToOne
     @JoinColumn(name = "PK_Accountant", referencedColumnName = "PK_Accountant")
-    public AccountantEntity getAccountantByPkAccountant() {
-        return accountantByPkAccountant;
+    public AccountantEntity getAccountant() {
+        return accountant;
     }
 
-    public void setAccountantByPkAccountant(AccountantEntity accountantByPkAccountant) {
-        this.accountantByPkAccountant = accountantByPkAccountant;
+    public void setAccountant(AccountantEntity accountant) {
+        this.accountant = accountant;
     }
 
-    @OneToMany(mappedBy = "requestByPkRequest")
-    public Collection<RequestRecordEntity> getRequestRecordsByPkRequest() {
-        return requestRecordsByPkRequest;
+    @OneToMany(mappedBy = "request")
+    public Collection<RequestRecordEntity> getRequestRecords() {
+        return requestRecords;
     }
 
-    public void setRequestRecordsByPkRequest(Collection<RequestRecordEntity> requestRecordsByPkRequest) {
-        this.requestRecordsByPkRequest = requestRecordsByPkRequest;
+    public void setRequestRecords(Collection<RequestRecordEntity> requestRecords) {
+        this.requestRecords = requestRecords;
     }
 }

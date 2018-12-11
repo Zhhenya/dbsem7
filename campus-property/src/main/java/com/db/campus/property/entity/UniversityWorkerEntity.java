@@ -5,30 +5,30 @@ import java.util.Collection;
 import java.util.Objects;
 
 @Entity
-@Table(name = "university_worker", schema = "dbuniver", catalog = "")
+@Table(name = "university_worker", schema = "dbuniver")
 public class UniversityWorkerEntity {
-    private String uiName;
-    private long pkUniversityWorker;
-    private Collection<RequestEntity> requestsByPkUniversityWorker;
+    private String name;
+    private long id;
+    private Collection<RequestEntity> requests;
 
     @Basic
     @Column(name = "UI_Name", nullable = false, length = 100)
-    public String getUiName() {
-        return uiName;
+    public String getName() {
+        return name;
     }
 
-    public void setUiName(String uiName) {
-        this.uiName = uiName;
+    public void setName(String uiName) {
+        this.name = uiName;
     }
 
     @Id
     @Column(name = "PK_University_worker", nullable = false)
-    public long getPkUniversityWorker() {
-        return pkUniversityWorker;
+    public long getId() {
+        return id;
     }
 
-    public void setPkUniversityWorker(long pkUniversityWorker) {
-        this.pkUniversityWorker = pkUniversityWorker;
+    public void setId(long pkUniversityWorker) {
+        this.id = pkUniversityWorker;
     }
 
     @Override
@@ -36,21 +36,21 @@ public class UniversityWorkerEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         UniversityWorkerEntity that = (UniversityWorkerEntity) o;
-        return pkUniversityWorker == that.pkUniversityWorker &&
-               Objects.equals(uiName, that.uiName);
+        return id == that.id &&
+               Objects.equals(name, that.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(uiName, pkUniversityWorker);
+        return Objects.hash(name, id);
     }
 
-    @OneToMany(mappedBy = "universityWorkerByPkUniversityWorker")
-    public Collection<RequestEntity> getRequestsByPkUniversityWorker() {
-        return requestsByPkUniversityWorker;
+    @OneToMany(mappedBy = "universityWorker")
+    public Collection<RequestEntity> getRequests() {
+        return requests;
     }
 
-    public void setRequestsByPkUniversityWorker(Collection<RequestEntity> requestsByPkUniversityWorker) {
-        this.requestsByPkUniversityWorker = requestsByPkUniversityWorker;
+    public void setRequests(Collection<RequestEntity> requests) {
+        this.requests = requests;
     }
 }

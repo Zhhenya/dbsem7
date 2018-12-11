@@ -5,28 +5,28 @@ import com.db.campus.property.entity.*;
 
 import java.util.stream.Collectors;
 
-public class RequestConverter extends CompusPropertyConverter<RequestEntity, RequestDto> {
+public class RequestConverter extends CampusPropertyConverter<RequestEntity, RequestDto> {
 
     @Override
     public RequestDto convert(RequestEntity requestEntity) {
         RequestDto requestDto = new RequestDto();
-        requestDto.setId(requestEntity.getPkRequest());
-        requestDto.setContent(requestEntity.getReqContent());
-        requestDto.setType(defaultConvert(requestEntity.getTypeRequestByPkTypeRequest(), TypeRequestEntity::getTrName));
-        requestDto.setState(defaultConvert(requestEntity.getStateRequestByPkStateRequest(),
-                                           StateRequestEntity::getSrName));
-        requestDto.setUniversityWorker(defaultConvert(requestEntity.getUniversityWorkerByPkUniversityWorker(),
-                                                      UniversityWorkerEntity::getUiName));
-        requestDto.setEconomicOfficer(defaultConvert(requestEntity.getEconomicOfficerByPkEconomicOfficer(),
-                                                     EconomicOfficerEntity::getEoName));
-        requestDto.setAccountant(defaultConvert(requestEntity.getAccountantByPkAccountant(),
-                                                AccountantEntity::getaName));
-        requestDto.setRecords(requestEntity.getRequestRecordsByPkRequest()
+        requestDto.setId(requestEntity.getId());
+        requestDto.setContent(requestEntity.getContent());
+        requestDto.setType(defaultConvert(requestEntity.getTypeRequest(), TypeRequestEntity::getName));
+        requestDto.setState(defaultConvert(requestEntity.getStateRequest(),
+                                           StateRequestEntity::getName));
+        requestDto.setUniversityWorker(defaultConvert(requestEntity.getUniversityWorker(),
+                                                      UniversityWorkerEntity::getName));
+        requestDto.setEconomicOfficer(defaultConvert(requestEntity.getEconomicOfficer(),
+                                                     EconomicOfficerEntity::getName));
+        requestDto.setAccountant(defaultConvert(requestEntity.getAccountant(),
+                                                AccountantEntity::getName));
+        requestDto.setRecords(requestEntity.getRequestRecords()
                                            .stream()
-                                           .map(requestRecordEntity -> requestRecordEntity.getRrNote() + " " +
+                                           .map(requestRecordEntity -> requestRecordEntity.getNote() + " " +
                                                                        defaultConvert(requestRecordEntity
-                                                                                              .getObjectPropertyByPkObjectProperty(),
-                                                                                      ObjectPropertyEntity::getOpCaption))
+                                                                                              .getObjectProperty(),
+                                                                                      ObjectPropertyEntity::getCaption))
                                            .collect(Collectors.toList()));
         return requestDto;
     }

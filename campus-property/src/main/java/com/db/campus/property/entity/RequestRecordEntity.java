@@ -4,54 +4,32 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "request_record", schema = "dbuniver", catalog = "")
+@Table(name = "request_record", schema = "dbuniver")
 @IdClass(RequestRecordEntityPK.class)
 public class RequestRecordEntity {
-    private String rrNote;
-    private long pkRequestRecord;
-    private long pkRequest;
-    private Long pkObjectProperty;
-    private RequestEntity requestByPkRequest;
-    private ObjectPropertyEntity objectPropertyByPkObjectProperty;
+    private String note;
+    private long id;
+    private RequestEntity request;
+    private ObjectPropertyEntity objectProperty;
 
     @Basic
     @Column(name = "RR_Note", nullable = true, length = 500)
-    public String getRrNote() {
-        return rrNote;
+    public String getNote() {
+        return note;
     }
 
-    public void setRrNote(String rrNote) {
-        this.rrNote = rrNote;
+    public void setNote(String rrNote) {
+        this.note = rrNote;
     }
 
     @Id
     @Column(name = "PK_Request_record", nullable = false)
-    public long getPkRequestRecord() {
-        return pkRequestRecord;
+    public long getId() {
+        return id;
     }
 
-    public void setPkRequestRecord(long pkRequestRecord) {
-        this.pkRequestRecord = pkRequestRecord;
-    }
-
-    @Id
-    @Column(name = "PK_Request", nullable = false, insertable = false, updatable = false)
-    public long getPkRequest() {
-        return pkRequest;
-    }
-
-    public void setPkRequest(long pkRequest) {
-        this.pkRequest = pkRequest;
-    }
-
-    @Basic
-    @Column(name = "PK_Object_property", nullable = true, insertable = false, updatable = false)
-    public Long getPkObjectProperty() {
-        return pkObjectProperty;
-    }
-
-    public void setPkObjectProperty(Long pkObjectProperty) {
-        this.pkObjectProperty = pkObjectProperty;
+    public void setId(long pkRequestRecord) {
+        this.id = pkRequestRecord;
     }
 
     @Override
@@ -59,34 +37,32 @@ public class RequestRecordEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         RequestRecordEntity that = (RequestRecordEntity) o;
-        return pkRequestRecord == that.pkRequestRecord &&
-               pkRequest == that.pkRequest &&
-               Objects.equals(rrNote, that.rrNote) &&
-               Objects.equals(pkObjectProperty, that.pkObjectProperty);
+        return id == that.id &&
+               Objects.equals(note, that.note);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(rrNote, pkRequestRecord, pkRequest, pkObjectProperty);
+        return Objects.hash(note, id);
     }
 
     @ManyToOne
     @JoinColumn(name = "PK_Request", referencedColumnName = "PK_Request", nullable = false)
-    public RequestEntity getRequestByPkRequest() {
-        return requestByPkRequest;
+    public RequestEntity getRequest() {
+        return request;
     }
 
-    public void setRequestByPkRequest(RequestEntity requestByPkRequest) {
-        this.requestByPkRequest = requestByPkRequest;
+    public void setRequest(RequestEntity request) {
+        this.request = request;
     }
 
     @ManyToOne
     @JoinColumn(name = "PK_Object_property", referencedColumnName = "PK_Object_property")
-    public ObjectPropertyEntity getObjectPropertyByPkObjectProperty() {
-        return objectPropertyByPkObjectProperty;
+    public ObjectPropertyEntity getObjectProperty() {
+        return objectProperty;
     }
 
-    public void setObjectPropertyByPkObjectProperty(ObjectPropertyEntity objectPropertyByPkObjectProperty) {
-        this.objectPropertyByPkObjectProperty = objectPropertyByPkObjectProperty;
+    public void setObjectProperty(ObjectPropertyEntity objectProperty) {
+        this.objectProperty = objectProperty;
     }
 }

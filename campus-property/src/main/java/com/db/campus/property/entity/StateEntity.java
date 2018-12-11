@@ -5,30 +5,30 @@ import java.util.Collection;
 import java.util.Objects;
 
 @Entity
-@Table(name = "state", schema = "dbuniver", catalog = "")
+@Table(name = "state", schema = "dbuniver")
 public class StateEntity {
-    private String sName;
-    private long pkState;
-    private Collection<ObjectPropertyEntity> objectPropertiesByPkState;
+    private String name;
+    private long id;
+    private Collection<ObjectPropertyEntity> objectProperties;
 
     @Basic
     @Column(name = "S_Name", nullable = false, length = 50)
-    public String getsName() {
-        return sName;
+    public String getName() {
+        return name;
     }
 
-    public void setsName(String sName) {
-        this.sName = sName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Id
     @Column(name = "PK_State", nullable = false)
-    public long getPkState() {
-        return pkState;
+    public long getId() {
+        return id;
     }
 
-    public void setPkState(long pkState) {
-        this.pkState = pkState;
+    public void setId(long pkState) {
+        this.id = pkState;
     }
 
     @Override
@@ -36,21 +36,21 @@ public class StateEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         StateEntity that = (StateEntity) o;
-        return pkState == that.pkState &&
-               Objects.equals(sName, that.sName);
+        return id == that.id &&
+               Objects.equals(name, that.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(sName, pkState);
+        return Objects.hash(name, id);
     }
 
-    @OneToMany(mappedBy = "stateByPkState")
-    public Collection<ObjectPropertyEntity> getObjectPropertiesByPkState() {
-        return objectPropertiesByPkState;
+    @OneToMany(mappedBy = "state")
+    public Collection<ObjectPropertyEntity> getObjectProperties() {
+        return objectProperties;
     }
 
-    public void setObjectPropertiesByPkState(Collection<ObjectPropertyEntity> objectPropertiesByPkState) {
-        this.objectPropertiesByPkState = objectPropertiesByPkState;
+    public void setObjectProperties(Collection<ObjectPropertyEntity> objectProperties) {
+        this.objectProperties = objectProperties;
     }
 }

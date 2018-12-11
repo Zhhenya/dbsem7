@@ -4,54 +4,32 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "cancellation_record", schema = "dbuniver", catalog = "")
+@Table(name = "cancellation_record", schema = "dbuniver")
 @IdClass(CancellationRecordEntityPK.class)
 public class CancellationRecordEntity {
-    private String crReason;
-    private long pkCancellationRecord;
-    private long pkCancellationAct;
-    private long pkObjectProperty;
-    private CancellationActEntity cancellationActByPkCancellationAct;
-    private ObjectPropertyEntity objectPropertyByPkObjectProperty;
+    private String reason;
+    private long id;
+    private CancellationActEntity cancellationAct;
+    private ObjectPropertyEntity objectProperty;
 
     @Basic
     @Column(name = "CR_Reason", nullable = false, length = 200)
-    public String getCrReason() {
-        return crReason;
+    public String getReason() {
+        return reason;
     }
 
-    public void setCrReason(String crReason) {
-        this.crReason = crReason;
+    public void setReason(String crReason) {
+        this.reason = crReason;
     }
 
     @Id
     @Column(name = "PK_Cancellation_record", nullable = false)
-    public long getPkCancellationRecord() {
-        return pkCancellationRecord;
+    public long getId() {
+        return id;
     }
 
-    public void setPkCancellationRecord(long pkCancellationRecord) {
-        this.pkCancellationRecord = pkCancellationRecord;
-    }
-
-    @Id
-    @Column(name = "PK_Cancellation_act", nullable = false, insertable = false, updatable = false)
-    public long getPkCancellationAct() {
-        return pkCancellationAct;
-    }
-
-    public void setPkCancellationAct(long pkCancellationAct) {
-        this.pkCancellationAct = pkCancellationAct;
-    }
-
-    @Basic
-    @Column(name = "PK_Object_property", nullable = false, insertable = false, updatable = false)
-    public long getPkObjectProperty() {
-        return pkObjectProperty;
-    }
-
-    public void setPkObjectProperty(long pkObjectProperty) {
-        this.pkObjectProperty = pkObjectProperty;
+    public void setId(long pkCancellationRecord) {
+        this.id = pkCancellationRecord;
     }
 
     @Override
@@ -59,36 +37,33 @@ public class CancellationRecordEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CancellationRecordEntity that = (CancellationRecordEntity) o;
-        return pkCancellationRecord == that.pkCancellationRecord &&
-               pkCancellationAct == that.pkCancellationAct &&
-               pkObjectProperty == that.pkObjectProperty &&
-               Objects.equals(crReason, that.crReason);
+        return id == that.id &&
+               Objects.equals(reason, that.reason);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(crReason, pkCancellationRecord, pkCancellationAct, pkObjectProperty);
+        return Objects.hash(reason, id);
     }
 
     @ManyToOne
-    @JoinColumn(name = "PK_Cancellation_act", referencedColumnName = "PK_Cancellation_act",
-            nullable = false)
-    public CancellationActEntity getCancellationActByPkCancellationAct() {
-        return cancellationActByPkCancellationAct;
+    @JoinColumn(name = "PK_Cancellation_act", referencedColumnName = "PK_Cancellation_act", nullable = false)
+    public CancellationActEntity getCancellationAct() {
+        return cancellationAct;
     }
 
-    public void setCancellationActByPkCancellationAct(CancellationActEntity cancellationActByPkCancellationAct) {
-        this.cancellationActByPkCancellationAct = cancellationActByPkCancellationAct;
+    public void setCancellationAct(CancellationActEntity cancellationAct) {
+        this.cancellationAct = cancellationAct;
     }
 
     @ManyToOne
     @JoinColumn(name = "PK_Object_property", referencedColumnName = "PK_Object_property", nullable
             = false)
-    public ObjectPropertyEntity getObjectPropertyByPkObjectProperty() {
-        return objectPropertyByPkObjectProperty;
+    public ObjectPropertyEntity getObjectProperty() {
+        return objectProperty;
     }
 
-    public void setObjectPropertyByPkObjectProperty(ObjectPropertyEntity objectPropertyByPkObjectProperty) {
-        this.objectPropertyByPkObjectProperty = objectPropertyByPkObjectProperty;
+    public void setObjectProperty(ObjectPropertyEntity objectPropertyByPkObjectProperty) {
+        this.objectProperty = objectPropertyByPkObjectProperty;
     }
 }

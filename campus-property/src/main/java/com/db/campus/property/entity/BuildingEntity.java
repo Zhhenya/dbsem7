@@ -5,11 +5,11 @@ import java.util.Collection;
 import java.util.Objects;
 
 @Entity
-@Table(name = "building", schema = "dbuniver", catalog = "")
+@Table(name = "building", schema = "dbuniver")
 public class BuildingEntity {
     private String address;
-    private long pkBuilding;
-    private Collection<RoomEntity> roomsByPkBuilding;
+    private long id;
+    private Collection<RoomEntity> rooms;
 
     @Basic
     @Column(name = "Address", nullable = false, length = 100)
@@ -23,12 +23,12 @@ public class BuildingEntity {
 
     @Id
     @Column(name = "PK_Building", nullable = false)
-    public long getPkBuilding() {
-        return pkBuilding;
+    public long getId() {
+        return id;
     }
 
-    public void setPkBuilding(long pkBuilding) {
-        this.pkBuilding = pkBuilding;
+    public void setId(long pkBuilding) {
+        this.id = pkBuilding;
     }
 
     @Override
@@ -36,21 +36,21 @@ public class BuildingEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         BuildingEntity that = (BuildingEntity) o;
-        return pkBuilding == that.pkBuilding &&
+        return id == that.id &&
                Objects.equals(address, that.address);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(address, pkBuilding);
+        return Objects.hash(address, id);
     }
 
-    @OneToMany(mappedBy = "buildingByPkBuilding")
-    public Collection<RoomEntity> getRoomsByPkBuilding() {
-        return roomsByPkBuilding;
+    @OneToMany(mappedBy = "building")
+    public Collection<RoomEntity> getRooms() {
+        return rooms;
     }
 
-    public void setRoomsByPkBuilding(Collection<RoomEntity> roomsByPkBuilding) {
-        this.roomsByPkBuilding = roomsByPkBuilding;
+    public void setRooms(Collection<RoomEntity> rooms) {
+        this.rooms = rooms;
     }
 }

@@ -7,28 +7,28 @@ import java.util.Objects;
 @Entity
 @Table(name = "type_request", schema = "dbuniver", catalog = "")
 public class TypeRequestEntity {
-    private String trName;
-    private long pkTypeRequest;
-    private Collection<RequestEntity> requestsByPkTypeRequest;
+    private String name;
+    private long id;
+    private Collection<RequestEntity> requests;
 
     @Basic
     @Column(name = "TR_Name", nullable = false, length = 50)
-    public String getTrName() {
-        return trName;
+    public String getName() {
+        return name;
     }
 
-    public void setTrName(String trName) {
-        this.trName = trName;
+    public void setName(String trName) {
+        this.name = trName;
     }
 
     @Id
     @Column(name = "PK_Type_request", nullable = false)
-    public long getPkTypeRequest() {
-        return pkTypeRequest;
+    public long getId() {
+        return id;
     }
 
-    public void setPkTypeRequest(long pkTypeRequest) {
-        this.pkTypeRequest = pkTypeRequest;
+    public void setId(long pkTypeRequest) {
+        this.id = pkTypeRequest;
     }
 
     @Override
@@ -36,21 +36,21 @@ public class TypeRequestEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         TypeRequestEntity that = (TypeRequestEntity) o;
-        return pkTypeRequest == that.pkTypeRequest &&
-               Objects.equals(trName, that.trName);
+        return id == that.id &&
+               Objects.equals(name, that.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(trName, pkTypeRequest);
+        return Objects.hash(name, id);
     }
 
-    @OneToMany(mappedBy = "typeRequestByPkTypeRequest")
-    public Collection<RequestEntity> getRequestsByPkTypeRequest() {
-        return requestsByPkTypeRequest;
+    @OneToMany(mappedBy = "typeRequest")
+    public Collection<RequestEntity> getRequests() {
+        return requests;
     }
 
-    public void setRequestsByPkTypeRequest(Collection<RequestEntity> requestsByPkTypeRequest) {
-        this.requestsByPkTypeRequest = requestsByPkTypeRequest;
+    public void setRequests(Collection<RequestEntity> requests) {
+        this.requests = requests;
     }
 }

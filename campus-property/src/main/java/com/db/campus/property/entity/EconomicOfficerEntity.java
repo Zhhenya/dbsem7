@@ -5,31 +5,31 @@ import java.util.Collection;
 import java.util.Objects;
 
 @Entity
-@Table(name = "economic_officer", schema = "dbuniver", catalog = "")
+@Table(name = "economic_officer", schema = "dbuniver")
 public class EconomicOfficerEntity {
-    private String eoName;
-    private long pkEconomicOfficer;
-    private Collection<ObjectPropertyEntity> objectPropertiesByPkEconomicOfficer;
-    private Collection<RequestEntity> requestsByPkEconomicOfficer;
+    private String name;
+    private long id;
+    private Collection<ObjectPropertyEntity> objectProperties;
+    private Collection<RequestEntity> requests;
 
     @Basic
     @Column(name = "EO_Name", nullable = false, length = 100)
-    public String getEoName() {
-        return eoName;
+    public String getName() {
+        return name;
     }
 
-    public void setEoName(String eoName) {
-        this.eoName = eoName;
+    public void setName(String eoName) {
+        this.name = eoName;
     }
 
     @Id
     @Column(name = "PK_Economic_officer", nullable = false)
-    public long getPkEconomicOfficer() {
-        return pkEconomicOfficer;
+    public long getId() {
+        return id;
     }
 
-    public void setPkEconomicOfficer(long pkEconomicOfficer) {
-        this.pkEconomicOfficer = pkEconomicOfficer;
+    public void setId(long pkEconomicOfficer) {
+        this.id = pkEconomicOfficer;
     }
 
     @Override
@@ -37,30 +37,30 @@ public class EconomicOfficerEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         EconomicOfficerEntity that = (EconomicOfficerEntity) o;
-        return pkEconomicOfficer == that.pkEconomicOfficer &&
-               Objects.equals(eoName, that.eoName);
+        return id == that.id &&
+               Objects.equals(name, that.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(eoName, pkEconomicOfficer);
+        return Objects.hash(name, id);
     }
 
-    @OneToMany(mappedBy = "economicOfficerByPkEconomicOfficer")
-    public Collection<ObjectPropertyEntity> getObjectPropertiesByPkEconomicOfficer() {
-        return objectPropertiesByPkEconomicOfficer;
+    @OneToMany(mappedBy = "economicOfficer")
+    public Collection<ObjectPropertyEntity> getObjectProperties() {
+        return objectProperties;
     }
 
-    public void setObjectPropertiesByPkEconomicOfficer(Collection<ObjectPropertyEntity> objectPropertiesByPkEconomicOfficer) {
-        this.objectPropertiesByPkEconomicOfficer = objectPropertiesByPkEconomicOfficer;
+    public void setObjectProperties(Collection<ObjectPropertyEntity> objectProperties) {
+        this.objectProperties = objectProperties;
     }
 
-    @OneToMany(mappedBy = "economicOfficerByPkEconomicOfficer")
-    public Collection<RequestEntity> getRequestsByPkEconomicOfficer() {
-        return requestsByPkEconomicOfficer;
+    @OneToMany(mappedBy = "economicOfficer")
+    public Collection<RequestEntity> getRequests() {
+        return requests;
     }
 
-    public void setRequestsByPkEconomicOfficer(Collection<RequestEntity> requestsByPkEconomicOfficer) {
-        this.requestsByPkEconomicOfficer = requestsByPkEconomicOfficer;
+    public void setRequests(Collection<RequestEntity> requests) {
+        this.requests = requests;
     }
 }

@@ -11,11 +11,11 @@ public class ResultinventarisationEntityPK implements Serializable {
 
     @Column(name = "PK_ResultInventarisation", nullable = false)
     @Id
-    public long getPkResultInventarisation() {
+    public long getId() {
         return pkResultInventarisation;
     }
 
-    public void setPkResultInventarisation(long pkResultInventarisation) {
+    public void setId(long pkResultInventarisation) {
         this.pkResultInventarisation = pkResultInventarisation;
     }
 

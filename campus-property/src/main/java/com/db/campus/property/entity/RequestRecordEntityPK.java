@@ -11,11 +11,11 @@ public class RequestRecordEntityPK implements Serializable {
 
     @Column(name = "PK_Request_record", nullable = false)
     @Id
-    public long getPkRequestRecord() {
+    public long getId() {
         return pkRequestRecord;
     }
 
-    public void setPkRequestRecord(long pkRequestRecord) {
+    public void setId(long pkRequestRecord) {
         this.pkRequestRecord = pkRequestRecord;
     }
 

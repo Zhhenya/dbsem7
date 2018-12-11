@@ -5,53 +5,42 @@ import java.util.Collection;
 import java.util.Objects;
 
 @Entity
-@Table(name = "room", schema = "dbuniver", catalog = "")
+@Table(name = "room", schema = "dbuniver")
 public class RoomEntity {
-    private long rNumber;
-    private long rFloor;
-    private long pkRoom;
-    private long pkBuilding;
-    private Collection<ObjectPropertyEntity> objectPropertiesByPkRoom;
-    private BuildingEntity buildingByPkBuilding;
+    private long number;
+    private long floor;
+    private long id;
+    private Collection<ObjectPropertyEntity> objectProperties;
+    private BuildingEntity building;
 
     @Basic
     @Column(name = "R_Number", nullable = false)
-    public long getrNumber() {
-        return rNumber;
+    public long getNumber() {
+        return number;
     }
 
-    public void setrNumber(long rNumber) {
-        this.rNumber = rNumber;
+    public void setNumber(long rNumber) {
+        this.number = rNumber;
     }
 
     @Basic
     @Column(name = "R_Floor", nullable = false)
-    public long getrFloor() {
-        return rFloor;
+    public long getFloor() {
+        return floor;
     }
 
-    public void setrFloor(long rFloor) {
-        this.rFloor = rFloor;
+    public void setFloor(long rFloor) {
+        this.floor = rFloor;
     }
 
     @Id
     @Column(name = "PK_Room", nullable = false)
-    public long getPkRoom() {
-        return pkRoom;
+    public long getId() {
+        return id;
     }
 
-    public void setPkRoom(long pkRoom) {
-        this.pkRoom = pkRoom;
-    }
-
-    @Basic
-    @Column(name = "PK_Building", nullable = false, insertable = false, updatable = false)
-    public long getPkBuilding() {
-        return pkBuilding;
-    }
-
-    public void setPkBuilding(long pkBuilding) {
-        this.pkBuilding = pkBuilding;
+    public void setId(long pkRoom) {
+        this.id = pkRoom;
     }
 
     @Override
@@ -59,33 +48,32 @@ public class RoomEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         RoomEntity that = (RoomEntity) o;
-        return rNumber == that.rNumber &&
-               rFloor == that.rFloor &&
-               pkRoom == that.pkRoom &&
-               pkBuilding == that.pkBuilding;
+        return number == that.number &&
+               floor == that.floor &&
+               id == that.id;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(rNumber, rFloor, pkRoom, pkBuilding);
+        return Objects.hash(number, floor, id);
     }
 
-    @OneToMany(mappedBy = "roomByPkRoom")
-    public Collection<ObjectPropertyEntity> getObjectPropertiesByPkRoom() {
-        return objectPropertiesByPkRoom;
+    @OneToMany(mappedBy = "room")
+    public Collection<ObjectPropertyEntity> getObjectProperties() {
+        return objectProperties;
     }
 
-    public void setObjectPropertiesByPkRoom(Collection<ObjectPropertyEntity> objectPropertiesByPkRoom) {
-        this.objectPropertiesByPkRoom = objectPropertiesByPkRoom;
+    public void setObjectProperties(Collection<ObjectPropertyEntity> objectProperties) {
+        this.objectProperties = objectProperties;
     }
 
     @ManyToOne
     @JoinColumn(name = "PK_Building", referencedColumnName = "PK_Building", nullable = false)
-    public BuildingEntity getBuildingByPkBuilding() {
-        return buildingByPkBuilding;
+    public BuildingEntity getBuilding() {
+        return building;
     }
 
-    public void setBuildingByPkBuilding(BuildingEntity buildingByPkBuilding) {
-        this.buildingByPkBuilding = buildingByPkBuilding;
+    public void setBuilding(BuildingEntity building) {
+        this.building = building;
     }
 }

@@ -6,42 +6,31 @@ import java.util.Collection;
 import java.util.Objects;
 
 @Entity
-@Table(name = "cancellation_act", schema = "dbuniver", catalog = "")
+@Table(name = "cancellation_act", schema = "dbuniver")
 public class CancellationActEntity {
-    private Date caDate;
-    private long pkCancellationAct;
-    private long pkAccountant;
-    private AccountantEntity accountantByPkAccountant;
-    private Collection<CancellationRecordEntity> cancellationRecordsByPkCancellationAct;
+    private Date date;
+    private long id;
+    private AccountantEntity accountant;
+    private Collection<CancellationRecordEntity> cancellationRecords;
 
     @Basic
     @Column(name = "CA_Date", nullable = false)
-    public Date getCaDate() {
-        return caDate;
+    public Date getDate() {
+        return date;
     }
 
-    public void setCaDate(Date caDate) {
-        this.caDate = caDate;
+    public void setDate(Date caDate) {
+        this.date = caDate;
     }
 
     @Id
     @Column(name = "PK_Cancellation_act", nullable = false)
-    public long getPkCancellationAct() {
-        return pkCancellationAct;
+    public long getId() {
+        return id;
     }
 
-    public void setPkCancellationAct(long pkCancellationAct) {
-        this.pkCancellationAct = pkCancellationAct;
-    }
-
-    @Basic
-    @Column(name = "PK_Accountant", nullable = false, insertable = false, updatable = false)
-    public long getPkAccountant() {
-        return pkAccountant;
-    }
-
-    public void setPkAccountant(long pkAccountant) {
-        this.pkAccountant = pkAccountant;
+    public void setId(long pkCancellationAct) {
+        this.id = pkCancellationAct;
     }
 
     @Override
@@ -49,32 +38,31 @@ public class CancellationActEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CancellationActEntity that = (CancellationActEntity) o;
-        return pkCancellationAct == that.pkCancellationAct &&
-               pkAccountant == that.pkAccountant &&
-               Objects.equals(caDate, that.caDate);
+        return id == that.id &&
+               Objects.equals(date, that.date);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(caDate, pkCancellationAct, pkAccountant);
+        return Objects.hash(date, id);
     }
 
     @ManyToOne
     @JoinColumn(name = "PK_Accountant", referencedColumnName = "PK_Accountant", nullable = false)
-    public AccountantEntity getAccountantByPkAccountant() {
-        return accountantByPkAccountant;
+    public AccountantEntity getAccountant() {
+        return accountant;
     }
 
-    public void setAccountantByPkAccountant(AccountantEntity accountantByPkAccountant) {
-        this.accountantByPkAccountant = accountantByPkAccountant;
+    public void setAccountant(AccountantEntity accountant) {
+        this.accountant = accountant;
     }
 
-    @OneToMany(mappedBy = "cancellationActByPkCancellationAct")
-    public Collection<CancellationRecordEntity> getCancellationRecordsByPkCancellationAct() {
-        return cancellationRecordsByPkCancellationAct;
+    @OneToMany(mappedBy = "cancellationAct")
+    public Collection<CancellationRecordEntity> getCancellationRecords() {
+        return cancellationRecords;
     }
 
-    public void setCancellationRecordsByPkCancellationAct(Collection<CancellationRecordEntity> cancellationRecordsByPkCancellationAct) {
-        this.cancellationRecordsByPkCancellationAct = cancellationRecordsByPkCancellationAct;
+    public void setCancellationRecords(Collection<CancellationRecordEntity> cancellationRecords) {
+        this.cancellationRecords = cancellationRecords;
     }
 }

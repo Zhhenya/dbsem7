@@ -7,124 +7,80 @@ import java.util.Collection;
 import java.util.Objects;
 
 @Entity
-@Table(name = "object_property", schema = "dbuniver", catalog = "")
+@Table(name = "object_property", schema = "dbuniver")
 public class ObjectPropertyEntity {
-    private String opCaption;
-    private String opPropertyNumber;
-    private String opMaker;
-    private Date opDate;
-    private BigDecimal opCost;
-    private long pkObjectProperty;
-    private long pkRoom;
-    private long pkState;
-    private long pkEconomicOfficer;
-    private long pkAccountant;
-    private Collection<CancellationRecordEntity> cancellationRecordsByPkObjectProperty;
-    private RoomEntity roomByPkRoom;
-    private StateEntity stateByPkState;
-    private EconomicOfficerEntity economicOfficerByPkEconomicOfficer;
-    private AccountantEntity accountantByPkAccountant;
-    private Collection<RequestRecordEntity> requestRecordsByPkObjectProperty;
-    private Collection<ResultinventarisationEntity> resultinventarisationsByPkObjectProperty;
+    private String caption;
+    private String propertyNumber;
+    private String maker;
+    private Date date;
+    private BigDecimal cost;
+    private long id;
+    private Collection<CancellationRecordEntity> cancellationRecords;
+    private RoomEntity room;
+    private StateEntity state;
+    private EconomicOfficerEntity economicOfficer;
+    private AccountantEntity accountant;
+    private Collection<RequestRecordEntity> requestRecords;
+    private Collection<ResultInventoryEntity> resultInventory;
 
     @Basic
     @Column(name = "OP_Caption", nullable = false, length = 50)
-    public String getOpCaption() {
-        return opCaption;
+    public String getCaption() {
+        return caption;
     }
 
-    public void setOpCaption(String opCaption) {
-        this.opCaption = opCaption;
+    public void setCaption(String opCaption) {
+        this.caption = opCaption;
     }
 
     @Basic
     @Column(name = "OP_Property_number", nullable = false, length = 50)
-    public String getOpPropertyNumber() {
-        return opPropertyNumber;
+    public String getPropertyNumber() {
+        return propertyNumber;
     }
 
-    public void setOpPropertyNumber(String opPropertyNumber) {
-        this.opPropertyNumber = opPropertyNumber;
+    public void setPropertyNumber(String opPropertyNumber) {
+        this.propertyNumber = opPropertyNumber;
     }
 
     @Basic
     @Column(name = "OP_Maker", nullable = false, length = 50)
-    public String getOpMaker() {
-        return opMaker;
+    public String getMaker() {
+        return maker;
     }
 
-    public void setOpMaker(String opMaker) {
-        this.opMaker = opMaker;
+    public void setMaker(String opMaker) {
+        this.maker = opMaker;
     }
 
     @Basic
     @Column(name = "OP_Date", nullable = false)
-    public Date getOpDate() {
-        return opDate;
+    public Date getDate() {
+        return date;
     }
 
-    public void setOpDate(Date opDate) {
-        this.opDate = opDate;
+    public void setDate(Date opDate) {
+        this.date = opDate;
     }
 
     @Basic
     @Column(name = "OP_Cost", nullable = false, precision = 2)
-    public BigDecimal getOpCost() {
-        return opCost;
+    public BigDecimal getCost() {
+        return cost;
     }
 
-    public void setOpCost(BigDecimal opCost) {
-        this.opCost = opCost;
+    public void setCost(BigDecimal opCost) {
+        this.cost = opCost;
     }
 
     @Id
     @Column(name = "PK_Object_property", nullable = false)
-    public long getPkObjectProperty() {
-        return pkObjectProperty;
+    public long getId() {
+        return id;
     }
 
-    public void setPkObjectProperty(long pkObjectProperty) {
-        this.pkObjectProperty = pkObjectProperty;
-    }
-
-    @Basic
-    @Column(name = "PK_Room", nullable = false, insertable = false, updatable = false)
-    public long getPkRoom() {
-        return pkRoom;
-    }
-
-    public void setPkRoom(long pkRoom) {
-        this.pkRoom = pkRoom;
-    }
-
-    @Basic
-    @Column(name = "PK_State", nullable = false, insertable = false, updatable = false)
-    public long getPkState() {
-        return pkState;
-    }
-
-    public void setPkState(long pkState) {
-        this.pkState = pkState;
-    }
-
-    @Basic
-    @Column(name = "PK_Economic_officer", nullable = false, insertable = false, updatable = false)
-    public long getPkEconomicOfficer() {
-        return pkEconomicOfficer;
-    }
-
-    public void setPkEconomicOfficer(long pkEconomicOfficer) {
-        this.pkEconomicOfficer = pkEconomicOfficer;
-    }
-
-    @Basic
-    @Column(name = "PK_Accountant", nullable = false, insertable = false, updatable = false)
-    public long getPkAccountant() {
-        return pkAccountant;
-    }
-
-    public void setPkAccountant(long pkAccountant) {
-        this.pkAccountant = pkAccountant;
+    public void setId(long pkObjectProperty) {
+        this.id = pkObjectProperty;
     }
 
     @Override
@@ -132,87 +88,83 @@ public class ObjectPropertyEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ObjectPropertyEntity that = (ObjectPropertyEntity) o;
-        return pkObjectProperty == that.pkObjectProperty &&
-               pkRoom == that.pkRoom &&
-               pkState == that.pkState &&
-               pkEconomicOfficer == that.pkEconomicOfficer &&
-               pkAccountant == that.pkAccountant &&
-               Objects.equals(opCaption, that.opCaption) &&
-               Objects.equals(opPropertyNumber, that.opPropertyNumber) &&
-               Objects.equals(opMaker, that.opMaker) &&
-               Objects.equals(opDate, that.opDate) &&
-               Objects.equals(opCost, that.opCost);
+        return id == that.id &&
+               Objects.equals(caption, that.caption) &&
+               Objects.equals(propertyNumber, that.propertyNumber) &&
+               Objects.equals(maker, that.maker) &&
+               Objects.equals(date, that.date) &&
+               Objects.equals(cost, that.cost);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(opCaption, opPropertyNumber, opMaker, opDate, opCost, pkObjectProperty, pkRoom, pkState, pkEconomicOfficer, pkAccountant);
+        return Objects.hash(caption, propertyNumber, maker, date, cost, id);
     }
 
-    @OneToMany(mappedBy = "objectPropertyByPkObjectProperty")
-    public Collection<CancellationRecordEntity> getCancellationRecordsByPkObjectProperty() {
-        return cancellationRecordsByPkObjectProperty;
+    @OneToMany(mappedBy = "objectProperty")
+    public Collection<CancellationRecordEntity> getCancellationRecords() {
+        return cancellationRecords;
     }
 
-    public void setCancellationRecordsByPkObjectProperty(Collection<CancellationRecordEntity> cancellationRecordsByPkObjectProperty) {
-        this.cancellationRecordsByPkObjectProperty = cancellationRecordsByPkObjectProperty;
+    public void setCancellationRecords(Collection<CancellationRecordEntity> cancellationRecords) {
+        this.cancellationRecords = cancellationRecords;
     }
 
     @ManyToOne
     @JoinColumn(name = "PK_Room", referencedColumnName = "PK_Room", nullable = false)
-    public RoomEntity getRoomByPkRoom() {
-        return roomByPkRoom;
+    public RoomEntity getRoom() {
+        return room;
     }
 
-    public void setRoomByPkRoom(RoomEntity roomByPkRoom) {
-        this.roomByPkRoom = roomByPkRoom;
+    public void setRoom(RoomEntity room) {
+        this.room = room;
     }
 
     @ManyToOne
     @JoinColumn(name = "PK_State", referencedColumnName = "PK_State", nullable = false)
-    public StateEntity getStateByPkState() {
-        return stateByPkState;
+    public StateEntity getState() {
+        return state;
     }
 
-    public void setStateByPkState(StateEntity stateByPkState) {
-        this.stateByPkState = stateByPkState;
+    public void setState(StateEntity state) {
+        this.state = state;
     }
 
     @ManyToOne
     @JoinColumn(name = "PK_Economic_officer", referencedColumnName = "PK_Economic_officer", nullable = false)
-    public EconomicOfficerEntity getEconomicOfficerByPkEconomicOfficer() {
-        return economicOfficerByPkEconomicOfficer;
+    public EconomicOfficerEntity getEconomicOfficer() {
+        return economicOfficer;
     }
 
-    public void setEconomicOfficerByPkEconomicOfficer(EconomicOfficerEntity economicOfficerByPkEconomicOfficer) {
-        this.economicOfficerByPkEconomicOfficer = economicOfficerByPkEconomicOfficer;
+    public void setEconomicOfficer(EconomicOfficerEntity economicOfficer) {
+        this.economicOfficer = economicOfficer;
     }
 
     @ManyToOne
     @JoinColumn(name = "PK_Accountant", referencedColumnName = "PK_Accountant", nullable = false)
-    public AccountantEntity getAccountantByPkAccountant() {
-        return accountantByPkAccountant;
+    public AccountantEntity getAccountant() {
+        return accountant;
     }
 
-    public void setAccountantByPkAccountant(AccountantEntity accountantByPkAccountant) {
-        this.accountantByPkAccountant = accountantByPkAccountant;
+    public void setAccountant(AccountantEntity accountant) {
+        this.accountant = accountant;
     }
 
-    @OneToMany(mappedBy = "objectPropertyByPkObjectProperty")
-    public Collection<RequestRecordEntity> getRequestRecordsByPkObjectProperty() {
-        return requestRecordsByPkObjectProperty;
+    @OneToMany(mappedBy = "objectProperty")
+    public Collection<RequestRecordEntity> getRequestRecords() {
+        return requestRecords;
     }
 
-    public void setRequestRecordsByPkObjectProperty(Collection<RequestRecordEntity> requestRecordsByPkObjectProperty) {
-        this.requestRecordsByPkObjectProperty = requestRecordsByPkObjectProperty;
+    public void setRequestRecords(Collection<RequestRecordEntity> requestRecords) {
+        this.requestRecords = requestRecords;
     }
 
-    @OneToMany(mappedBy = "objectPropertyByPkObjectProperty")
-    public Collection<ResultinventarisationEntity> getResultinventarisationsByPkObjectProperty() {
-        return resultinventarisationsByPkObjectProperty;
+    @OneToMany(mappedBy = "objectProperty")
+    public Collection<ResultInventoryEntity> getResultInventory() {
+        return resultInventory;
     }
 
-    public void setResultinventarisationsByPkObjectProperty(Collection<ResultinventarisationEntity> resultinventarisationsByPkObjectProperty) {
-        this.resultinventarisationsByPkObjectProperty = resultinventarisationsByPkObjectProperty;
+    public void setResultInventory(Collection<ResultInventoryEntity> resultInventory) {
+        this.resultInventory = resultInventory;
     }
 }

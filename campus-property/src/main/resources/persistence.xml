@@ -11,11 +11,11 @@
       <mapping class="com.db.campus.property.entity.CancellationActEntity"/>
       <mapping class="com.db.campus.property.entity.CancellationRecordEntity"/>
       <mapping class="com.db.campus.property.entity.EconomicOfficerEntity"/>
-      <mapping class="com.db.campus.property.entity.InventarisationEntity"/>
+      <mapping class="com.db.campus.property.entity.InventoryEntity"/>
       <mapping class="com.db.campus.property.entity.ObjectPropertyEntity"/>
       <mapping class="com.db.campus.property.entity.RequestEntity"/>
       <mapping class="com.db.campus.property.entity.RequestRecordEntity"/>
-      <mapping class="com.db.campus.property.entity.ResultinventarisationEntity"/>
+      <mapping class="com.db.campus.property.entity.ResultInventoryEntity"/>
       <mapping class="com.db.campus.property.entity.RoomEntity"/>
       <mapping class="com.db.campus.property.entity.StateEntity"/>
       <mapping class="com.db.campus.property.entity.StateRequestEntity"/>

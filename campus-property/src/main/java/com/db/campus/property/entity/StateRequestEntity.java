@@ -5,30 +5,30 @@ import java.util.Collection;
 import java.util.Objects;
 
 @Entity
-@Table(name = "state_request", schema = "dbuniver", catalog = "")
+@Table(name = "state_request", schema = "dbuniver")
 public class StateRequestEntity {
-    private String srName;
-    private long pkStateRequest;
-    private Collection<RequestEntity> requestsByPkStateRequest;
+    private String name;
+    private long id;
+    private Collection<RequestEntity> requests;
 
     @Basic
     @Column(name = "SR_Name", nullable = false, length = 50)
-    public String getSrName() {
-        return srName;
+    public String getName() {
+        return name;
     }
 
-    public void setSrName(String srName) {
-        this.srName = srName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Id
     @Column(name = "PK_State_request", nullable = false)
-    public long getPkStateRequest() {
-        return pkStateRequest;
+    public long getId() {
+        return id;
     }
 
-    public void setPkStateRequest(long pkStateRequest) {
-        this.pkStateRequest = pkStateRequest;
+    public void setId(long pkStateRequest) {
+        this.id = pkStateRequest;
     }
 
     @Override
@@ -36,21 +36,21 @@ public class StateRequestEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         StateRequestEntity that = (StateRequestEntity) o;
-        return pkStateRequest == that.pkStateRequest &&
-               Objects.equals(srName, that.srName);
+        return id == that.id &&
+               Objects.equals(name, that.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(srName, pkStateRequest);
+        return Objects.hash(name, id);
     }
 
-    @OneToMany(mappedBy = "stateRequestByPkStateRequest")
-    public Collection<RequestEntity> getRequestsByPkStateRequest() {
-        return requestsByPkStateRequest;
+    @OneToMany(mappedBy = "stateRequest")
+    public Collection<RequestEntity> getRequests() {
+        return requests;
     }
 
-    public void setRequestsByPkStateRequest(Collection<RequestEntity> requestsByPkStateRequest) {
-        this.requestsByPkStateRequest = requestsByPkStateRequest;
+    public void setRequests(Collection<RequestEntity> requests) {
+        this.requests = requests;
     }
 }

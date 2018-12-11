@@ -5,32 +5,32 @@ import java.util.Collection;
 import java.util.Objects;
 
 @Entity
-@Table(name = "accountant", schema = "dbuniver", catalog = "")
+@Table(name = "accountant", schema = "dbuniver")
 public class AccountantEntity {
-    private String aName;
-    private long pkAccountant;
-    private Collection<CancellationActEntity> cancellationActsByPkAccountant;
-    private Collection<ObjectPropertyEntity> objectPropertiesByPkAccountant;
-    private Collection<RequestEntity> requestsByPkAccountant;
+    private String name;
+    private long id;
+    private Collection<CancellationActEntity> cancellationActs;
+    private Collection<ObjectPropertyEntity> objectProperties;
+    private Collection<RequestEntity> requests;
 
     @Basic
     @Column(name = "A_Name", nullable = false, length = 100)
-    public String getaName() {
-        return aName;
+    public String getName() {
+        return name;
     }
 
-    public void setaName(String aName) {
-        this.aName = aName;
+    public void setName(String aName) {
+        this.name = aName;
     }
 
     @Id
     @Column(name = "PK_Accountant", nullable = false)
-    public long getPkAccountant() {
-        return pkAccountant;
+    public long getId() {
+        return id;
     }
 
-    public void setPkAccountant(long pkAccountant) {
-        this.pkAccountant = pkAccountant;
+    public void setId(long pkAccountant) {
+        this.id = pkAccountant;
     }
 
     @Override
@@ -38,39 +38,39 @@ public class AccountantEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         AccountantEntity that = (AccountantEntity) o;
-        return pkAccountant == that.pkAccountant &&
-               Objects.equals(aName, that.aName);
+        return id == that.id &&
+               Objects.equals(name, that.name);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(aName, pkAccountant);
+        return Objects.hash(name, id);
     }
 
-    @OneToMany(mappedBy = "accountantByPkAccountant")
-    public Collection<CancellationActEntity> getCancellationActsByPkAccountant() {
-        return cancellationActsByPkAccountant;
+    @OneToMany(mappedBy = "accountant")
+    public Collection<CancellationActEntity> getCancellationActs() {
+        return cancellationActs;
     }
 
-    public void setCancellationActsByPkAccountant(Collection<CancellationActEntity> cancellationActsByPkAccountant) {
-        this.cancellationActsByPkAccountant = cancellationActsByPkAccountant;
+    public void setCancellationActs(Collection<CancellationActEntity> cancellationActs) {
+        this.cancellationActs = cancellationActs;
     }
 
-    @OneToMany(mappedBy = "accountantByPkAccountant")
-    public Collection<ObjectPropertyEntity> getObjectPropertiesByPkAccountant() {
-        return objectPropertiesByPkAccountant;
+    @OneToMany(mappedBy = "accountant")
+    public Collection<ObjectPropertyEntity> getObjectProperties() {
+        return objectProperties;
     }
 
-    public void setObjectPropertiesByPkAccountant(Collection<ObjectPropertyEntity> objectPropertiesByPkAccountant) {
-        this.objectPropertiesByPkAccountant = objectPropertiesByPkAccountant;
+    public void setObjectProperties(Collection<ObjectPropertyEntity> objectProperties) {
+        this.objectProperties = objectProperties;
     }
 
-    @OneToMany(mappedBy = "accountantByPkAccountant")
-    public Collection<RequestEntity> getRequestsByPkAccountant() {
-        return requestsByPkAccountant;
+    @OneToMany(mappedBy = "accountant")
+    public Collection<RequestEntity> getRequests() {
+        return requests;
     }
 
-    public void setRequestsByPkAccountant(Collection<RequestEntity> requestsByPkAccountant) {
-        this.requestsByPkAccountant = requestsByPkAccountant;
+    public void setRequests(Collection<RequestEntity> requests) {
+        this.requests = requests;
     }
 }

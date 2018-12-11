@@ -11,11 +11,11 @@ public class CancellationRecordEntityPK implements Serializable {
 
     @Column(name = "PK_Cancellation_record", nullable = false)
     @Id
-    public long getPkCancellationRecord() {
+    public long getId() {
         return pkCancellationRecord;
     }
 
-    public void setPkCancellationRecord(long pkCancellationRecord) {
+    public void setId(long pkCancellationRecord) {
         this.pkCancellationRecord = pkCancellationRecord;
     }
 

@@ -5,7 +5,7 @@ import org.springframework.core.convert.converter.Converter;
 
 import java.util.function.Function;
 
-public abstract class CompusPropertyConverter<T, R> implements Converter<T, R> {
+public abstract class CampusPropertyConverter<T, R> implements Converter<T, R> {
 
     public <K> String defaultConvert(K value, Function<K, String> converter) {
         if (value == null)
