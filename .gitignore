@@ -9,4 +9,4 @@ log/
 target/
 
 #rest
-*.http
+.idea/httpRequests/
