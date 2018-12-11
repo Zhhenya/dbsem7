@@ -1,17 +1,14 @@
 package com.db.campus.property.dto;
 
-import java.util.List;
-
 public class RequestDto {
 
     private Long id;
     private String content;
     private String type;
     private String state;
-    private String universityWorker;
-    private String economicOfficer;
-    private String accountant;
-    private List<String> records;
+    private UniversityWorkerDto universityWorker;
+    private EconomicOfficerDto economicOfficer;
+    private AccountantDto accountant;
 
     public Long getId() {
         return id;
@@ -45,35 +42,27 @@ public class RequestDto {
         this.state = state;
     }
 
-    public String getUniversityWorker() {
+    public UniversityWorkerDto getUniversityWorker() {
         return universityWorker;
     }
 
-    public void setUniversityWorker(String universityWorker) {
+    public void setUniversityWorker(UniversityWorkerDto universityWorker) {
         this.universityWorker = universityWorker;
     }
 
-    public String getEconomicOfficer() {
+    public EconomicOfficerDto getEconomicOfficer() {
         return economicOfficer;
     }
 
-    public void setEconomicOfficer(String economicOfficer) {
+    public void setEconomicOfficer(EconomicOfficerDto economicOfficer) {
         this.economicOfficer = economicOfficer;
     }
 
-    public String getAccountant() {
+    public AccountantDto getAccountant() {
         return accountant;
     }
 
-    public void setAccountant(String accountant) {
+    public void setAccountant(AccountantDto accountant) {
         this.accountant = accountant;
-    }
-
-    public List<String> getRecords() {
-        return records;
-    }
-
-    public void setRecords(List<String> records) {
-        this.records = records;
     }
 }

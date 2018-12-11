@@ -22,4 +22,10 @@ public abstract class CampusPropertyConverter<T, R> {
         return converter.apply(value);
     }
 
+    public <K, S> S defaultConvert(K value, Function<K, S> converter, S defaultValue) {
+        if (value == null)
+            return defaultValue;
+        return converter.apply(value);
+    }
+
 }

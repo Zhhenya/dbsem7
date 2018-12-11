@@ -12,7 +12,7 @@ class RequestListForm extends Component {
         this.fetchTableData();
     }
 
-    fetchTableData = () =>  axios.get("/request/list").then(({ data }) => this.setState({ text: data }));
+    fetchTableData = () =>  axios.get("/request/list").then(({ data }) => this.setState({ data }));
 
     render() {
         return(
