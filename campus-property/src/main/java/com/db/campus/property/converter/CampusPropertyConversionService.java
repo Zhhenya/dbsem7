@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public abstract class CampusPropertyConversionService {
+public class CampusPropertyConversionService {
 
     private final ConversionService conversionService;
 

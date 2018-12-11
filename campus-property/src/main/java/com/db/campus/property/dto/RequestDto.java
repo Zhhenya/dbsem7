@@ -4,6 +4,7 @@ import java.util.List;
 
 public class RequestDto {
 
+    private Long id;
     private String content;
     private String type;
     private String state;
@@ -11,6 +12,14 @@ public class RequestDto {
     private String economicOfficer;
     private String accountant;
     private List<String> records;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getContent() {
         return content;
