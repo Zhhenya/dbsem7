@@ -3,7 +3,7 @@ import state from "./state";
 
 export const get = url =>
   new Promise((resolve, reject) => {
-    axios.get("/request/list").then(response => {
+    axios.get(url).then(response => {
       switch (response.status) {
         case 200:
           resolve(response.data);
@@ -17,3 +17,7 @@ export const get = url =>
       }
     });
   });
+
+export default {
+  get: get
+};

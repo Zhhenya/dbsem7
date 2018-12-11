@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import axios from "axios";
+import request from "../../commons/request";
 import RequestListTable from "./RequestListTable";
 
 class RequestListForm extends Component {
@@ -12,9 +12,8 @@ class RequestListForm extends Component {
   }
 
   fetchTableData = () =>
-    axios.get("/request/list").then(response => {
-      console.log(response);
-      this.setState({ data: response.data });
+    request.get("/request/list").then(data => {
+      this.setState({ data });
     });
 
   render() {
