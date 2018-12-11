@@ -9,7 +9,7 @@ import java.util.Objects;
 public class RoleEntity {
     private int id;
     private String name;
-    private Collection<UserAccountRoleEntity> userAccountRoleEntities;
+    private Collection<UserAccountEntity> userAccountEntities;
 
     @Id
     @Column(name = "pk_role", nullable = false)
@@ -32,12 +32,12 @@ public class RoleEntity {
     }
 
     @OneToMany(mappedBy = "role")
-    public Collection<UserAccountRoleEntity> getUserAccountRoleEntities() {
-        return userAccountRoleEntities;
+    public Collection<UserAccountEntity> getUserAccountEntities() {
+        return userAccountEntities;
     }
 
-    public void setUserAccountRoleEntities(Collection<UserAccountRoleEntity> userAccountRoleEntities) {
-        this.userAccountRoleEntities = userAccountRoleEntities;
+    public void setUserAccountEntities(Collection<UserAccountEntity> userAccountEntities) {
+        this.userAccountEntities = userAccountEntities;
     }
 
     @Override

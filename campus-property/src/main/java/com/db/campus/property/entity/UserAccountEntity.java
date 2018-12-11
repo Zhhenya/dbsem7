@@ -1,7 +1,6 @@
 package com.db.campus.property.entity;
 
 import javax.persistence.*;
-import java.util.Collection;
 import java.util.Objects;
 
 @Entity
@@ -10,7 +9,7 @@ public class UserAccountEntity {
     private int id;
     private String login;
     private String password;
-    private Collection<UserAccountRoleEntity> userAccountRoleEntities;
+    private RoleEntity role;
 
     @Id
     @Column(name = "pk_user_account", nullable = false)
@@ -42,13 +41,14 @@ public class UserAccountEntity {
         this.password = userPassword;
     }
 
-    @OneToMany(mappedBy = "user")
-    public Collection<UserAccountRoleEntity> getUserAccountRoleEntities() {
-        return userAccountRoleEntities;
+    @ManyToOne
+    @JoinColumn(name = "fk_role", referencedColumnName = "pk_role", nullable = false)
+    public RoleEntity getRole() {
+        return role;
     }
 
-    public void setUserAccountRoleEntities(Collection<UserAccountRoleEntity> userAccountRoleEntities) {
-        this.userAccountRoleEntities = userAccountRoleEntities;
+    public void setRole(RoleEntity role) {
+        this.role = role;
     }
 
     @Override

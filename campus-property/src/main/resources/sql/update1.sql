@@ -21,18 +21,12 @@ create table user_account
 create unique index user_account_user_login_uindex
 on user_account (user_login);
 
-create table user_account_role
-(
-  pk_user_account_role int auto_increment,
-  fk_user_account int not null,
-  fk_role int not null,
-  constraint user_account_role_pk
-    primary key (pk_user_account_role),
-  constraint pk_role
-    foreign key (fk_role) references role (pk_role),
-  constraint pk_user_account
-    foreign key (fk_user_account) references user_account (pk_user_account)
-) DEFAULT CHARSET=utf8;
+alter table user_account
+  add fk_role int null;
+
+alter table user_account
+  add constraint user_account_role
+    foreign key (fk_role) references role (pk_role);
 
 alter table accountant
   add fk_user int null;
