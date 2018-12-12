@@ -1,16 +1,32 @@
 import React, { Component } from "react";
-import RequestListForm from "./campus/RequestListForm";
+import { observer } from "mobx-react";
+import { HashRouter } from "react-router-dom";
+import AppRouter from "./campus/AppRouter";
+import state from "./commons/state";
+import Auth from "./commons/Auth";
 
 class App extends Component {
   state = {
     text: "initialText"
   };
 
+  componentDidMount() {
+    /*axios.get("/hello").then(() => {
+      state.authorized = true;
+    });*/
+  }
+
   render() {
+    console.log(state.authorized);
+
     return (
-      <RequestListForm />
+      <HashRouter>
+        <Auth>
+          <AppRouter />
+        </Auth>
+      </HashRouter>
     );
   }
 }
 
-export default App;
+export default observer(App);

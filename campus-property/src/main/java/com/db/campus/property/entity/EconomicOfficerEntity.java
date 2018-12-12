@@ -11,6 +11,7 @@ public class EconomicOfficerEntity {
     private long id;
     private Collection<ObjectPropertyEntity> objectProperties;
     private Collection<RequestEntity> requests;
+    private UserAccountEntity userAccount;
 
     @Basic
     @Column(name = "EO_Name", nullable = false, length = 100)
@@ -62,5 +63,15 @@ public class EconomicOfficerEntity {
 
     public void setRequests(Collection<RequestEntity> requests) {
         this.requests = requests;
+    }
+
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "fk_user", nullable = false)
+    public UserAccountEntity getUserAccount() {
+        return userAccount;
+    }
+
+    public void setUserAccount(UserAccountEntity userAccount) {
+        this.userAccount = userAccount;
     }
 }

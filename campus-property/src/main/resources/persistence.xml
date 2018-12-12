@@ -21,6 +21,9 @@
       <mapping class="com.db.campus.property.entity.StateRequestEntity"/>
       <mapping class="com.db.campus.property.entity.TypeRequestEntity"/>
       <mapping class="com.db.campus.property.entity.UniversityWorkerEntity"/>
+      <mapping class="com.db.campus.property.entity.RoleEntity"/>
+      <mapping class="com.db.campus.property.entity.UserAccountEntity"/>
+      <mapping class="com.db.campus.property.entity.UserAccountRoleEntity"/>
       <!-- <property name="connection.username"/> -->
     <!-- <property name="connection.password"/> -->
 
