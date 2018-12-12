@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { observer } from "mobx-react";
 import { HashRouter } from "react-router-dom";
 import AppRouter from "./campus/AppRouter";
-import state from "./commons/state";
+import state from "./commons/stateProvider";
 import Auth from "./commons/Auth";
 
 class App extends Component {

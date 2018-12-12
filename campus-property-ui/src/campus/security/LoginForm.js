@@ -1,8 +1,7 @@
 import React from "react";
-import { Field, Form, Formik } from "formik";
+import { Form, Formik } from "formik";
 import FormControl from "@material-ui/core/FormControl/FormControl";
 import InputLabel from "@material-ui/core/InputLabel/InputLabel";
-import Input from "@material-ui/core/Input/Input";
 import { withStyles } from "@material-ui/core";
 import Button from "@material-ui/core/Button/Button";
 import Card from "@material-ui/core/Card/Card";
@@ -10,6 +9,7 @@ import CardContent from "@material-ui/core/CardContent/CardContent";
 import Grid from "@material-ui/core/Grid/Grid";
 import FormGroup from "@material-ui/core/FormGroup/FormGroup";
 import request from "../../commons/request";
+import InputField from "../../components/InputField";
 
 const styles = theme => ({
   container: {
@@ -45,35 +45,16 @@ const LoginForm = props => {
                   <InputLabel htmlFor="input-with-icon-adornment">
                     Логин
                   </InputLabel>
-                  <Field
-                    name="login"
-                    render={({ field }) => (
-                      <Input
-                        className={classes.input}
-                        inputProps={{
-                          "aria-label": "Description"
-                        }}
-                        {...field}
-                      />
-                    )}
-                  />
+                  <InputField name="login" classes={classes} />
                 </FormControl>
                 <FormControl className={classes.margin}>
                   <InputLabel htmlFor="input-with-icon-adornment">
                     Пароль
                   </InputLabel>
-                  <Field
+                  <InputField
                     name="password"
-                    render={({ field }) => (
-                      <Input
-                        type="password"
-                        className={classes.input}
-                        inputProps={{
-                          "aria-label": "Description"
-                        }}
-                        {...field}
-                      />
-                    )}
+                    type="password"
+                    classes={classes}
                   />
                 </FormControl>
                 <Button
