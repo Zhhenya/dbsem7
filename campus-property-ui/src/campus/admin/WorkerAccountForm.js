@@ -38,7 +38,8 @@ const INITIAL_VALUE = {
 
 class WorkerAccountForm extends Component {
   state = {
-    roles: []
+    roles: [],
+    result: null
   };
 
   componentDidMount() {
@@ -50,10 +51,17 @@ class WorkerAccountForm extends Component {
   };
 
   createAccount = userDetails => {
-    request.post("/account/create", {
-      name: "userDetails",
-      value: userDetails
-    });
+    this.setState({ result: null });
+    request
+      .post("/account/create", {
+        name: "userDetails",
+        value: userDetails
+      })
+      .then(result => {
+        console.log(result);
+        this.setState({ result });
+      })
+      .catch(reason => this.setState({ result: reason.toString() }));
   };
 
   render() {
@@ -103,6 +111,7 @@ class WorkerAccountForm extends Component {
                 </FormGroup>
               </Form>
             </Formik>
+            <h2>{this.state.result === true ? "SUCCESS" : this.state.result}</h2>
           </CardContent>
         </Card>
       </Grid>

@@ -6,6 +6,8 @@ import com.db.campus.property.entity.UserAccountEntity;
 import com.db.campus.property.enums.Role;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class UserAccountServiceImpl implements UserAccountService {
@@ -30,6 +32,7 @@ public class UserAccountServiceImpl implements UserAccountService {
         createUserAccount("admin", "passme", Role.ADMIN);
     }
 
+    @Transactional(propagation = Propagation.REQUIRED)
     @Override
     public UserAccountEntity createUserAccount(String login, String password, Role role) {
         UserAccountEntity user = new UserAccountEntity();

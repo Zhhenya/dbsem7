@@ -9,7 +9,6 @@ const SelectField = props => {
     <Field
       name={name}
       render={({ field }) => {
-        console.log(field);
         return (
           <Select {...field}>
             {values.map((value, index) => (

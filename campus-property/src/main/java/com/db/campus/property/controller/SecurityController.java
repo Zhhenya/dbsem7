@@ -42,18 +42,19 @@ public class SecurityController {
 
     @RequestMapping(value = "/account/create", method = RequestMethod.POST)
     @ResponseBody
-    public void createUserAccount(UserAccountDto userDetails) {
-        switch (userDetails.getRole()) {
-            case "ACCOUNTANT":
+    public Boolean createUserAccount(@RequestBody UserAccountDto userDetails) {
+        switch (Role.valueOf(userDetails.getRole())) {
+            case ACCOUNTANT:
                 campusWorkerService.createAccountantUser(userDetails);
                 break;
-            case "WORKER":
+            case WORKER:
                 campusWorkerService.createUniversityWorkerUser(userDetails);
                 break;
-            case "OFFICER":
+            case OFFICER:
                 campusWorkerService.createEconomicOfficerUser(userDetails);
                 break;
         }
+        return true;
     }
 
     @RequestMapping("/roles")

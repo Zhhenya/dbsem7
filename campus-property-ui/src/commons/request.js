@@ -1,18 +1,24 @@
 import state from "./stateProvider";
 
 const process = (response, resolve, reject) => {
-  console.log(response);
   switch (response.status) {
     case 200:
       state.authorized = true;
-      resolve(response.json());
+      if (response) {
+        response
+          .json()
+          .then(value => {
+            resolve(value);
+          })
+          .catch(reason => console.log(reason));
+      }
       break;
     case 401:
     case 403:
       state.authorized = false;
       break;
     default:
-      reject(new Error("smth goes wrong"));
+      reject(response.status);
   }
 };
 
@@ -33,7 +39,7 @@ export const post = (url, parameters) =>
         Accept: "application/json",
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({ [parameters.name]: parameters.value })
+      body: JSON.stringify(parameters.value)
     })
       .then(response => {
         process(response, resolve, reject);
