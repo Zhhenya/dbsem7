@@ -1,5 +1,8 @@
 package com.db.campus.property.dto;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class RequestDto {
 
     private Long id;
@@ -9,6 +12,15 @@ public class RequestDto {
     private UniversityWorkerDto universityWorker;
     private EconomicOfficerDto economicOfficer;
     private AccountantDto accountant;
+    private List<RequestRecordDto> requestRecordDtoList = new ArrayList<>();
+
+    public List<RequestRecordDto> getRequestRecordDtoList() {
+        return requestRecordDtoList;
+    }
+
+    public void setRequestRecordDtoList(List<RequestRecordDto> requestRecordDtoList) {
+        this.requestRecordDtoList = requestRecordDtoList;
+    }
 
     public Long getId() {
         return id;

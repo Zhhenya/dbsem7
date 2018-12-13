@@ -11,6 +11,7 @@ import Button from "@material-ui/core/Button/Button";
 import RequestRecordListForm from "./RequestRecordListForm";
 import Divider from "@material-ui/core/Divider/Divider";
 import * as Yup from "yup";
+import * as request from "../../commons/request";
 
 const styles = theme => ({
   root: {
@@ -45,11 +46,21 @@ const VALIDATION_SCHEMA = Yup.object().shape({
 
 class CreateRequestForm extends Component {
   state = {
-    requestTypes: ["РЕМОНТ", "НОВЫЙ"]
+    requestTypes: []
   };
 
-  createRequest = request => {
-    console.log(request);
+  componentDidMount() {
+    this.fetchRequestTypes();
+  }
+
+  fetchRequestTypes = () => {
+    request
+      .get("request/type/list")
+      .then(requestTypes => this.setState({ requestTypes }));
+  };
+
+  createRequest = requestObj => {
+    request.post("request/create", requestObj);
   };
 
   render() {
