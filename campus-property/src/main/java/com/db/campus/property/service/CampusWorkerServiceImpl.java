@@ -8,6 +8,7 @@ import com.db.campus.property.dto.UserAccountDto;
 import com.db.campus.property.entity.AccountantEntity;
 import com.db.campus.property.entity.EconomicOfficerEntity;
 import com.db.campus.property.entity.UniversityWorkerEntity;
+import com.db.campus.property.entity.UserAccountEntity;
 import com.db.campus.property.enums.Role;
 import com.db.campus.property.security.UserAccountService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -36,6 +37,28 @@ public class CampusWorkerServiceImpl implements CampusWorkerService {
         this.userAccountService = userAccountService;
     }
 
+    @Transactional(readOnly = true)
+    @Override
+    public UserAccountDto fetchUser(String login) {
+        UserAccountEntity userAccountEntity =
+                userRepository.findByLogin(login).orElseThrow(() -> new UsernameNotFoundException(login));
+        UserAccountDto accountDto = new UserAccountDto();
+        String role = userAccountEntity.getRole().getName();
+        accountDto.setRole(role);
+        switch (Role.valueOf(role)) {
+            case ACCOUNTANT:
+                accountDto.setName(accountantRepository.findByUserAccount(userAccountEntity).getName());
+                break;
+            case WORKER:
+                accountDto.setName(universityWorkerRepository.findByUserAccount(userAccountEntity).getName());
+                break;
+            case OFFICER:
+                accountDto.setName(economicOfficerRepository.findByUserAccount(userAccountEntity).getName());
+                break;
+        }
+        return accountDto;
+    }
+
     @Transactional
     @Override
     public AccountantEntity createAccountantUser(UserAccountDto userAccountDto) {
@@ -50,6 +73,7 @@ public class CampusWorkerServiceImpl implements CampusWorkerService {
         return accountantRepository.save(accountantEntity);
     }
 
+    @Transactional
     @Override
     public EconomicOfficerEntity createEconomicOfficerUser(UserAccountDto userAccountDto) {
         EconomicOfficerEntity economicOfficerEntity = new EconomicOfficerEntity();
@@ -63,6 +87,7 @@ public class CampusWorkerServiceImpl implements CampusWorkerService {
         return economicOfficerRepository.save(economicOfficerEntity);
     }
 
+    @Transactional
     @Override
     public UniversityWorkerEntity createUniversityWorkerUser(UserAccountDto userAccountDto) {
         UniversityWorkerEntity universityWorkerEntity = new UniversityWorkerEntity();

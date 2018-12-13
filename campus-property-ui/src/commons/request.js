@@ -16,6 +16,7 @@ const process = (response, resolve, reject) => {
     case 401:
     case 403:
       state.authorized = false;
+      state.user = null;
       break;
     default:
       reject(response.status);
@@ -39,7 +40,7 @@ export const post = (url, parameters) =>
         Accept: "application/json",
         "Content-Type": "application/json"
       },
-      body: JSON.stringify(parameters.value)
+      body: JSON.stringify(parameters)
     })
       .then(response => {
         process(response, resolve, reject);

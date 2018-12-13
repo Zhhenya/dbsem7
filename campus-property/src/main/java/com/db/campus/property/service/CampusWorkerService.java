@@ -13,4 +13,6 @@ public interface CampusWorkerService {
 
     UniversityWorkerEntity createUniversityWorkerUser(UserAccountDto userAccountDto);
 
+    UserAccountDto fetchUser(String login);
+
 }

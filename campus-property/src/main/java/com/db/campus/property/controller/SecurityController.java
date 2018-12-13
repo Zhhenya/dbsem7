@@ -28,10 +28,17 @@ public class SecurityController {
         this.campusWorkerService = campusWorkerService;
     }
 
-    @RequestMapping("/loginRequest/{login}/{password}")
+    @RequestMapping(value = "/loginRequest", method = RequestMethod.POST)
     @ResponseBody
-    public void login(@PathVariable("login") String login, @PathVariable("password") String password) {
-        securityService.autoLogin(login, password);
+    public Boolean login(@RequestBody UserAccountDto userDetails) {
+        securityService.autoLogin(userDetails.getLogin(), userDetails.getPassword());
+        return true;
+    }
+
+    @RequestMapping("/loggedIn")
+    @ResponseBody
+    public UserAccountDto fetchLoggedInUser() {
+        return campusWorkerService.fetchUser(securityService.findLoggedInUsername());
     }
 
     @RequestMapping("/admin/create")

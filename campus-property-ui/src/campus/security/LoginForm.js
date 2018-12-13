@@ -29,7 +29,7 @@ const styles = theme => ({
 });
 
 const login = user => {
-  request.get("/loginRequest/" + user.login + "/" + user.password);
+  request.post("/loginRequest", user);
 };
 
 const LoginForm = props => {

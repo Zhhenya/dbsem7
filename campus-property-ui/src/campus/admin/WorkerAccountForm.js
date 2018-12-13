@@ -53,10 +53,7 @@ class WorkerAccountForm extends Component {
   createAccount = userDetails => {
     this.setState({ result: null });
     request
-      .post("/account/create", {
-        name: "userDetails",
-        value: userDetails
-      })
+      .post("/account/create", userDetails)
       .then(result => {
         console.log(result);
         this.setState({ result });
@@ -111,7 +108,9 @@ class WorkerAccountForm extends Component {
                 </FormGroup>
               </Form>
             </Formik>
-            <h2>{this.state.result === true ? "SUCCESS" : this.state.result}</h2>
+            <h2>
+              {this.state.result === true ? "SUCCESS" : this.state.result}
+            </h2>
           </CardContent>
         </Card>
       </Grid>

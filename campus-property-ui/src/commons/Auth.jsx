@@ -2,7 +2,21 @@ import React from "react";
 import { observer } from "mobx-react";
 import state from "./stateProvider";
 import LoginForm from "../campus/security/LoginForm";
+import * as request from "./request";
 
-const Auth = ({ children }) => (state.authorized ? children : <LoginForm />);
+const fetchLoggedInUser = () => {
+  request.get("/loggedIn").then(user => {
+    state.user = user;
+    console.log(user);
+  });
+};
+
+const Auth = ({ children }) => {
+  if (!state.user && state.authorized) {
+    fetchLoggedInUser();
+    return null;
+  }
+  return state.authorized ? children : <LoginForm />;
+};
 
 export default observer(Auth);
