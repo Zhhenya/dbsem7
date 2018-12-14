@@ -14,6 +14,7 @@ import * as Yup from "yup";
 import * as request from "../../commons/request";
 import stateProvider from "../../commons/stateProvider";
 import SimpleAlertDialog from "../../commons/SimpleAlertDialog";
+import { withRouter } from "react-router";
 
 const styles = theme => ({
   root: {
@@ -85,8 +86,7 @@ class CreateRequestForm extends Component {
   };
 
   closeFormThenSuccess = () => {
-    console.log("close");
-    this.setState({ success: true });
+    this.props.history.push("/");
   };
 
   closeErrorDialog = () => {
@@ -174,4 +174,4 @@ class CreateRequestForm extends Component {
   }
 }
 
-export default withStyles(styles)(CreateRequestForm);
+export default withStyles(styles)(withRouter(CreateRequestForm));

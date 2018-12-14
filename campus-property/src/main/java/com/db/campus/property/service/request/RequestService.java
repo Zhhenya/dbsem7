@@ -15,4 +15,6 @@ public interface RequestService {
 
     List<RequestDto> fetchRequestList();
 
+    List<RequestDto> fetchProcessingRequestList(Long universityWorkerId);
+
 }

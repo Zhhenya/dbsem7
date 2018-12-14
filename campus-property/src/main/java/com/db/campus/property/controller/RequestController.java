@@ -20,6 +20,12 @@ public class RequestController {
         this.requestTypeService = requestTypeService;
     }
 
+    @RequestMapping("request/processing/list/{id}")
+    @ResponseBody
+    public List<RequestDto> fetchProcessingRequestList(@PathVariable("id") long workerId) {
+        return requestService.fetchProcessingRequestList(workerId);
+    }
+
     @RequestMapping("/request/type/list")
     @ResponseBody
     public List<String> getRequestTypeList() {

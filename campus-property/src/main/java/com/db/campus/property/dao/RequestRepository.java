@@ -7,4 +7,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface RequestRepository extends JpaRepository<RequestEntity, Long> {
 
+    Iterable<RequestEntity> findAllByUniversityWorker_Id(long id);
+
 }

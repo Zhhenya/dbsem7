@@ -1,5 +1,5 @@
 import stateProvider from "../commons/stateProvider";
-import { WorkerHomeForm } from "./worker/WorkerHomeForm";
+import WorkerHomeForm from "./worker/WorkerHomeForm";
 import Roles from "./enums/Roles";
 import React from "react";
 

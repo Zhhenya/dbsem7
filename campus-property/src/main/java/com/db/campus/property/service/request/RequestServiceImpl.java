@@ -52,6 +52,11 @@ public class RequestServiceImpl implements RequestService {
         this.objectPropertyRepository = objectPropertyRepository;
     }
 
+    @Override
+    public List<RequestDto> fetchProcessingRequestList(Long universityWorkerId) {
+        return requestConverter.convertAll(requestRepository.findAllByUniversityWorker_Id(universityWorkerId));
+    }
+
     @Transactional
     @Override
     public RequestRecordEntity save(RequestRecordDto requestRecordDto, RequestEntity requestEntity) {
@@ -82,6 +87,7 @@ public class RequestServiceImpl implements RequestService {
         return savedEntity;
     }
 
+    @Transactional(readOnly = true)
     @Override
     public List<RequestDto> fetchRequestList() {
         return requestConverter.convertAll(requestRepository.findAll());

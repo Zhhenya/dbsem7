@@ -6,9 +6,6 @@ import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
-import AppBar from "@material-ui/core/AppBar";
-import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
 
 const styles = theme => ({
@@ -43,13 +40,6 @@ const RequestListTable = props => {
   const { classes, data } = props;
   return (
     <Paper className={classes.root}>
-      <AppBar position="static" color="default">
-        <Toolbar>
-          <Typography variant="h6" color="inherit">
-            Список заявок
-          </Typography>
-        </Toolbar>
-      </AppBar>
       <Table className={classes.table}>
         <TableHead>
           <TableRow>
