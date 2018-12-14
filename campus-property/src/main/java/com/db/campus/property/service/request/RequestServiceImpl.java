@@ -7,6 +7,7 @@ import com.db.campus.property.dto.RequestRecordDto;
 import com.db.campus.property.entity.RequestEntity;
 import com.db.campus.property.entity.RequestRecordEntity;
 import com.db.campus.property.enums.RequestState;
+import com.db.campus.property.exception.PropertyNumberNotFoundException;
 import com.db.campus.property.service.RandomProviderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -58,7 +59,9 @@ public class RequestServiceImpl implements RequestService {
         requestRecordEntity.setNote(requestRecordDto.getNote());
         String propertyNumber = requestRecordDto.getObjectProperty().getPropertyNumber();
         if (!propertyNumber.isEmpty()) {
-            requestRecordEntity.setObjectProperty(objectPropertyRepository.findByPropertyNumber(propertyNumber));
+            requestRecordEntity.setObjectProperty(objectPropertyRepository
+                                                          .findByPropertyNumber(propertyNumber)
+                                                          .orElseThrow(() -> new PropertyNumberNotFoundException(propertyNumber)));
         }
         requestRecordEntity.setRequest(requestEntity);
         return requestRecordRepository.saveAndFlush(requestRecordEntity);

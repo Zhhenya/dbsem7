@@ -1,4 +1,4 @@
-package com.db.campus.property.controller.request;
+package com.db.campus.property.controller;
 
 import com.db.campus.property.dto.RequestDto;
 import com.db.campus.property.service.request.RequestService;
