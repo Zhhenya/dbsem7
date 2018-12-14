@@ -57,11 +57,11 @@ public class RequestServiceImpl implements RequestService {
         RequestRecordEntity requestRecordEntity = new RequestRecordEntity();
         requestRecordEntity.setNote(requestRecordDto.getNote());
         String propertyNumber = requestRecordDto.getObjectProperty().getPropertyNumber();
-        if (propertyNumber != null) {
+        if (!propertyNumber.isEmpty()) {
             requestRecordEntity.setObjectProperty(objectPropertyRepository.findByPropertyNumber(propertyNumber));
         }
         requestRecordEntity.setRequest(requestEntity);
-        return requestRecordRepository.save(requestRecordEntity);
+        return requestRecordRepository.saveAndFlush(requestRecordEntity);
     }
 
     @Transactional
