@@ -12,14 +12,14 @@ public class RequestDto {
     private UniversityWorkerDto universityWorker;
     private EconomicOfficerDto economicOfficer;
     private AccountantDto accountant;
-    private List<RequestRecordDto> requestRecordDtoList = new ArrayList<>();
+    private List<RequestRecordDto> requestRecordList = new ArrayList<>();
 
-    public List<RequestRecordDto> getRequestRecordDtoList() {
-        return requestRecordDtoList;
+    public List<RequestRecordDto> getRequestRecordList() {
+        return requestRecordList;
     }
 
-    public void setRequestRecordDtoList(List<RequestRecordDto> requestRecordDtoList) {
-        this.requestRecordDtoList = requestRecordDtoList;
+    public void setRequestRecordList(List<RequestRecordDto> requestRecordList) {
+        this.requestRecordList = requestRecordList;
     }
 
     public Long getId() {

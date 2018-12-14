@@ -1,8 +1,7 @@
 package com.db.campus.property.controller.request;
 
-import com.db.campus.property.converter.RequestConverter;
-import com.db.campus.property.dao.RequestRepository;
 import com.db.campus.property.dto.RequestDto;
+import com.db.campus.property.service.request.RequestService;
 import com.db.campus.property.service.request.RequestTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -12,16 +11,12 @@ import java.util.List;
 @RestController
 public class RequestController {
 
-    private final RequestConverter requestConverter;
-    private final RequestRepository requestRepository;
+    private final RequestService requestService;
     private final RequestTypeService requestTypeService;
 
     @Autowired
-    public RequestController(RequestConverter requestConverter,
-                             RequestRepository requestRepository,
-                             RequestTypeService requestTypeService) {
-        this.requestConverter = requestConverter;
-        this.requestRepository = requestRepository;
+    public RequestController(RequestService requestService, RequestTypeService requestTypeService) {
+        this.requestService = requestService;
         this.requestTypeService = requestTypeService;
     }
 
@@ -34,13 +29,13 @@ public class RequestController {
     @RequestMapping(value = "/request/create", method = RequestMethod.POST)
     @ResponseBody
     public void save(@RequestBody RequestDto requestDto) {
-
+        requestService.save(requestDto);
     }
 
     @RequestMapping("/request/list")
     @ResponseBody
     public List<RequestDto> getRequestList() {
-        return requestConverter.convertAll(requestRepository.findAll());
+        return requestService.fetchRequestList();
     }
 
 }

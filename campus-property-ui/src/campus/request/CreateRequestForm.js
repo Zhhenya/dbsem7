@@ -12,6 +12,7 @@ import RequestRecordListForm from "./RequestRecordListForm";
 import Divider from "@material-ui/core/Divider/Divider";
 import * as Yup from "yup";
 import * as request from "../../commons/request";
+import stateProvider from "../../commons/stateProvider";
 
 const styles = theme => ({
   root: {
@@ -31,11 +32,11 @@ const styles = theme => ({
 const INITIAL_VALUE = {
   content: "",
   type: "",
-  records: []
+  requestRecordList: []
 };
 
 const VALIDATION_SCHEMA = Yup.object().shape({
-  records: Yup.array().of(
+  requestRecordList: Yup.array().of(
     Yup.object().shape({
       note: Yup.string().required("Required")
     })
@@ -60,7 +61,11 @@ class CreateRequestForm extends Component {
   };
 
   createRequest = requestObj => {
-    request.post("request/create", requestObj);
+    console.log(requestObj);
+    request.post("request/create", {
+      ...requestObj,
+      universityWorker: { id: stateProvider.user.id }
+    });
   };
 
   render() {
@@ -98,7 +103,7 @@ class CreateRequestForm extends Component {
               </Grid>
               <Grid item xs={5}>
                 <RequestRecordListForm
-                  name="records"
+                  name="requestRecordList"
                   values={values}
                   classes={classes}
                 />

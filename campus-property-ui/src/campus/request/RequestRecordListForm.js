@@ -29,7 +29,7 @@ const RequestRecordListForm = props => {
               <FormControl className={classes.margin} style={{ width: "35%" }}>
                 <InputField
                   classes={classes}
-                  name={`${name}[${index}]obj`}
+                  name={`${name}[${index}]objectProperty.propertyNumber`}
                   label="Инвентарный номер объекта"
                 />
               </FormControl>
@@ -47,7 +47,13 @@ const RequestRecordListForm = props => {
             variant="extended"
             aria-label="Add"
             className={classes.button}
-            onClick={() => arrayHelpers.push({ note: "", obj: "", id: uniqueId() })}
+            onClick={() =>
+              arrayHelpers.push({
+                note: "",
+                objectProperty: { propertyNumber: "" },
+                id: uniqueId()
+              })
+            }
           >
             <AddIcon />
             Добавить предмет к заявке

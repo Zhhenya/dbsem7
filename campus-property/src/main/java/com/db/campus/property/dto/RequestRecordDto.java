@@ -4,7 +4,7 @@ public class RequestRecordDto {
 
     private Long id;
     private String note;
-    private ObjectPropertyDto objectPropertyDto;
+    private ObjectPropertyDto objectProperty;
 
     public Long getId() {
         return id;
@@ -22,11 +22,11 @@ public class RequestRecordDto {
         this.note = note;
     }
 
-    public ObjectPropertyDto getObjectPropertyDto() {
-        return objectPropertyDto;
+    public ObjectPropertyDto getObjectProperty() {
+        return objectProperty;
     }
 
-    public void setObjectPropertyDto(ObjectPropertyDto objectPropertyDto) {
-        this.objectPropertyDto = objectPropertyDto;
+    public void setObjectProperty(ObjectPropertyDto objectProperty) {
+        this.objectProperty = objectProperty;
     }
 }

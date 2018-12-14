@@ -1,5 +1,6 @@
 package com.db.campus.property.service.request;
 
+import com.db.campus.property.converter.RequestConverter;
 import com.db.campus.property.dao.*;
 import com.db.campus.property.dto.RequestDto;
 import com.db.campus.property.dto.RequestRecordDto;
@@ -11,9 +12,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 public class RequestServiceImpl implements RequestService {
 
+    private final RequestConverter requestConverter;
     private final RequestRepository requestRepository;
     private final TypeRequestRepository typeRequestRepository;
     private final StateRequestRepository stateRequestRepository;
@@ -25,7 +29,8 @@ public class RequestServiceImpl implements RequestService {
     private final ObjectPropertyRepository objectPropertyRepository;
 
     @Autowired
-    public RequestServiceImpl(RequestRepository requestRepository,
+    public RequestServiceImpl(RequestConverter requestConverter,
+                              RequestRepository requestRepository,
                               TypeRequestRepository typeRequestRepository,
                               StateRequestRepository stateRequestRepository,
                               RequestRecordRepository requestRecordRepository,
@@ -34,6 +39,7 @@ public class RequestServiceImpl implements RequestService {
                               AccountantRepository accountantRepository,
                               RandomProviderService randomProviderService,
                               ObjectPropertyRepository objectPropertyRepository) {
+        this.requestConverter = requestConverter;
         this.requestRepository = requestRepository;
         this.typeRequestRepository = typeRequestRepository;
         this.stateRequestRepository = stateRequestRepository;
@@ -47,15 +53,15 @@ public class RequestServiceImpl implements RequestService {
 
     @Transactional
     @Override
-    public RequestRecordEntity save(RequestRecordDto requestRecordDto, Long requestId) {
-        RequestRecordEntity recordEntity = new RequestRecordEntity();
-        recordEntity.setNote(requestRecordDto.getNote());
-        String propertyNumber = requestRecordDto.getObjectPropertyDto().getPropertyNumber();
+    public RequestRecordEntity save(RequestRecordDto requestRecordDto, RequestEntity requestEntity) {
+        RequestRecordEntity requestRecordEntity = new RequestRecordEntity();
+        requestRecordEntity.setNote(requestRecordDto.getNote());
+        String propertyNumber = requestRecordDto.getObjectProperty().getPropertyNumber();
         if (propertyNumber != null) {
-            recordEntity.setObjectProperty(objectPropertyRepository.findByPropertyNumber(propertyNumber));
+            requestRecordEntity.setObjectProperty(objectPropertyRepository.findByPropertyNumber(propertyNumber));
         }
-        recordEntity.setRequest(requestRepository.findById(requestId).get());
-        return requestRecordRepository.saveAndFlush(recordEntity);
+        requestRecordEntity.setRequest(requestEntity);
+        return requestRecordRepository.save(requestRecordEntity);
     }
 
     @Transactional
@@ -64,12 +70,17 @@ public class RequestServiceImpl implements RequestService {
         RequestEntity requestEntity = new RequestEntity();
         requestEntity.setContent(requestDto.getContent());
         requestEntity.setTypeRequest(typeRequestRepository.findByName(requestDto.getType()));
-        requestEntity.setStateRequest(stateRequestRepository.findByName(RequestState.WAITING.name()));
-        requestEntity.setUniversityWorker(universityWorkerRepository.findById(requestDto.getId()).get());
+        requestEntity.setStateRequest(stateRequestRepository.findByName(RequestState.WAITING.getDisplayName()));
+        requestEntity.setUniversityWorker(universityWorkerRepository.findById(requestDto.getUniversityWorker().getId()).get());
         requestEntity.setAccountant(randomProviderService.retrieveRandom(accountantRepository.findAll()));
         requestEntity.setEconomicOfficer(randomProviderService.retrieveRandom(economicOfficerRepository.findAll()));
-        RequestEntity savedEntity = requestRepository.saveAndFlush(requestEntity);
-        requestDto.getRequestRecordDtoList().forEach(requestRecordDto -> save(requestRecordDto, savedEntity.getId()));
+        RequestEntity savedEntity = requestRepository.save(requestEntity);
+        requestDto.getRequestRecordList().forEach(requestRecordDto -> save(requestRecordDto, savedEntity));
         return savedEntity;
+    }
+
+    @Override
+    public List<RequestDto> fetchRequestList() {
+        return requestConverter.convertAll(requestRepository.findAll());
     }
 }
