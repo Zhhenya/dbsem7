@@ -23,7 +23,8 @@ public class UniversityWorkerEntity {
     }
 
     @Id
-    @Column(name = "PK_University_worker", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "PK_University_worker", nullable = false, updatable = false)
     public long getId() {
         return id;
     }

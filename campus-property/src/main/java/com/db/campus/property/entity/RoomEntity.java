@@ -34,7 +34,8 @@ public class RoomEntity {
     }
 
     @Id
-    @Column(name = "PK_Room", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "PK_Room", nullable = false, updatable = false)
     public long getId() {
         return id;
     }

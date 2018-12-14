@@ -1,32 +1,26 @@
 package com.db.campus.property.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Id;
 import java.io.Serializable;
 import java.util.Objects;
 
 public class RequestRecordEntityPK implements Serializable {
-    private long pkRequestRecord;
-    private long pkRequest;
+    private long id;
+    private long request;
 
-    @Column(name = "PK_Request_record", nullable = false)
-    @Id
     public long getId() {
-        return pkRequestRecord;
+        return id;
     }
 
     public void setId(long pkRequestRecord) {
-        this.pkRequestRecord = pkRequestRecord;
+        this.id = pkRequestRecord;
     }
 
-    @Column(name = "PK_Request", nullable = false, insertable = false, updatable = false)
-    @Id
-    public long getPkRequest() {
-        return pkRequest;
+    public long getRequest() {
+        return request;
     }
 
-    public void setPkRequest(long pkRequest) {
-        this.pkRequest = pkRequest;
+    public void setRequest(long request) {
+        this.request = request;
     }
 
     @Override
@@ -34,12 +28,12 @@ public class RequestRecordEntityPK implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         RequestRecordEntityPK that = (RequestRecordEntityPK) o;
-        return pkRequestRecord == that.pkRequestRecord &&
-               pkRequest == that.pkRequest;
+        return id == that.id &&
+               request == that.request;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(pkRequestRecord, pkRequest);
+        return Objects.hash(id, request);
     }
 }

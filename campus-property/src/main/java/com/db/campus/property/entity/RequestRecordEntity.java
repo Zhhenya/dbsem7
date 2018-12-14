@@ -9,7 +9,6 @@ import java.util.Objects;
 public class RequestRecordEntity {
     private String note;
     private long id;
-    private long pkRequest;
     private RequestEntity request;
     private ObjectPropertyEntity objectProperty;
 
@@ -24,7 +23,7 @@ public class RequestRecordEntity {
     }
 
     @Id
-    @Column(name = "PK_Request_record", nullable = false)
+    @Column(name = "PK_Request_record", nullable = false, updatable = false)
     public long getId() {
         return id;
     }
@@ -33,31 +32,23 @@ public class RequestRecordEntity {
         this.id = pkRequestRecord;
     }
 
-    @Id
-    @Column(name = "PK_Request", nullable = false, insertable = false, updatable = false)
-    public long getPkRequest() {
-        return pkRequest;
-    }
-
-    public void setPkRequest(long pkRequest) {
-        this.pkRequest = pkRequest;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         RequestRecordEntity that = (RequestRecordEntity) o;
         return id == that.id &&
-               pkRequest == that.pkRequest &&
-               Objects.equals(note, that.note);
+               Objects.equals(note, that.note) &&
+               Objects.equals(request, that.request) &&
+               Objects.equals(objectProperty, that.objectProperty);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(note, pkRequest, id);
+        return Objects.hash(note, id, request, objectProperty);
     }
 
+    @Id
     @ManyToOne
     @JoinColumn(name = "PK_Request", referencedColumnName = "PK_Request", nullable = false)
     public RequestEntity getRequest() {

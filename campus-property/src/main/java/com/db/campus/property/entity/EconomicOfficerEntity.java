@@ -24,7 +24,8 @@ public class EconomicOfficerEntity {
     }
 
     @Id
-    @Column(name = "PK_Economic_officer", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "PK_Economic_officer", nullable = false, updatable = false)
     public long getId() {
         return id;
     }

@@ -9,7 +9,6 @@ import java.util.Objects;
 public class ResultInventoryEntity {
     private String result;
     private long id;
-    private long pkInventarisation;
     private InventoryEntity inventory;
     private ObjectPropertyEntity objectProperty;
 
@@ -33,31 +32,21 @@ public class ResultInventoryEntity {
         this.id = pkResultInventarisation;
     }
 
-    @Id
-    @Column(name = "PK_Inventarisation", nullable = false, insertable = false, updatable = false)
-    public long getPkInventarisation() {
-        return pkInventarisation;
-    }
-
-    public void setPkInventarisation(long pkInventarisation) {
-        this.pkInventarisation = pkInventarisation;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ResultInventoryEntity that = (ResultInventoryEntity) o;
         return id == that.id &&
-               pkInventarisation == that.pkInventarisation &&
                Objects.equals(result, that.result);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(result, id, pkInventarisation);
+        return Objects.hash(result, id);
     }
 
+    @Id
     @ManyToOne
     @JoinColumn(name = "PK_Inventarisation", referencedColumnName = "PK_Inventarisation", nullable
             = false)

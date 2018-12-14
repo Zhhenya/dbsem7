@@ -22,7 +22,8 @@ public class BuildingEntity {
     }
 
     @Id
-    @Column(name = "PK_Building", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "PK_Building", nullable = false, updatable = false)
     public long getId() {
         return id;
     }

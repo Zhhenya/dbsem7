@@ -22,7 +22,8 @@ public class TypeRequestEntity {
     }
 
     @Id
-    @Column(name = "PK_Type_request", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "PK_Type_request", nullable = false, updatable = false)
     public long getId() {
         return id;
     }

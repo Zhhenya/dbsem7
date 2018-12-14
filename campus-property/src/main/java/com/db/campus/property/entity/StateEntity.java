@@ -22,7 +22,8 @@ public class StateEntity {
     }
 
     @Id
-    @Column(name = "PK_State", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "PK_State", nullable = false, updatable = false)
     public long getId() {
         return id;
     }
