@@ -74,7 +74,8 @@ public class ObjectPropertyEntity {
     }
 
     @Id
-    @Column(name = "PK_Object_property", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "PK_Object_property", nullable = false, updatable = false)
     public long getId() {
         return id;
     }

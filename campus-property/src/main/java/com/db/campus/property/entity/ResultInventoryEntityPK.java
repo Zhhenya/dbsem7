@@ -1,32 +1,26 @@
 package com.db.campus.property.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Id;
 import java.io.Serializable;
 import java.util.Objects;
 
 public class ResultInventoryEntityPK implements Serializable {
-    private long pkResultInventarisation;
-    private long pkInventarisation;
+    private long id;
+    private long inventory;
 
-    @Column(name = "PK_ResultInventarisation", nullable = false)
-    @Id
     public long getId() {
-        return pkResultInventarisation;
+        return id;
     }
 
     public void setId(long pkResultInventarisation) {
-        this.pkResultInventarisation = pkResultInventarisation;
+        this.id = pkResultInventarisation;
     }
 
-    @Column(name = "PK_Inventarisation", nullable = false, insertable = false, updatable = false)
-    @Id
-    public long getPkInventarisation() {
-        return pkInventarisation;
+    public long getInventory() {
+        return inventory;
     }
 
-    public void setPkInventarisation(long pkInventarisation) {
-        this.pkInventarisation = pkInventarisation;
+    public void setInventory(long inventory) {
+        this.inventory = inventory;
     }
 
     @Override
@@ -34,12 +28,12 @@ public class ResultInventoryEntityPK implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ResultInventoryEntityPK that = (ResultInventoryEntityPK) o;
-        return pkResultInventarisation == that.pkResultInventarisation &&
-               pkInventarisation == that.pkInventarisation;
+        return id == that.id &&
+               inventory == that.inventory;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(pkResultInventarisation, pkInventarisation);
+        return Objects.hash(id, inventory);
     }
 }

@@ -1,32 +1,26 @@
 package com.db.campus.property.entity;
 
-import javax.persistence.Column;
-import javax.persistence.Id;
 import java.io.Serializable;
 import java.util.Objects;
 
 public class CancellationRecordEntityPK implements Serializable {
-    private long pkCancellationRecord;
-    private long pkCancellationAct;
+    private long id;
+    private long cancellationAct;
 
-    @Column(name = "PK_Cancellation_record", nullable = false)
-    @Id
     public long getId() {
-        return pkCancellationRecord;
+        return id;
     }
 
     public void setId(long pkCancellationRecord) {
-        this.pkCancellationRecord = pkCancellationRecord;
+        this.id = pkCancellationRecord;
     }
 
-    @Column(name = "PK_Cancellation_act", nullable = false, insertable = false, updatable = false)
-    @Id
-    public long getPkCancellationAct() {
-        return pkCancellationAct;
+   public long getCancellationAct() {
+        return cancellationAct;
     }
 
-    public void setPkCancellationAct(long pkCancellationAct) {
-        this.pkCancellationAct = pkCancellationAct;
+    public void setCancellationAct(long cancellationAct) {
+        this.cancellationAct = cancellationAct;
     }
 
     @Override
@@ -34,12 +28,12 @@ public class CancellationRecordEntityPK implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CancellationRecordEntityPK that = (CancellationRecordEntityPK) o;
-        return pkCancellationRecord == that.pkCancellationRecord &&
-               pkCancellationAct == that.pkCancellationAct;
+        return id == that.id &&
+               cancellationAct == that.cancellationAct;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(pkCancellationRecord, pkCancellationAct);
+        return Objects.hash(id, cancellationAct);
     }
 }

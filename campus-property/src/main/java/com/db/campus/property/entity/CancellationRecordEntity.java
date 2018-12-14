@@ -9,7 +9,6 @@ import java.util.Objects;
 public class CancellationRecordEntity {
     private String reason;
     private long id;
-    private long pkCancellationAct;
     private CancellationActEntity cancellationAct;
     private ObjectPropertyEntity objectProperty;
 
@@ -33,31 +32,21 @@ public class CancellationRecordEntity {
         this.id = pkCancellationRecord;
     }
 
-    @Id
-    @Column(name = "PK_Cancellation_act", nullable = false, insertable = false, updatable = false)
-    public long getPkCancellationAct() {
-        return pkCancellationAct;
-    }
-
-    public void setPkCancellationAct(long pkCancellationAct) {
-        this.pkCancellationAct = pkCancellationAct;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         CancellationRecordEntity that = (CancellationRecordEntity) o;
         return id == that.id &&
-               pkCancellationAct == that.pkCancellationAct &&
                Objects.equals(reason, that.reason);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(reason, id, pkCancellationAct);
+        return Objects.hash(reason, id);
     }
 
+    @Id
     @ManyToOne
     @JoinColumn(name = "PK_Cancellation_act", referencedColumnName = "PK_Cancellation_act", nullable = false)
     public CancellationActEntity getCancellationAct() {

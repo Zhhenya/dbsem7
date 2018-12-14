@@ -1,20 +1,18 @@
 import React from "react";
-import Input from "@material-ui/core/Input/Input";
 import { Field } from "formik";
+import TextField from "@material-ui/core/TextField/TextField";
 
 const InputField = props => {
-  const { classes, name, type } = props;
+  const { classes, name, ...other } = props;
   return (
     <Field
       name={name}
       render={({ field }) => (
-        <Input
-          type={type}
-          className={classes.input}
-          inputProps={{
-            "aria-label": "Description"
-          }}
+        <TextField
+          className={classes.textField}
+          margin="normal"
           {...field}
+          {...other}
         />
       )}
     />

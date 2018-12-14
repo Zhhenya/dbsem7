@@ -23,7 +23,8 @@ public class InventoryEntity {
     }
 
     @Id
-    @Column(name = "PK_Inventarisation", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "PK_Inventarisation", nullable = false, updatable = false)
     public long getId() {
         return id;
     }

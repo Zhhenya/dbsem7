@@ -12,7 +12,8 @@ public class UserAccountEntity {
     private RoleEntity role;
 
     @Id
-    @Column(name = "pk_user_account", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "pk_user_account", nullable = false, updatable = false)
     public int getId() {
         return id;
     }

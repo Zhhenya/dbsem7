@@ -47,13 +47,19 @@ public class CampusWorkerServiceImpl implements CampusWorkerService {
         accountDto.setRole(role);
         switch (Role.valueOf(role)) {
             case ACCOUNTANT:
-                accountDto.setName(accountantRepository.findByUserAccount(userAccountEntity).getName());
+                AccountantEntity accountantEntity = accountantRepository.findByUserAccount(userAccountEntity);
+                accountDto.setId(accountantEntity.getId());
+                accountDto.setName(accountantEntity.getName());
                 break;
             case WORKER:
-                accountDto.setName(universityWorkerRepository.findByUserAccount(userAccountEntity).getName());
+                UniversityWorkerEntity universityWorkerEntity = universityWorkerRepository.findByUserAccount(userAccountEntity);
+                accountDto.setName(universityWorkerEntity.getName());
+                accountDto.setId(universityWorkerEntity.getId());
                 break;
             case OFFICER:
-                accountDto.setName(economicOfficerRepository.findByUserAccount(userAccountEntity).getName());
+                EconomicOfficerEntity economicOfficerEntity = economicOfficerRepository.findByUserAccount(userAccountEntity);
+                accountDto.setName(economicOfficerEntity.getName());
+                accountDto.setId(economicOfficerEntity.getId());
                 break;
         }
         return accountDto;

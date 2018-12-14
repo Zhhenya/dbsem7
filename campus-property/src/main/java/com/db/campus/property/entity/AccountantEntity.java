@@ -25,7 +25,8 @@ public class AccountantEntity {
     }
 
     @Id
-    @Column(name = "PK_Accountant", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "PK_Accountant", nullable = false, updatable = false)
     public long getId() {
         return id;
     }

@@ -24,6 +24,7 @@ public class CancellationActEntity {
     }
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "PK_Cancellation_act", nullable = false)
     public long getId() {
         return id;

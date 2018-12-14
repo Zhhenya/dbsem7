@@ -27,7 +27,8 @@ public class RequestEntity {
     }
 
     @Id
-    @Column(name = "PK_Request", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "PK_Request", nullable = false, updatable = false)
     public long getId() {
         return id;
     }
@@ -72,7 +73,7 @@ public class RequestEntity {
 
     @ManyToOne
     @JoinColumn(name = "PK_University_worker", referencedColumnName = "PK_University_worker",
-            nullable = false)
+                nullable = false)
     public UniversityWorkerEntity getUniversityWorker() {
         return universityWorker;
     }

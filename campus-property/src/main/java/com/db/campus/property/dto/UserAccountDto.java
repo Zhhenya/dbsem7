@@ -2,10 +2,19 @@ package com.db.campus.property.dto;
 
 public class UserAccountDto {
 
+    private Long id;
     private String name;
     private String login;
     private String password;
     private String role;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;

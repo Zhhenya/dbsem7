@@ -12,7 +12,8 @@ public class RoleEntity {
     private Collection<UserAccountEntity> userAccountEntities;
 
     @Id
-    @Column(name = "pk_role", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "pk_role", nullable = false, updatable = false)
     public int getId() {
         return id;
     }
