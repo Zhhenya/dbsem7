@@ -9,13 +9,7 @@ import Button from "@material-ui/core/Button/Button";
 
 const SimpleAlertDialog = props => {
   const { open, onClose, title, content } = props;
-  return (
-    <Dialog
-      open={open}
-      onClose={onClose}
-      aria-labelledby="alert-dialog-title"
-      aria-describedby="alert-dialog-description"
-    >
+  return <Dialog open={open} onClose={onClose} aria-labelledby="alert-dialog-title" aria-describedby="alert-dialog-description">
       <DialogTitle id="alert-dialog-title">{title}</DialogTitle>
       <DialogContent>
         <DialogContentText id="alert-dialog-description">
@@ -27,8 +21,7 @@ const SimpleAlertDialog = props => {
           Понятно
         </Button>
       </DialogActions>
-    </Dialog>
-  );
+    </Dialog>;
 };
 
 SimpleAlertDialog.propTypes = {

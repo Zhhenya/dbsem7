@@ -1,6 +1,6 @@
 import React from "react";
 import { FieldArray } from "formik";
-import InputField from "../../components/InputField";
+import InputField from "../../../components/InputField";
 import FormGroup from "@material-ui/core/FormGroup/FormGroup";
 import FormControl from "@material-ui/core/es/FormControl/FormControl";
 import IconButton from "@material-ui/core/IconButton/IconButton";

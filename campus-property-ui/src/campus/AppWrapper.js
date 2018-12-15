@@ -5,10 +5,12 @@ import stateProvider from "../commons/stateProvider";
 import IconButton from "@material-ui/core/IconButton/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import AccountCircle from "@material-ui/icons/AccountCircle";
+import KeyboardBackspace from "@material-ui/icons/KeyboardBackspace";
 import withStyles from "@material-ui/core/styles/withStyles";
 import Paper from "@material-ui/core/es/Paper/Paper";
 import Typography from "@material-ui/core/Typography/Typography";
 import Tooltip from "@material-ui/core/Tooltip/Tooltip";
+import { withRouter } from "react-router";
 
 const styles = theme => ({
   root: {
@@ -48,7 +50,7 @@ class AppWrapper extends Component {
             color="inherit"
             aria-label="Menu"
           >
-            <MenuIcon/>
+            <MenuIcon />
           </IconButton>
           <Typography
             className={classes.title}
@@ -58,7 +60,15 @@ class AppWrapper extends Component {
           >
             Учет имущества университетского городка
           </Typography>
-          <div className={classes.grow}/>
+          <div className={classes.grow} />
+          <IconButton
+            aria-owns={open ? "menu-appbar" : undefined}
+            aria-haspopup="true"
+            color="inherit"
+            onClick={this.props.history.goBack}
+          >
+            <KeyboardBackspace />
+          </IconButton>
           {auth && (
             <Tooltip disableFocusListener disableTouchListener title={name}>
               <IconButton
@@ -66,7 +76,7 @@ class AppWrapper extends Component {
                 aria-haspopup="true"
                 color="inherit"
               >
-                <AccountCircle/>
+                <AccountCircle />
               </IconButton>
             </Tooltip>
           )}
@@ -77,4 +87,4 @@ class AppWrapper extends Component {
   }
 }
 
-export default withStyles(styles)(AppWrapper);
+export default withStyles(styles)(withRouter(AppWrapper));
