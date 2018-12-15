@@ -4,7 +4,7 @@ import Select from "@material-ui/core/Select/Select";
 import MenuItem from "@material-ui/core/MenuItem/MenuItem";
 
 const SelectField = props => {
-  const { name, values } = props;
+  const { name, values, label } = props;
   return (
     <Field
       name={name}
@@ -13,7 +13,7 @@ const SelectField = props => {
           <Select {...field}>
             {values.map((value, index) => (
               <MenuItem key={index} value={value}>
-                {value}
+                {label ? value[label] : value}
               </MenuItem>
             ))}
           </Select>

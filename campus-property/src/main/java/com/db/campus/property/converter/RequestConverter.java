@@ -13,14 +13,17 @@ public class RequestConverter extends CampusPropertyConverter<RequestEntity, Req
     private final UniversityWorkerConverter universityWorkerConverter;
     private final EconomicOfficerConverter economicOfficerConverter;
     private final AccountantConverter accountantConverter;
+    private final RequestRecordConverter requestRecordConverter;
 
     @Autowired
     public RequestConverter(UniversityWorkerConverter universityWorkerConverter,
                             EconomicOfficerConverter economicOfficerConverter,
-                            AccountantConverter accountantConverter) {
+                            AccountantConverter accountantConverter,
+                            RequestRecordConverter requestRecordConverter) {
         this.universityWorkerConverter = universityWorkerConverter;
         this.economicOfficerConverter = economicOfficerConverter;
         this.accountantConverter = accountantConverter;
+        this.requestRecordConverter = requestRecordConverter;
     }
 
     @Override
@@ -40,6 +43,7 @@ public class RequestConverter extends CampusPropertyConverter<RequestEntity, Req
         requestDto.setAccountant(defaultConvert(requestEntity.getAccountant(),
                                                 accountantConverter::convert,
                                                 null));
+        requestDto.setRequestRecordList(requestRecordConverter.convertAll(requestEntity.getRequestRecords()));
         return requestDto;
     }
 }
