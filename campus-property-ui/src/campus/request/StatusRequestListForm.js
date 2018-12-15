@@ -12,10 +12,30 @@ class StatusRequestListForm extends Component {
   };
 
   componentDidMount() {
-    this.fetchProcessingRequestList();
+    this.fetchRequestList();
   }
 
-  fetchProcessingRequestList = () => {
+  approveRequest = requestId => {
+    request
+      .post("/approveRequest", requestId)
+      .then(() => this.fetchRequestList());
+  };
+
+  fetchRequestList = () => {
+    if (this.props.all) {
+      this.fetchAllRequestList();
+    } else {
+      this.fetchRequestListOfWorker();
+    }
+  };
+
+  fetchAllRequestList = () => {
+    request
+      .get("request/" + this.props.status + "/list")
+      .then(requests => this.setState({ requests }));
+  };
+
+  fetchRequestListOfWorker = () => {
     request
       .get("request/" + this.props.status + "/list/" + stateProvider.user.id)
       .then(requests => this.setState({ requests }));
@@ -24,14 +44,21 @@ class StatusRequestListForm extends Component {
   render() {
     const { requests } = this.state;
     if (!requests || !requests.length) {
-      return (<Typography variant="subtitle1">Нет заявок</Typography>)
+      return <Typography variant="subtitle1">Нет заявок</Typography>;
     }
-    return <RequestListTable data={requests} />;
+    return (
+      <RequestListTable
+        data={requests}
+        onApprove={this.approveRequest}
+        {...this.props}
+      />
+    );
   }
 }
 
 StatusRequestListForm.propTypes = {
-  state: PropTypes.oneOf(Object.values(RequestStatus))
+  state: PropTypes.oneOf(Object.values(RequestStatus)),
+  approving: PropTypes.bool
 };
 
 export default StatusRequestListForm;

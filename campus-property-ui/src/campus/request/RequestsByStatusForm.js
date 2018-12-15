@@ -9,23 +9,27 @@ import { RequestStatus } from "./RequestStatus";
 import withStyles from "@material-ui/core/styles/withStyles";
 
 const RequestByStatusForm = props => {
-  const {classes} = props;
-  return(
+  const { classes, approving, all } = props;
+  return (
     <React.Fragment>
       <ExpansionPanel defaultExpanded>
         <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-          <Typography className={classes.heading}>Отправлено на обработку</Typography>
+          <Typography className={classes.heading}>
+            Отправлено на обработку
+          </Typography>
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>
-          <StatusRequestListForm status={RequestStatus.WAITING}/>
+          <StatusRequestListForm status={RequestStatus.WAITING} all={all} approving={approving} />
         </ExpansionPanelDetails>
       </ExpansionPanel>
       <ExpansionPanel defaultExpanded>
         <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-          <Typography className={classes.heading}>Одобрено на выполнение</Typography>
+          <Typography className={classes.heading}>
+            Одобрено на выполнение
+          </Typography>
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>
-          <StatusRequestListForm status={RequestStatus.APPROVED}/>
+          <StatusRequestListForm status={RequestStatus.APPROVED} all={all}  />
         </ExpansionPanelDetails>
       </ExpansionPanel>
       <ExpansionPanel defaultExpanded>
@@ -33,7 +37,7 @@ const RequestByStatusForm = props => {
           <Typography className={classes.heading}>Выполняется</Typography>
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>
-          <StatusRequestListForm status={RequestStatus.PROCESSING}/>
+          <StatusRequestListForm status={RequestStatus.PROCESSING} all={all}  />
         </ExpansionPanelDetails>
       </ExpansionPanel>
       <ExpansionPanel defaultExpanded>
@@ -41,7 +45,7 @@ const RequestByStatusForm = props => {
           <Typography className={classes.heading}>Готово</Typography>
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>
-          <StatusRequestListForm status={RequestStatus.READY}/>
+          <StatusRequestListForm status={RequestStatus.READY} all={all}  />
         </ExpansionPanelDetails>
       </ExpansionPanel>
     </React.Fragment>

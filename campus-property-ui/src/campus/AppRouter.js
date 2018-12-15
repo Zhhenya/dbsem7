@@ -6,6 +6,7 @@ import AdminCreateForm from "./security/AdminCreateForm";
 import WorkerAccountForm from "./admin/WorkerAccountForm";
 import HomeForm from "./HomeForm";
 import CreateRequestForm from "./request/CreateRequestForm";
+import AccountantRequestListForm from "./accountant/AccountantRequestListForm";
 
 const AppRouter = () => {
   return (
@@ -16,6 +17,7 @@ const AppRouter = () => {
       <Route exact path="/request/create" component={CreateRequestForm} />
       <Route exact path="/login" component={LoginForm} />
       <Route exact path="/admin/create/account" component={WorkerAccountForm} />
+      <Route exact path="/accountant/request/list" component={AccountantRequestListForm} />
     </Switch>
   );
 };

@@ -2,6 +2,7 @@ import stateProvider from "../commons/stateProvider";
 import WorkerHomeForm from "./worker/WorkerHomeForm";
 import Roles from "./enums/Roles";
 import React from "react";
+import AccountantHomeForm from "./accountant/AccountantHomeForm";
 
 const HomeForm = () => {
   const { user } = stateProvider;
@@ -14,7 +15,7 @@ const HomeForm = () => {
     case Roles.WORKER:
       return <WorkerHomeForm />;
     case Roles.ACCOUNTANT:
-      return null;
+      return <AccountantHomeForm />;
     default:
       return null;
   }

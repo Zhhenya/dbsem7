@@ -18,4 +18,8 @@ public interface RequestService {
 
     List<RequestDto> fetchRequestList(Long universityWorkerId, RequestState requestState);
 
+    List<RequestDto> fetchRequestList(RequestState requestState);
+
+    void approve(Long requestId);
+
 }

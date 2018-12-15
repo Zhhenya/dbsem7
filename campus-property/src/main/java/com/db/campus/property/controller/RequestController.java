@@ -28,6 +28,12 @@ public class RequestController {
         return requestService.fetchRequestList(workerId, RequestState.valueOf(status.toUpperCase()));
     }
 
+    @RequestMapping("request/{status}/list")
+    @ResponseBody
+    public List<RequestDto> fetchRequestList(@PathVariable("status") String status) {
+        return requestService.fetchRequestList(RequestState.valueOf(status.toUpperCase()));
+    }
+
     @RequestMapping("/request/type/list")
     @ResponseBody
     public List<String> getRequestTypeList() {
@@ -38,6 +44,12 @@ public class RequestController {
     @ResponseBody
     public void save(@RequestBody RequestDto requestDto) {
         requestService.save(requestDto);
+    }
+
+    @RequestMapping(value = "/approveRequest", method = RequestMethod.POST)
+    @ResponseBody
+    public void approve(@RequestBody Long requestId) {
+        requestService.approve(requestId);
     }
 
     @RequestMapping("/request/list")
