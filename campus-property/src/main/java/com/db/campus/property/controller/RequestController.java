@@ -1,6 +1,7 @@
 package com.db.campus.property.controller;
 
 import com.db.campus.property.dto.RequestDto;
+import com.db.campus.property.enums.RequestState;
 import com.db.campus.property.service.request.RequestService;
 import com.db.campus.property.service.request.RequestTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,10 +21,11 @@ public class RequestController {
         this.requestTypeService = requestTypeService;
     }
 
-    @RequestMapping("request/processing/list/{id}")
+    @RequestMapping("request/{status}/list/{id}")
     @ResponseBody
-    public List<RequestDto> fetchProcessingRequestList(@PathVariable("id") long workerId) {
-        return requestService.fetchProcessingRequestList(workerId);
+    public List<RequestDto> fetchRequestList(@PathVariable("id") long workerId,
+                                             @PathVariable("status") String status) {
+        return requestService.fetchRequestList(workerId, RequestState.valueOf(status.toUpperCase()));
     }
 
     @RequestMapping("/request/type/list")

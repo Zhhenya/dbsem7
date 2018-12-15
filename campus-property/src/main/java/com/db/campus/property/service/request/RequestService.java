@@ -4,6 +4,7 @@ import com.db.campus.property.dto.RequestDto;
 import com.db.campus.property.dto.RequestRecordDto;
 import com.db.campus.property.entity.RequestEntity;
 import com.db.campus.property.entity.RequestRecordEntity;
+import com.db.campus.property.enums.RequestState;
 
 import java.util.List;
 
@@ -15,6 +16,6 @@ public interface RequestService {
 
     List<RequestDto> fetchRequestList();
 
-    List<RequestDto> fetchProcessingRequestList(Long universityWorkerId);
+    List<RequestDto> fetchRequestList(Long universityWorkerId, RequestState requestState);
 
 }

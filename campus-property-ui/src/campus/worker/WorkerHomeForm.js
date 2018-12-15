@@ -2,17 +2,20 @@ import React, { Component } from "react";
 import Grid from "@material-ui/core/Grid/Grid";
 import Button from "@material-ui/core/es/Button/Button";
 import AddIcon from "@material-ui/icons/Add";
-import ProcessingRequestListForm from "../request/ProcessingRequestListForm";
 import { withRouter } from "react-router";
 import withStyles from "@material-ui/core/styles/withStyles";
 import Typography from "@material-ui/core/es/Typography/Typography";
+import RequestByStatusForm from "../request/RequestsByStatusForm";
 
 const styles = theme => ({
+  root: {
+    flexGrow: 1
+  },
   margin: {
-    margin: theme.spacing.unit
+    margin: theme.spacing.unit * 4
   },
   button: {
-    padding: theme.spacing.unit
+    margin: theme.spacing.unit * 4,
   },
   rightIcon: {
     marginLeft: theme.spacing.unit
@@ -28,19 +31,20 @@ class WorkerHomeForm extends Component {
     const { classes } = this.props;
     return (
       <Grid
+        className={classes.root}
         container
         direction="row"
-        justify="space-around"
+        justify="space-between"
         alignItems="center"
+        spacing={24}
       >
-        <Grid item xs={10}>
-          <Typography className={classes.margin}>
-            <h2>Заявки в работе</h2>
+        <Grid item xs>
+          <Typography variant="h3" gutterBottom className={classes.margin}>
+            Мои заявки
           </Typography>
         </Grid>
-        <Grid item xs>
+        <Grid item xs={2}>
           <Button
-            fullWidth
             variant="contained"
             color="primary"
             onClick={this.openCreateRequestForm}
@@ -51,7 +55,7 @@ class WorkerHomeForm extends Component {
           </Button>
         </Grid>
         <Grid item xs={12}>
-          <ProcessingRequestListForm />
+          <RequestByStatusForm />
         </Grid>
       </Grid>
     );

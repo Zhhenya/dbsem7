@@ -53,8 +53,10 @@ public class RequestServiceImpl implements RequestService {
     }
 
     @Override
-    public List<RequestDto> fetchProcessingRequestList(Long universityWorkerId) {
-        return requestConverter.convertAll(requestRepository.findAllByUniversityWorker_Id(universityWorkerId));
+    public List<RequestDto> fetchRequestList(Long universityWorkerId, RequestState requestState) {
+        return requestConverter.convertAll(
+                requestRepository.findAllByUniversityWorker_IdAndStateRequest_Name(universityWorkerId,
+                                                                                   requestState.getDisplayName()));
     }
 
     @Transactional
