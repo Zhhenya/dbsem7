@@ -1,5 +1,6 @@
 package com.db.campus.property.controller;
 
+import com.db.campus.property.dto.ObjectPropertyDto;
 import com.db.campus.property.dto.RequestDto;
 import com.db.campus.property.enums.RequestState;
 import com.db.campus.property.service.request.RequestService;
@@ -40,6 +41,8 @@ public class RequestController {
         return requestTypeService.fetchRequestTypeList();
     }
 
+
+
     @RequestMapping(value = "/request/create", method = RequestMethod.POST)
     @ResponseBody
     public void save(@RequestBody RequestDto requestDto) {
@@ -57,5 +60,7 @@ public class RequestController {
     public List<RequestDto> getRequestList() {
         return requestService.fetchRequestList();
     }
+
+
 
 }

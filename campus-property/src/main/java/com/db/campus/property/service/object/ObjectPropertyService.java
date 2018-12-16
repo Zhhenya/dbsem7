@@ -8,4 +8,6 @@ public interface ObjectPropertyService {
 
     List<ObjectPropertyDto> fetchAll();
 
+    List<ObjectPropertyDto> fetchObjectList();
+
 }

@@ -5,6 +5,7 @@ import com.db.campus.property.dao.ObjectPropertyRepository;
 import com.db.campus.property.dto.ObjectPropertyDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -23,6 +24,12 @@ public class ObjectPropertyServiceImpl implements ObjectPropertyService {
 
     @Override
     public List<ObjectPropertyDto> fetchAll() {
+        return objectPropertyConverter.convertAll(objectPropertyRepository.findAll());
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public List<ObjectPropertyDto> fetchObjectList() {
         return objectPropertyConverter.convertAll(objectPropertyRepository.findAll());
     }
 }

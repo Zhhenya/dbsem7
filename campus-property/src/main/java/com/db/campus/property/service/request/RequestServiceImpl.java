@@ -1,7 +1,9 @@
 package com.db.campus.property.service.request;
 
+import com.db.campus.property.converter.ObjectPropertyConverter;
 import com.db.campus.property.converter.RequestConverter;
 import com.db.campus.property.dao.*;
+import com.db.campus.property.dto.ObjectPropertyDto;
 import com.db.campus.property.dto.RequestDto;
 import com.db.campus.property.dto.RequestRecordDto;
 import com.db.campus.property.entity.RequestEntity;
@@ -58,7 +60,7 @@ public class RequestServiceImpl implements RequestService {
     public List<RequestDto> fetchRequestList(Long universityWorkerId, RequestState requestState) {
         return requestConverter.convertAll(
                 requestRepository.findAllByUniversityWorker_IdAndStateRequest_Name(universityWorkerId,
-                                                                                   requestState.getDisplayName()));
+                        requestState.getDisplayName()));
     }
 
     @Transactional(readOnly = true)
@@ -71,7 +73,7 @@ public class RequestServiceImpl implements RequestService {
     @Override
     public void approve(Long requestId) {
         RequestEntity requestEntity = requestRepository.findById(requestId)
-                                                       .orElseThrow(() -> new RequestNotFoundException(requestId));
+                .orElseThrow(() -> new RequestNotFoundException(requestId));
         requestEntity.setStateRequest(stateRequestRepository.findByName(RequestState.APPROVED.getDisplayName()));
         requestRepository.save(requestEntity);
     }
@@ -84,8 +86,8 @@ public class RequestServiceImpl implements RequestService {
         String propertyNumber = requestRecordDto.getObjectProperty().getPropertyNumber();
         if (!propertyNumber.isEmpty()) {
             requestRecordEntity.setObjectProperty(objectPropertyRepository
-                                                          .findByPropertyNumber(propertyNumber)
-                                                          .orElseThrow(() -> new PropertyNumberNotFoundException(propertyNumber)));
+                    .findByPropertyNumber(propertyNumber)
+                    .orElseThrow(() -> new PropertyNumberNotFoundException(propertyNumber)));
         }
         requestRecordEntity.setRequest(requestEntity);
         return requestRecordRepository.saveAndFlush(requestRecordEntity);
@@ -111,4 +113,6 @@ public class RequestServiceImpl implements RequestService {
     public List<RequestDto> fetchRequestList() {
         return requestConverter.convertAll(requestRepository.findAll());
     }
+
+
 }

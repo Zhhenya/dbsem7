@@ -7,10 +7,10 @@ const LinkToRequests = props => (
     <Link to="/accountant/request/list" {...props} />
 );
 const LinkToInventory = props => (
-    <Link to="/accountant/request/inventory" {...props} />
+    <Link to="/accountant/inventory" {...props} />
 );
 const LinkToLetter = props => (
-    <Link to="/accountant/request/letter" {...props} />
+    <Link to="/accountant/letter" {...props} />
 );
 
 const AccountantHomeForm = () => (
