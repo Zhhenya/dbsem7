@@ -10,7 +10,9 @@ const process = (response, resolve, reject) => {
           .then(value => {
             resolve(value);
           })
-          .catch(reason => console.log(reason));
+          .catch(() => {
+            resolve("SUCCESS");
+          });
       }
       break;
     case 401:
@@ -19,7 +21,9 @@ const process = (response, resolve, reject) => {
       state.user = null;
       break;
     default:
-      reject(response.status);
+      response.json().then(value => {
+        reject(value.message);
+      });
   }
 };
 
@@ -29,7 +33,9 @@ export const get = url =>
       .then(response => {
         process(response, resolve, reject);
       })
-      .catch(error => console.log(error));
+      .catch(reason => {
+        reject(reason);
+      });
   });
 
 export const post = (url, parameters) =>
@@ -45,7 +51,9 @@ export const post = (url, parameters) =>
       .then(response => {
         process(response, resolve, reject);
       })
-      .catch(error => console.log(error));
+      .catch(reason => {
+        reject(reason);
+      });
   });
 
 export default {

@@ -3,6 +3,7 @@ package com.db.campus.property.enums;
 public enum RequestState {
 
     WAITING("Отправлено на обработку"),
+    APPROVED("Одобрено"),
     PROCESSING("Обрабатывается"),
     READY("Готово");
 

@@ -1,0 +1,1 @@
+INSERT INTO `dbuniver`.`state_request` (`SR_Name`) VALUES ('Одобрено')

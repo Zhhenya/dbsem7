@@ -7,6 +7,8 @@ import com.db.campus.property.dto.RequestRecordDto;
 import com.db.campus.property.entity.RequestEntity;
 import com.db.campus.property.entity.RequestRecordEntity;
 import com.db.campus.property.enums.RequestState;
+import com.db.campus.property.exception.PropertyNumberNotFoundException;
+import com.db.campus.property.exception.RequestNotFoundException;
 import com.db.campus.property.service.RandomProviderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -51,6 +53,29 @@ public class RequestServiceImpl implements RequestService {
         this.objectPropertyRepository = objectPropertyRepository;
     }
 
+    @Transactional(readOnly = true)
+    @Override
+    public List<RequestDto> fetchRequestList(Long universityWorkerId, RequestState requestState) {
+        return requestConverter.convertAll(
+                requestRepository.findAllByUniversityWorker_IdAndStateRequest_Name(universityWorkerId,
+                                                                                   requestState.getDisplayName()));
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public List<RequestDto> fetchRequestList(RequestState requestState) {
+        return requestConverter.convertAll(requestRepository.findAllByStateRequest_Name(requestState.getDisplayName()));
+    }
+
+    @Transactional
+    @Override
+    public void approve(Long requestId) {
+        RequestEntity requestEntity = requestRepository.findById(requestId)
+                                                       .orElseThrow(() -> new RequestNotFoundException(requestId));
+        requestEntity.setStateRequest(stateRequestRepository.findByName(RequestState.APPROVED.getDisplayName()));
+        requestRepository.save(requestEntity);
+    }
+
     @Transactional
     @Override
     public RequestRecordEntity save(RequestRecordDto requestRecordDto, RequestEntity requestEntity) {
@@ -58,7 +83,9 @@ public class RequestServiceImpl implements RequestService {
         requestRecordEntity.setNote(requestRecordDto.getNote());
         String propertyNumber = requestRecordDto.getObjectProperty().getPropertyNumber();
         if (!propertyNumber.isEmpty()) {
-            requestRecordEntity.setObjectProperty(objectPropertyRepository.findByPropertyNumber(propertyNumber));
+            requestRecordEntity.setObjectProperty(objectPropertyRepository
+                                                          .findByPropertyNumber(propertyNumber)
+                                                          .orElseThrow(() -> new PropertyNumberNotFoundException(propertyNumber)));
         }
         requestRecordEntity.setRequest(requestEntity);
         return requestRecordRepository.saveAndFlush(requestRecordEntity);
@@ -79,6 +106,7 @@ public class RequestServiceImpl implements RequestService {
         return savedEntity;
     }
 
+    @Transactional(readOnly = true)
     @Override
     public List<RequestDto> fetchRequestList() {
         return requestConverter.convertAll(requestRepository.findAll());

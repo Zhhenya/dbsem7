@@ -4,9 +4,11 @@ import com.db.campus.property.entity.ObjectPropertyEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface ObjectPropertyRepository extends JpaRepository<ObjectPropertyEntity, Long> {
 
-    ObjectPropertyEntity findByPropertyNumber(String number);
+    Optional<ObjectPropertyEntity> findByPropertyNumber(String number);
 
 }
