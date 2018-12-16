@@ -1,16 +1,12 @@
 import React, {Component} from "react";
-import {Component} from "react";
-import request from "../../commons/request";
 import withStyles from "@material-ui/core/styles/withStyles";
 import Grid from "@material-ui/core/Grid";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
-import {Form, Formik} from "formik";
-import FormGroup from "@material-ui/core/FormGroup";
 import Button from "@material-ui/core/Button";
 
 
-class LetterForm extends Component {
+class AccountantLetterForm extends Component {
 
 
     render() {
@@ -26,10 +22,6 @@ class LetterForm extends Component {
                         >
                             Отправить сообщение
                         </Button>
-
-                        <h2>
-                            {this.state.result === true ? "SUCCESS" : this.state.result}
-                        </h2>
                     </CardContent>
                 </Card>
             </Grid>
@@ -38,5 +30,5 @@ class LetterForm extends Component {
 }
 
 
-export default withStyles(styles)(LetterForm);
+export default withStyles(null)(AccountantLetterForm);
 

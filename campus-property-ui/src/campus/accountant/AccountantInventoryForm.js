@@ -32,7 +32,7 @@ const INITIAL_VALUE = {
     role: ""
 }
 
-class AccountantAccountForm extends Component {
+class AccountantInventoryForm extends Component {
     state = {
         roles: [],
         result: null
@@ -77,4 +77,4 @@ class AccountantAccountForm extends Component {
 
 }
 
-export default withStyles(styles)(AccountantAccountForm);
+export default withStyles(styles)(AccountantInventoryForm);
