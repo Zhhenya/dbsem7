@@ -8,9 +8,10 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import AddIcon from "@material-ui/icons/Add";
 import Fab from "@material-ui/core/Fab/Fab";
 import { uniqueId } from "lodash";
+import AutocompleteSelectField from "../../../components/AutocompleteSelectField";
 
 const RequestRecordListForm = props => {
-  const { classes, name, values } = props;
+  const { classes, name, values, objects } = props;
   return (
     <FieldArray
       name={name}
@@ -27,10 +28,12 @@ const RequestRecordListForm = props => {
                 />
               </FormControl>
               <FormControl className={classes.margin} style={{ width: "35%" }}>
-                <InputField
-                  classes={classes}
-                  name={`${name}[${index}]objectProperty.propertyNumber`}
-                  label="Инвентарный номер объекта"
+                <AutocompleteSelectField
+                  name={`${name}[${index}]objectProperty`}
+                  options={objects}
+                  displayLabel="Инвентарный номер объекта"
+                  label="propertyNumber"
+                  placeholder="Введите номер"
                 />
               </FormControl>
               <IconButton

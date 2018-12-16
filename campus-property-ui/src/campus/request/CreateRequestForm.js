@@ -3,7 +3,6 @@ import { Form, Formik } from "formik";
 import FormGroup from "@material-ui/core/FormGroup/FormGroup";
 import FormControl from "@material-ui/core/FormControl/FormControl";
 import withStyles from "@material-ui/core/styles/withStyles";
-import InputLabel from "@material-ui/core/InputLabel/InputLabel";
 import InputField from "../../components/InputField";
 import SelectField from "../../components/SelectField";
 import Grid from "@material-ui/core/Grid/Grid";
@@ -61,9 +60,9 @@ class CreateRequestForm extends Component {
   }
 
   fetchRequestTypes = () => {
-    request
-      .get("request/type/list")
-      .then(requestTypes => this.setState({ requestTypes }));
+    request.get("request/type/list").then(requestTypes => {
+      this.setState({ requestTypes });
+    });
   };
 
   fetchObjectPropertyList = () => {
@@ -71,6 +70,7 @@ class CreateRequestForm extends Component {
   };
 
   createRequest = requestObj => {
+    console.log(requestObj);
     request
       .post("request/create", {
         ...requestObj,
@@ -132,11 +132,9 @@ class CreateRequestForm extends Component {
                       />
                     </FormControl>
                     <FormControl className={classes.margin} fullWidth>
-                      <InputLabel htmlFor="input-with-icon-adornment">
-                        Тип запроса
-                      </InputLabel>
                       <SelectField
                         name="type"
+                        label="Тип запроса"
                         values={requestTypes}
                         classes={classes}
                       />
