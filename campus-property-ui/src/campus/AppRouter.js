@@ -6,10 +6,10 @@ import AdminCreateForm from "./security/AdminCreateForm";
 import WorkerAccountForm from "./admin/WorkerAccountForm";
 import HomeForm from "./HomeForm";
 import CreateRequestForm from "./request/CreateRequestForm";
-import AccountantRequestListForm from "./accountant/AccountantRequestListForm";
+import AccountantRequestListForm from "./accountant/request/AccountantRequestListForm";
 import AccountantInventoryForm from "./accountant/AccountantInventoryForm";
 import AccountantLetterForm from "./accountant/AccountantLetterForm";
-import RequestInventoryForm from "./inventory/RequestInventoryForm"
+import RequestInventoryForm from "./inventory/RequestInventoryForm";
 
 const AppRouter = () => {
   return (
@@ -21,8 +21,16 @@ const AppRouter = () => {
       <Route exact path="/request/create" component={CreateRequestForm} />
       <Route exact path="/login" component={LoginForm} />
       <Route exact path="/admin/create/account" component={WorkerAccountForm} />
-      <Route exact path="/accountant/inventory" component={AccountantInventoryForm} />
-      <Route exact path="/accountant/list" component={AccountantRequestListForm} />
+      <Route
+        exact
+        path="/accountant/request/list"
+        component={AccountantRequestListForm}
+      />
+      <Route
+        exact
+        path="/accountant/inventory"
+        component={AccountantInventoryForm}
+      />
       <Route exact path="/accountant/letter" component={AccountantLetterForm} />
     </Switch>
   );

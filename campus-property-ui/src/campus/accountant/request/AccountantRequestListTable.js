@@ -1,12 +1,14 @@
-import { uniqueId } from "lodash";
 import React, { Component } from "react";
+import { withStyles } from "@material-ui/core/styles";
+import { uniqueId } from "lodash";
 import Table from "@material-ui/core/Table";
+import TableBody from "@material-ui/core/TableBody";
+import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
-import TableCell from "@material-ui/core/TableCell";
-import TableBody from "@material-ui/core/TableBody";
-import { withStyles } from "@material-ui/core";
-import RequestRecordListDialog from "../request/record/RequestRecordListDialog";
+import RequestRecordListDialog from "../../request/record/RequestRecordListDialog";
+import Button from "@material-ui/core/Button/Button";
+import { RequestStatus } from "../../request/RequestStatus";
 
 const styles = theme => ({
   root: {
@@ -19,29 +21,44 @@ const styles = theme => ({
 });
 
 const columns = [
-  { title: "Инвентарный номер", key: uniqueId(), property: "propertyNumber" },
-  { title: "Название", key: uniqueId(), property: "caption" },
-  { title: "Поставщик", key: uniqueId(), property: "maker" },
-  { title: "Дата приобритения", key: uniqueId(), property: "date" },
-  { title: "Стоимость", key: uniqueId(), property: "cost" },
-  { title: "Комната", key: uniqueId(), property: "room" },
+  { title: "Номер", key: uniqueId(), property: "id" },
+  { title: "Содержание", key: uniqueId(), property: "content" },
+  { title: "Тип", key: uniqueId(), property: "type" },
   { title: "Состояние", key: uniqueId(), property: "state" },
   {
-    title: "Материально ответственное лицо",
+    title: "Сотрудник университета",
+    key: uniqueId(),
+    property: "universityWorker"
+  },
+  {
+    title: "Сотрудник хоз. части",
     key: uniqueId(),
     property: "economicOfficer"
   },
-  { title: "Принимающий бухгалтер", key: uniqueId(), property: "accountant" }
+  { title: "Бухгалтер", key: uniqueId(), property: "accountant" }
 ];
 
-class RequestInventoryTable extends Component {
+const ApprovedButton = props => {
+  const { classes, onClick } = props;
+  return (
+    <Button
+      variant="contained"
+      color="secondary"
+      className={classes.button}
+      onClick={onClick}
+    >
+      Одобрить
+    </Button>
+  );
+};
+
+class AccountantRequestListTable extends Component {
   state = {
     openRecords: false,
     selectedRequest: null
   };
-
   render() {
-    const { classes, data } = this.props;
+    const { classes, data, status, onApprove } = this.props;
     const { openRecords, selectedRequest } = this.state;
     return (
       <React.Fragment>
@@ -67,27 +84,27 @@ class RequestInventoryTable extends Component {
           <TableBody>
             {data &&
               data.map(row => (
-                <TableRow hover key={row.id}>
+                <TableRow
+                  hover
+                  key={row.id}
+                  onDoubleClick={() => {
+                    this.setState({ openRecords: true, selectedRequest: row });
+                  }}
+                >
                   <TableCell component="th" scope="row">
-                    {row.propertyNumber}
+                    {row.id}
                   </TableCell>
                   <TableCell component="th" scope="row">
-                    {row.caption}
+                    {row.content}
                   </TableCell>
                   <TableCell component="th" scope="row">
-                    {row.maker}
-                  </TableCell>
-                  <TableCell component="th" scope="row">
-                    {row.date}
-                  </TableCell>
-                  <TableCell component="th" scope="row">
-                    {row.cost}
-                  </TableCell>
-                  <TableCell component="th" scope="row">
-                    {row.room.number}
+                    {row.type}
                   </TableCell>
                   <TableCell component="th" scope="row">
                     {row.state}
+                  </TableCell>
+                  <TableCell component="th" scope="row">
+                    {row.universityWorker.name}
                   </TableCell>
                   <TableCell component="th" scope="row">
                     {row.economicOfficer.name}
@@ -95,6 +112,14 @@ class RequestInventoryTable extends Component {
                   <TableCell component="th" scope="row">
                     {row.accountant.name}
                   </TableCell>
+                  {status === RequestStatus.WAITING && (
+                    <TableCell component="th" scope="row">
+                      <ApprovedButton
+                        classes={classes}
+                        onClick={() => onApprove(row.id)}
+                      />
+                    </TableCell>
+                  )}
                 </TableRow>
               ))}
           </TableBody>
@@ -104,4 +129,4 @@ class RequestInventoryTable extends Component {
   }
 }
 
-export default withStyles(styles)(RequestInventoryTable);
+export default withStyles(styles)(AccountantRequestListTable);

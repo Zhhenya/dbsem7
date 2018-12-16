@@ -5,7 +5,7 @@ import AddIcon from "@material-ui/icons/Add";
 import { withRouter } from "react-router";
 import withStyles from "@material-ui/core/styles/withStyles";
 import Typography from "@material-ui/core/es/Typography/Typography";
-import RequestByStatusForm from "../request/RequestsByStatusForm";
+import WorkerRequestByStatusForm from "./WorkerRequestsByStatusForm";
 
 const styles = theme => ({
   root: {
@@ -15,7 +15,7 @@ const styles = theme => ({
     margin: theme.spacing.unit * 4
   },
   button: {
-    margin: theme.spacing.unit * 4,
+    margin: theme.spacing.unit * 4
   },
   rightIcon: {
     marginLeft: theme.spacing.unit
@@ -55,7 +55,7 @@ class WorkerHomeForm extends Component {
           </Button>
         </Grid>
         <Grid item xs={12}>
-          <RequestByStatusForm />
+          <WorkerRequestByStatusForm />
         </Grid>
       </Grid>
     );

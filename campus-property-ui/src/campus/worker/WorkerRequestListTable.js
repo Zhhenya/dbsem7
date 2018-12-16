@@ -6,8 +6,7 @@ import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
-import RequestRecordListDialog from "./record/RequestRecordListDialog";
-import Button from "@material-ui/core/Button/Button";
+import RequestRecordListDialog from "../request/record/RequestRecordListDialog";
 
 const styles = theme => ({
   root: {
@@ -37,27 +36,13 @@ const columns = [
   { title: "Бухгалтер", key: uniqueId(), property: "accountant" }
 ];
 
-const ApprovedButton = props => {
-  const { classes, onClick } = props;
-  return (
-    <Button
-      variant="contained"
-      color="secondary"
-      className={classes.button}
-      onClick={onClick}
-    >
-      Одобрить
-    </Button>
-  );
-};
-
-class RequestListTable extends Component {
+class WorkerRequestListTable extends Component {
   state = {
     openRecords: false,
     selectedRequest: null
   };
   render() {
-    const { classes, data, approving, onApprove } = this.props;
+    const { classes, data } = this.props;
     const { openRecords, selectedRequest } = this.state;
     return (
       <React.Fragment>
@@ -111,14 +96,6 @@ class RequestListTable extends Component {
                   <TableCell component="th" scope="row">
                     {row.accountant.name}
                   </TableCell>
-                  {approving && (
-                    <TableCell component="th" scope="row">
-                      <ApprovedButton
-                        classes={classes}
-                        onClick={() => onApprove(row.id)}
-                      />
-                    </TableCell>
-                  )}
                 </TableRow>
               ))}
           </TableBody>
@@ -128,4 +105,4 @@ class RequestListTable extends Component {
   }
 }
 
-export default withStyles(styles)(RequestListTable);
+export default withStyles(styles)(WorkerRequestListTable);

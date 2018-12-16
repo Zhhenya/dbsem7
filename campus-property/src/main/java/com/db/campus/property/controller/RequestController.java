@@ -1,6 +1,5 @@
 package com.db.campus.property.controller;
 
-import com.db.campus.property.dto.ObjectPropertyDto;
 import com.db.campus.property.dto.RequestDto;
 import com.db.campus.property.enums.RequestState;
 import com.db.campus.property.service.request.RequestService;
@@ -22,11 +21,18 @@ public class RequestController {
         this.requestTypeService = requestTypeService;
     }
 
-    @RequestMapping("request/{status}/list/{id}")
+    @RequestMapping("request/{status}/list/worker/{id}")
     @ResponseBody
-    public List<RequestDto> fetchRequestList(@PathVariable("id") long workerId,
-                                             @PathVariable("status") String status) {
-        return requestService.fetchRequestList(workerId, RequestState.valueOf(status.toUpperCase()));
+    public List<RequestDto> fetchWorkerRequestList(@PathVariable("id") long workerId,
+                                                   @PathVariable("status") String status) {
+        return requestService.fetchWorkerRequestList(workerId, RequestState.valueOf(status.toUpperCase()));
+    }
+
+    @RequestMapping("request/{status}/list/accountant/{id}")
+    @ResponseBody
+    public List<RequestDto> fetchAccountantRequestList(@PathVariable("id") long accountantId,
+                                                       @PathVariable("status") String status) {
+        return requestService.fetchAccountantRequestList(accountantId, RequestState.valueOf(status.toUpperCase()));
     }
 
     @RequestMapping("request/{status}/list")
@@ -40,7 +46,6 @@ public class RequestController {
     public List<String> getRequestTypeList() {
         return requestTypeService.fetchRequestTypeList();
     }
-
 
 
     @RequestMapping(value = "/request/create", method = RequestMethod.POST)
@@ -60,7 +65,6 @@ public class RequestController {
     public List<RequestDto> getRequestList() {
         return requestService.fetchRequestList();
     }
-
 
 
 }

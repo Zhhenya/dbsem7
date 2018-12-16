@@ -1,6 +1,5 @@
 package com.db.campus.property.service.request;
 
-import com.db.campus.property.dto.ObjectPropertyDto;
 import com.db.campus.property.dto.RequestDto;
 import com.db.campus.property.dto.RequestRecordDto;
 import com.db.campus.property.entity.RequestEntity;
@@ -17,7 +16,9 @@ public interface RequestService {
 
     List<RequestDto> fetchRequestList();
 
-    List<RequestDto> fetchRequestList(Long universityWorkerId, RequestState requestState);
+    List<RequestDto> fetchWorkerRequestList(Long universityWorkerId, RequestState requestState);
+
+    List<RequestDto> fetchAccountantRequestList(Long accountantId, RequestState requestState);
 
     List<RequestDto> fetchRequestList(RequestState requestState);
 
