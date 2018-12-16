@@ -1,5 +1,6 @@
 import React from "react";
 import { observer } from "mobx-react";
+import { withRouter } from "react-router-dom";
 import state from "./stateProvider";
 import LoginForm from "../campus/security/LoginForm";
 import * as request from "./request";
@@ -19,4 +20,4 @@ const Auth = ({ children }) => {
   return state.authorized ? children : <LoginForm />;
 };
 
-export default observer(Auth);
+export default withRouter(observer(Auth));
