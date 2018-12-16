@@ -6,6 +6,7 @@ import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import TableBody from "@material-ui/core/TableBody";
 import {withStyles} from "@material-ui/core";
+import RequestRecordListDialog from "../request/record/RequestRecordListDialog";
 
 
 const styles = theme => ({
@@ -19,7 +20,6 @@ const styles = theme => ({
 });
 
 const columns = [
-    { title: "ID", key: uniqueId(), property: "id"},
     { title: "Инвентарный номер", key: uniqueId(), property: "propertyNumber" },
     { title: "Название", key: uniqueId(), property: "caption" },
     { title: "Поставщик", key: uniqueId(), property: "maker" },
@@ -39,8 +39,20 @@ class RequestInventoryTable extends Component{
 
     render() {
         const { classes, data} = this.props;
+        const { openRecords, selectedRequest } = this.state;
         return (
             <React.Fragment>
+                {selectedRequest && openRecords && (
+                    <RequestRecordListDialog
+                        open={openRecords}
+                        onClose={() => {
+                            console.log("close");
+                            this.setState({ openRecords: false });
+                        }}
+                        records={selectedRequest.requestRecordList}
+                        number={selectedRequest.id}
+                    />
+                )}
                 <Table className={classes.table}>
                     <TableHead>
                         <TableRow>
@@ -66,19 +78,19 @@ class RequestInventoryTable extends Component{
                                     {row.maker}
                                 </TableCell>
                                 <TableCell component="th" scope="row">
-                                    {row.state}
-                                </TableCell>
-                                <TableCell component="th" scope="row">
                                     {row.date}
                                 </TableCell>
                                 <TableCell component="th" scope="row">
-                                    {row.economicOfficer.name}
-                                </TableCell>
-                                <TableCell component="th" scope="row">
-                                    {row.room}
-                                </TableCell>
-                                <TableCell component="th" scope="row">
                                     {row.cost}
+                                </TableCell>
+                                <TableCell component="th" scope="row">
+                                    {row.room.number}
+                                </TableCell>
+                                <TableCell component="th" scope="row">
+                                    {row.state}
+                                </TableCell>
+                                <TableCell component="th" scope="row">
+                                    {row.economicOfficer.name}
                                 </TableCell>
                                 <TableCell component="th" scope="row">
                                     {row.accountant.name}
