@@ -22,7 +22,6 @@ import java.util.List;
 public class RequestServiceImpl implements RequestService {
 
     private final RequestConverter requestConverter;
-    private final ObjectPropertyConverter objectPropertyConverter;
     private final RequestRepository requestRepository;
     private final TypeRequestRepository typeRequestRepository;
     private final StateRequestRepository stateRequestRepository;
@@ -35,7 +34,6 @@ public class RequestServiceImpl implements RequestService {
 
     @Autowired
     public RequestServiceImpl(RequestConverter requestConverter,
-                              ObjectPropertyConverter objectPropertyConverter,
                               RequestRepository requestRepository,
                               TypeRequestRepository typeRequestRepository,
                               StateRequestRepository stateRequestRepository,
@@ -46,7 +44,6 @@ public class RequestServiceImpl implements RequestService {
                               RandomProviderService randomProviderService,
                               ObjectPropertyRepository objectPropertyRepository) {
         this.requestConverter = requestConverter;
-        this.objectPropertyConverter = objectPropertyConverter;
         this.requestRepository = requestRepository;
         this.typeRequestRepository = typeRequestRepository;
         this.stateRequestRepository = stateRequestRepository;
@@ -63,7 +60,7 @@ public class RequestServiceImpl implements RequestService {
     public List<RequestDto> fetchRequestList(Long universityWorkerId, RequestState requestState) {
         return requestConverter.convertAll(
                 requestRepository.findAllByUniversityWorker_IdAndStateRequest_Name(universityWorkerId,
-                                                                                   requestState.getDisplayName()));
+                        requestState.getDisplayName()));
     }
 
     @Transactional(readOnly = true)
@@ -76,7 +73,7 @@ public class RequestServiceImpl implements RequestService {
     @Override
     public void approve(Long requestId) {
         RequestEntity requestEntity = requestRepository.findById(requestId)
-                                                       .orElseThrow(() -> new RequestNotFoundException(requestId));
+                .orElseThrow(() -> new RequestNotFoundException(requestId));
         requestEntity.setStateRequest(stateRequestRepository.findByName(RequestState.APPROVED.getDisplayName()));
         requestRepository.save(requestEntity);
     }
@@ -89,8 +86,8 @@ public class RequestServiceImpl implements RequestService {
         String propertyNumber = requestRecordDto.getObjectProperty().getPropertyNumber();
         if (!propertyNumber.isEmpty()) {
             requestRecordEntity.setObjectProperty(objectPropertyRepository
-                                                          .findByPropertyNumber(propertyNumber)
-                                                          .orElseThrow(() -> new PropertyNumberNotFoundException(propertyNumber)));
+                    .findByPropertyNumber(propertyNumber)
+                    .orElseThrow(() -> new PropertyNumberNotFoundException(propertyNumber)));
         }
         requestRecordEntity.setRequest(requestEntity);
         return requestRecordRepository.saveAndFlush(requestRecordEntity);
@@ -117,9 +114,5 @@ public class RequestServiceImpl implements RequestService {
         return requestConverter.convertAll(requestRepository.findAll());
     }
 
-    @Transactional(readOnly = true)
-    @Override
-    public List<ObjectPropertyDto> fetchObjectList() {
-        return objectPropertyConverter.convertAll(objectPropertyRepository.findAll());
-    }
+
 }

@@ -12,7 +12,7 @@ class RequestInventoryForm extends Component{
     }
 
     fetchTableData = () =>
-        request.get("/request/inventory").then(data => {
+        request.get("/inventory").then(data => {
             this.setState({ data });
         });
     render() {

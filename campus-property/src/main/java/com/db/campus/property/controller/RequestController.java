@@ -41,6 +41,8 @@ public class RequestController {
         return requestTypeService.fetchRequestTypeList();
     }
 
+
+
     @RequestMapping(value = "/request/create", method = RequestMethod.POST)
     @ResponseBody
     public void save(@RequestBody RequestDto requestDto) {
@@ -59,10 +61,6 @@ public class RequestController {
         return requestService.fetchRequestList();
     }
 
-    @RequestMapping("/request/inventory")
-    @ResponseBody
-    public List<ObjectPropertyDto> getInventoryList() {
-        return requestService.fetchObjectList();
-    }
+
 
 }

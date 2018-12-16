@@ -17,13 +17,13 @@ const AppRouter = () => {
       <Route exact path="/" component={HomeForm} />
       <Route exact path="/admin/create" component={AdminCreateForm} />
       <Route exact path="/request/list" component={RequestListForm} />
-      <Route exact path="/request/inventory" component={RequestInventoryForm} />
+      <Route exact path="/inventory" component={RequestInventoryForm} />
       <Route exact path="/request/create" component={CreateRequestForm} />
       <Route exact path="/login" component={LoginForm} />
       <Route exact path="/admin/create/account" component={WorkerAccountForm} />
-      <Route exact path="/accountant/request/inventory" component={AccountantInventoryForm} />
-      <Route exact path="/accountant/request/list" component={AccountantRequestListForm} />
-      <Route exact path="/accountant/request/letter" component={AccountantLetterForm} />
+      <Route exact path="/accountant/inventory" component={AccountantInventoryForm} />
+      <Route exact path="/accountant/list" component={AccountantRequestListForm} />
+      <Route exact path="/accountant/letter" component={AccountantLetterForm} />
     </Switch>
   );
 };

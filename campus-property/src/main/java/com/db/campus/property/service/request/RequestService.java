@@ -21,8 +21,6 @@ public interface RequestService {
 
     List<RequestDto> fetchRequestList(RequestState requestState);
 
-    List<ObjectPropertyDto> fetchObjectList();
-
     void approve(Long requestId);
 
 }
