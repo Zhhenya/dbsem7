@@ -9,7 +9,7 @@ import CreateRequestForm from "./request/CreateRequestForm";
 import AccountantRequestListForm from "./accountant/AccountantRequestListForm";
 import AccountantInventoryForm from "./accountant/AccountantInventoryForm";
 import AccountantLetterForm from "./accountant/AccountantLetterForm";
-import RequestInventoryForm from "./request/RequestInventoryForm"
+import RequestInventoryForm from "./inventory/RequestInventoryForm"
 
 const AppRouter = () => {
   return (
