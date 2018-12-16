@@ -20,6 +20,7 @@ const AppRouter = () => {
       <Route exact path="/inventory" component={RequestInventoryForm} />
       <Route exact path="/request/create" component={CreateRequestForm} />
       <Route exact path="/login" component={LoginForm} />
+	  <Route exact path="/inventarisation/list" component={InventarisationListForm} />
       <Route exact path="/admin/create/account" component={WorkerAccountForm} />
       <Route exact path="/accountant/inventory" component={AccountantInventoryForm} />
       <Route exact path="/accountant/list" component={AccountantRequestListForm} />
