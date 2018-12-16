@@ -1,7 +1,9 @@
 package com.db.campus.property.service.request;
 
+import com.db.campus.property.converter.ObjectPropertyConverter;
 import com.db.campus.property.converter.RequestConverter;
 import com.db.campus.property.dao.*;
+import com.db.campus.property.dto.ObjectPropertyDto;
 import com.db.campus.property.dto.RequestDto;
 import com.db.campus.property.dto.RequestRecordDto;
 import com.db.campus.property.entity.RequestEntity;
@@ -20,6 +22,7 @@ import java.util.List;
 public class RequestServiceImpl implements RequestService {
 
     private final RequestConverter requestConverter;
+    private final ObjectPropertyConverter objectPropertyConverter;
     private final RequestRepository requestRepository;
     private final TypeRequestRepository typeRequestRepository;
     private final StateRequestRepository stateRequestRepository;
@@ -32,6 +35,7 @@ public class RequestServiceImpl implements RequestService {
 
     @Autowired
     public RequestServiceImpl(RequestConverter requestConverter,
+                              ObjectPropertyConverter objectPropertyConverter,
                               RequestRepository requestRepository,
                               TypeRequestRepository typeRequestRepository,
                               StateRequestRepository stateRequestRepository,
@@ -42,6 +46,7 @@ public class RequestServiceImpl implements RequestService {
                               RandomProviderService randomProviderService,
                               ObjectPropertyRepository objectPropertyRepository) {
         this.requestConverter = requestConverter;
+        this.objectPropertyConverter = objectPropertyConverter;
         this.requestRepository = requestRepository;
         this.typeRequestRepository = typeRequestRepository;
         this.stateRequestRepository = stateRequestRepository;
@@ -110,5 +115,11 @@ public class RequestServiceImpl implements RequestService {
     @Override
     public List<RequestDto> fetchRequestList() {
         return requestConverter.convertAll(requestRepository.findAll());
+    }
+
+    @Transactional(readOnly = true)
+    @Override
+    public List<ObjectPropertyDto> fetchObjectList() {
+        return objectPropertyConverter.convertAll(objectPropertyRepository.findAll());
     }
 }

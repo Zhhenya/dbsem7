@@ -1,5 +1,6 @@
 package com.db.campus.property.controller;
 
+import com.db.campus.property.dto.ObjectPropertyDto;
 import com.db.campus.property.dto.RequestDto;
 import com.db.campus.property.enums.RequestState;
 import com.db.campus.property.service.request.RequestService;
@@ -56,6 +57,12 @@ public class RequestController {
     @ResponseBody
     public List<RequestDto> getRequestList() {
         return requestService.fetchRequestList();
+    }
+
+    @RequestMapping("/request/inventory")
+    @ResponseBody
+    public List<ObjectPropertyDto> getInventoryList() {
+        return requestService.fetchObjectList();
     }
 
 }
