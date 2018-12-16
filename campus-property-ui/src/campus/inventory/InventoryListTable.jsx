@@ -29,7 +29,7 @@ const columns = [
     { title: "Список объектов", key: uniqueId(), property: "list_objects" }
 ];
 
-const InventarisationListTable = props => {
+const InventoryListTable = props => {
     const { classes, data } = props;
     return (
         <Paper className={classes.root}>
@@ -72,4 +72,4 @@ const InventarisationListTable = props => {
     );
 };
 
-export default withStyles(styles)(InventarisationListTable);
+export default withStyles(styles)(InventoryListTable);

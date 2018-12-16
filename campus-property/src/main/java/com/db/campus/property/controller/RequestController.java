@@ -59,10 +59,5 @@ public class RequestController {
         return requestService.fetchRequestList();
     }
 
-	@RequestMapping("/inventarisation/list")
-    @ResponseBody
-    public List<RequestDto> getRequestList() {
-        return requestService.fetchRequestList();
-    }
 
 }

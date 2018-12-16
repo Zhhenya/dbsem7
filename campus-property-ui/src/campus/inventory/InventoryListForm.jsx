@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import request from "../../commons/request";
-import RequestInventoryTable from "./RequestInventoryTable"
+import InventoryListTable from "./InventoryListTable";
 
-class RequestInventoryForm extends Component{
+class InventoryListForm extends Component {
     state = {
         data: []
     };
@@ -12,12 +12,13 @@ class RequestInventoryForm extends Component{
     }
 
     fetchTableData = () =>
-        request.get("/inventory").then(data => {
+        request.get("/inventory/list").then(data => {
             this.setState({ data });
         });
+
     render() {
-        return <RequestInventoryTable data={this.state.data} />;
+        return <InventoryListTable data={this.state.data} />;
     }
 }
 
-export default RequestInventoryForm;
+export default InventoryListForm;

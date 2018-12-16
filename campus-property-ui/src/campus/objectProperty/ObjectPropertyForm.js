@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import request from "../../commons/request";
-import InventarisationListTable from "./InventarisationListTable";
+import RequestInventoryTable from "./ObjectPropertyTable"
 
-class InventarisationListForm extends Component {
+class ObjectPropertyForm extends Component{
     state = {
         data: []
     };
@@ -12,13 +12,12 @@ class InventarisationListForm extends Component {
     }
 
     fetchTableData = () =>
-        request.get("/inventarisation/list").then(data => {
+        request.get("/objectProperty").then(data => {
             this.setState({ data });
         });
-
     render() {
-        return <InventarisationListTable data={this.state.data} />;
+        return <RequestInventoryTable data={this.state.data} />;
     }
 }
 
-export default InventarisationListForm;
+export default ObjectPropertyForm;
