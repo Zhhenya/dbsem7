@@ -47,7 +47,6 @@ public class RequestController {
         return requestTypeService.fetchRequestTypeList();
     }
 
-
     @RequestMapping(value = "/request/create", method = RequestMethod.POST)
     @ResponseBody
     public void save(@RequestBody RequestDto requestDto) {

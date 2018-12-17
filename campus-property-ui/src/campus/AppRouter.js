@@ -9,6 +9,8 @@ import CreateRequestForm from "./request/CreateRequestForm";
 import AccountantRequestListForm from "./accountant/request/AccountantRequestListForm";
 import AccountantInventoryForm from "./accountant/AccountantInventoryForm";
 import AccountantLetterForm from "./accountant/AccountantLetterForm";
+import InventoryListForm from "./inventory/InventoryListForm";
+import ObjectPropertyForm from "./objectProperty/ObjectPropertyForm";
 import RequestInventoryForm from "./inventory/RequestInventoryForm";
 
 const AppRouter = () => {
@@ -17,9 +19,10 @@ const AppRouter = () => {
       <Route exact path="/" component={HomeForm} />
       <Route exact path="/admin/create" component={AdminCreateForm} />
       <Route exact path="/request/list" component={RequestListForm} />
-      <Route exact path="/inventory" component={RequestInventoryForm} />
+      <Route exact path="/objectProperty" component={ObjectPropertyForm} />
       <Route exact path="/request/create" component={CreateRequestForm} />
       <Route exact path="/login" component={LoginForm} />
+	    <Route exact path="/inventory/list" component={InventoryListForm} />
       <Route exact path="/admin/create/account" component={WorkerAccountForm} />
       <Route
         exact
