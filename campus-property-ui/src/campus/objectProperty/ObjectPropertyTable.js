@@ -31,7 +31,7 @@ const columns = [
     { title: "Принимающий бухгалтер", key: uniqueId(), property: "accountant"}
 ];
 
-class RequestInventoryTable extends Component{
+class ObjectPropertyTable extends Component{
     state = {
         openRecords: false,
         selectedRequest: null
@@ -104,4 +104,4 @@ class RequestInventoryTable extends Component{
     }
 }
 
-export default withStyles(styles)(RequestInventoryTable);
+export default withStyles(styles)(ObjectPropertyTable);

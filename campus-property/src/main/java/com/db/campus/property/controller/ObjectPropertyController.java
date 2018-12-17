@@ -36,9 +36,9 @@ public class ObjectPropertyController {
         return roomNumberService.fetchRoomNumberList();
     }
 
-    @RequestMapping("/inventory")
+    @RequestMapping("/objectProperty")
     @ResponseBody
-    public List<ObjectPropertyDto> getInventoryList() {
+    public List<ObjectPropertyDto> getObjectPropertyList() {
         return objectPropertyService.fetchObjectList();
     }
 
