@@ -1,13 +1,14 @@
 import React, { Component } from "react";
 import { withStyles } from "@material-ui/core/styles";
-import { uniqueId } from "lodash";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
-import RequestRecordListDialog from "./record/RequestRecordListDialog";
+import RequestRecordListDialog from "../../request/record/RequestRecordListDialog";
 import Button from "@material-ui/core/Button/Button";
+import { RequestStatus } from "../../request/RequestStatus";
+import RequestTableColumns from "../../request/RequestTableColumns";
 
 const styles = theme => ({
   root: {
@@ -18,24 +19,6 @@ const styles = theme => ({
     minWidth: 700
   }
 });
-
-const columns = [
-  { title: "Номер", key: uniqueId(), property: "id" },
-  { title: "Содержание", key: uniqueId(), property: "content" },
-  { title: "Тип", key: uniqueId(), property: "type" },
-  { title: "Состояние", key: uniqueId(), property: "state" },
-  {
-    title: "Сотрудник университета",
-    key: uniqueId(),
-    property: "universityWorker"
-  },
-  {
-    title: "Сотрудник хоз. части",
-    key: uniqueId(),
-    property: "economicOfficer"
-  },
-  { title: "Бухгалтер", key: uniqueId(), property: "accountant" }
-];
 
 const ApprovedButton = props => {
   const { classes, onClick } = props;
@@ -51,13 +34,13 @@ const ApprovedButton = props => {
   );
 };
 
-class RequestListTable extends Component {
+class AccountantRequestListTable extends Component {
   state = {
     openRecords: false,
     selectedRequest: null
   };
   render() {
-    const { classes, data, approving, onApprove } = this.props;
+    const { classes, data, status, onApprove } = this.props;
     const { openRecords, selectedRequest } = this.state;
     return (
       <React.Fragment>
@@ -75,7 +58,7 @@ class RequestListTable extends Component {
         <Table className={classes.table}>
           <TableHead>
             <TableRow>
-              {columns.map(column => (
+              {RequestTableColumns.map(column => (
                 <TableCell key={column.key}>{column.title}</TableCell>
               ))}
             </TableRow>
@@ -111,7 +94,7 @@ class RequestListTable extends Component {
                   <TableCell component="th" scope="row">
                     {row.accountant.name}
                   </TableCell>
-                  {approving && (
+                  {status === RequestStatus.WAITING && (
                     <TableCell component="th" scope="row">
                       <ApprovedButton
                         classes={classes}
@@ -128,4 +111,4 @@ class RequestListTable extends Component {
   }
 }
 
-export default withStyles(styles)(RequestListTable);
+export default withStyles(styles)(AccountantRequestListTable);

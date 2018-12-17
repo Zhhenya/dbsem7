@@ -1,10 +1,19 @@
 import React from "react";
 import Grid from "@material-ui/core/Grid/Grid";
 import Typography from "@material-ui/core/es/Typography/Typography";
-import RequestByStatusForm from "../request/RequestsByStatusForm";
+import OfficerRequestsByStatusForm from "./OfficerRequestsByStatusForm";
 import withStyles from "@material-ui/core/styles/withStyles";
 
-const AccountantRequestListForm = props => {
+const styles = theme => ({
+  root: {
+    flexGrow: 1
+  },
+  margin: {
+    margin: theme.spacing.unit * 4
+  }
+});
+
+const OfficerRequestListForm = props => {
   const { classes } = props;
   return (
     <React.Fragment>
@@ -21,11 +30,11 @@ const AccountantRequestListForm = props => {
           </Typography>
         </Grid>
         <Grid item xs={12}>
-          <RequestByStatusForm all approving/>
+          <OfficerRequestsByStatusForm />
         </Grid>
       </Grid>
     </React.Fragment>
   );
 };
 
-export default withStyles(null)(AccountantRequestListForm);
+export default withStyles(styles)(OfficerRequestListForm);

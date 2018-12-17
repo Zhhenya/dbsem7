@@ -1,6 +1,5 @@
 package com.db.campus.property.controller;
 
-import com.db.campus.property.dto.ObjectPropertyDto;
 import com.db.campus.property.dto.RequestDto;
 import com.db.campus.property.enums.RequestState;
 import com.db.campus.property.service.request.RequestService;
@@ -22,11 +21,25 @@ public class RequestController {
         this.requestTypeService = requestTypeService;
     }
 
-    @RequestMapping("request/{status}/list/{id}")
+    @RequestMapping("request/{status}/list/worker/{id}")
     @ResponseBody
-    public List<RequestDto> fetchRequestList(@PathVariable("id") long workerId,
-                                             @PathVariable("status") String status) {
-        return requestService.fetchRequestList(workerId, RequestState.valueOf(status.toUpperCase()));
+    public List<RequestDto> fetchWorkerRequestList(@PathVariable("id") long workerId,
+                                                   @PathVariable("status") String status) {
+        return requestService.fetchWorkerRequestList(workerId, RequestState.valueOf(status.toUpperCase()));
+    }
+
+    @RequestMapping("request/{status}/list/accountant/{id}")
+    @ResponseBody
+    public List<RequestDto> fetchAccountantRequestList(@PathVariable("id") long accountantId,
+                                                       @PathVariable("status") String status) {
+        return requestService.fetchAccountantRequestList(accountantId, RequestState.valueOf(status.toUpperCase()));
+    }
+
+    @RequestMapping("request/{status}/list/officer/{id}")
+    @ResponseBody
+    public List<RequestDto> fetchOfficerRequestList(@PathVariable("id") long officerId,
+                                                    @PathVariable("status") String status) {
+        return requestService.fetchOfficerRequestList(officerId, RequestState.valueOf(status.toUpperCase()));
     }
 
     @RequestMapping("request/{status}/list")
@@ -51,6 +64,18 @@ public class RequestController {
     @ResponseBody
     public void approve(@RequestBody Long requestId) {
         requestService.approve(requestId);
+    }
+
+    @RequestMapping(value = "/request/startProcessing", method = RequestMethod.POST)
+    @ResponseBody
+    public void startRequestProcessing(@RequestBody Long requestId) {
+        requestService.startRequestProcessing(requestId);
+    }
+
+    @RequestMapping(value = "/request/markAsReady", method = RequestMethod.POST)
+    @ResponseBody
+    public void markRequestAsReady(@RequestBody Long requestId) {
+        requestService.markRequestAsReady(requestId);
     }
 
     @RequestMapping("/request/list")

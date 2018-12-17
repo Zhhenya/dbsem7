@@ -3,17 +3,16 @@ import { Form, Formik } from "formik";
 import FormGroup from "@material-ui/core/FormGroup/FormGroup";
 import FormControl from "@material-ui/core/FormControl/FormControl";
 import withStyles from "@material-ui/core/styles/withStyles";
-import InputLabel from "@material-ui/core/InputLabel/InputLabel";
-import InputField from "../../components/InputField";
-import SelectField from "../../components/SelectField";
+import InputField from "../../../components/InputField";
+import SelectField from "../../../components/SelectField";
 import Grid from "@material-ui/core/Grid/Grid";
 import Button from "@material-ui/core/Button/Button";
-import RequestRecordListForm from "./record/RequestRecordListForm";
+import RequestRecordListForm from "../../request/record/RequestRecordListForm";
 import Divider from "@material-ui/core/Divider/Divider";
 import * as Yup from "yup";
-import * as request from "../../commons/request";
-import stateProvider from "../../commons/stateProvider";
-import SimpleAlertDialog from "../../commons/dialog/SimpleAlertDialog";
+import * as request from "../../../commons/request";
+import stateProvider from "../../../commons/stateProvider";
+import SimpleAlertDialog from "../../../commons/dialog/SimpleAlertDialog";
 import { withRouter } from "react-router";
 
 const styles = theme => ({
@@ -61,9 +60,9 @@ class CreateRequestForm extends Component {
   }
 
   fetchRequestTypes = () => {
-    request
-      .get("request/type/list")
-      .then(requestTypes => this.setState({ requestTypes }));
+    request.get("request/type/list").then(requestTypes => {
+      this.setState({ requestTypes });
+    });
   };
 
   fetchObjectPropertyList = () => {
@@ -71,6 +70,7 @@ class CreateRequestForm extends Component {
   };
 
   createRequest = requestObj => {
+    console.log(requestObj);
     request
       .post("request/create", {
         ...requestObj,
@@ -132,11 +132,9 @@ class CreateRequestForm extends Component {
                       />
                     </FormControl>
                     <FormControl className={classes.margin} fullWidth>
-                      <InputLabel htmlFor="input-with-icon-adornment">
-                        Тип запроса
-                      </InputLabel>
                       <SelectField
                         name="type"
+                        label="Тип запроса"
                         values={requestTypes}
                         classes={classes}
                       />

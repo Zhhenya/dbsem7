@@ -1,8 +1,9 @@
-import stateProvider from "../commons/stateProvider";
-import WorkerHomeForm from "./worker/WorkerHomeForm";
-import Roles from "./enums/Roles";
 import React from "react";
-import AccountantHomeForm from "./accountant/AccountantHomeForm";
+import stateProvider from "../commons/stateProvider";
+import Roles from "./enums/Roles";
+import { WorkerHomeForm } from "./worker";
+import { AccountantHomeForm } from "./accountant";
+import { OfficerHomeForm } from "./officer";
 
 const HomeForm = () => {
   const { user } = stateProvider;
@@ -16,6 +17,8 @@ const HomeForm = () => {
       return <WorkerHomeForm />;
     case Roles.ACCOUNTANT:
       return <AccountantHomeForm />;
+    case Roles.OFFICER:
+      return <OfficerHomeForm />;
     default:
       return null;
   }
