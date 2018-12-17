@@ -35,6 +35,13 @@ public class RequestController {
         return requestService.fetchAccountantRequestList(accountantId, RequestState.valueOf(status.toUpperCase()));
     }
 
+    @RequestMapping("request/{status}/list/officer/{id}")
+    @ResponseBody
+    public List<RequestDto> fetchOfficerRequestList(@PathVariable("id") long officerId,
+                                                    @PathVariable("status") String status) {
+        return requestService.fetchOfficerRequestList(officerId, RequestState.valueOf(status.toUpperCase()));
+    }
+
     @RequestMapping("request/{status}/list")
     @ResponseBody
     public List<RequestDto> fetchRequestList(@PathVariable("status") String status) {
@@ -57,6 +64,18 @@ public class RequestController {
     @ResponseBody
     public void approve(@RequestBody Long requestId) {
         requestService.approve(requestId);
+    }
+
+    @RequestMapping(value = "/request/startProcessing", method = RequestMethod.POST)
+    @ResponseBody
+    public void startRequestProcessing(@RequestBody Long requestId) {
+        requestService.startRequestProcessing(requestId);
+    }
+
+    @RequestMapping(value = "/request/markAsReady", method = RequestMethod.POST)
+    @ResponseBody
+    public void markRequestAsReady(@RequestBody Long requestId) {
+        requestService.markRequestAsReady(requestId);
     }
 
     @RequestMapping("/request/list")

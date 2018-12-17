@@ -20,8 +20,14 @@ public interface RequestService {
 
     List<RequestDto> fetchAccountantRequestList(Long accountantId, RequestState requestState);
 
+    List<RequestDto> fetchOfficerRequestList(Long officerId, RequestState requestState);
+
     List<RequestDto> fetchRequestList(RequestState requestState);
 
     void approve(Long requestId);
+
+    void startRequestProcessing(Long requestId);
+
+    void markRequestAsReady(Long requestId);
 
 }

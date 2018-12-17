@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import stateProvider from "../../commons/stateProvider";
-import * as request from "../../commons/request";
+import stateProvider from "../../../commons/stateProvider";
+import * as request from "../../../commons/request";
 import PropTypes from "prop-types";
-import { RequestStatus } from "../request/RequestStatus";
+import { RequestStatus } from "../../request/RequestStatus";
 import RequestListTable from "./WorkerRequestListTable";
 import Typography from "@material-ui/core/es/Typography/Typography";
 

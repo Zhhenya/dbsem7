@@ -5,7 +5,7 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import Typography from "@material-ui/core/Typography/Typography";
 import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails/ExpansionPanelDetails";
 import WorkerStatusRequestListForm from "./WorkerStatusRequestListForm";
-import { RequestStatus } from "../request/RequestStatus";
+import { RequestStatus } from "../../request/RequestStatus";
 import withStyles from "@material-ui/core/styles/withStyles";
 import { uniqueId } from "lodash";
 

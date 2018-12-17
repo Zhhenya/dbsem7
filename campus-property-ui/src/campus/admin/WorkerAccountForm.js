@@ -4,7 +4,6 @@ import CardContent from "@material-ui/core/CardContent/CardContent";
 import { Form, Formik } from "formik";
 import FormGroup from "@material-ui/core/FormGroup/FormGroup";
 import FormControl from "@material-ui/core/FormControl/FormControl";
-import InputLabel from "@material-ui/core/InputLabel/InputLabel";
 import InputField from "../../components/InputField";
 import Button from "@material-ui/core/Button/Button";
 import Grid from "@material-ui/core/Grid/Grid";
@@ -71,32 +70,25 @@ class WorkerAccountForm extends Component {
               <Form className={classes.container}>
                 <FormGroup>
                   <FormControl className={classes.margin}>
-                    <InputLabel htmlFor="input-with-icon-adornment">
-                      ФИО
-                    </InputLabel>
-                    <InputField name="name" classes={classes} />
+                    <InputField name="name" classes={classes} label="ФИО" />
                   </FormControl>
                   <FormControl className={classes.margin}>
-                    <InputLabel htmlFor="input-with-icon-adornment">
-                      Логин
-                    </InputLabel>
-                    <InputField name="login" classes={classes} />
+                    <InputField name="login" classes={classes} label="Логин" />
                   </FormControl>
                   <FormControl className={classes.margin}>
-                    <InputLabel htmlFor="input-with-icon-adornment">
-                      Пароль
-                    </InputLabel>
                     <InputField
                       name="password"
                       type="password"
+                      label="Пароль"
                       classes={classes}
                     />
                   </FormControl>
                   <FormControl className={classes.margin}>
-                    <InputLabel htmlFor="input-with-icon-adornment">
-                      Роль
-                    </InputLabel>
-                    <SelectField name="role" values={this.state.roles} />
+                    <SelectField
+                      name="role"
+                      label="Роль"
+                      values={this.state.roles}
+                    />
                   </FormControl>
                   <Button
                     variant="contained"

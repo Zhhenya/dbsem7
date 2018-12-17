@@ -1,9 +1,10 @@
 import React from "react";
 import { Field, getIn } from "formik";
 import TextField from "@material-ui/core/TextField/TextField";
+import * as PropTypes from "prop-types";
 
 const InputField = props => {
-  const { classes, name, ...other } = props;
+  const { name, ...other } = props;
 
   return (
     <Field
@@ -22,6 +23,11 @@ const InputField = props => {
       }}
     />
   );
+};
+
+InputField.propTypes = {
+  ...TextField.propTypes,
+  name: PropTypes.string
 };
 
 export default InputField;

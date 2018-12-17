@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import request from "../../commons/request";
-import RequestListTable from "../worker/WorkerRequestListTable";
+import RequestListTable from "../worker/request/WorkerRequestListTable";
 
 class RequestListForm extends Component {
   state = {

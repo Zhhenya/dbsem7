@@ -71,6 +71,14 @@ public class RequestServiceImpl implements RequestService {
 
     @Transactional(readOnly = true)
     @Override
+    public List<RequestDto> fetchOfficerRequestList(Long officerId, RequestState requestState) {
+        return requestConverter.convertAll(
+                requestRepository.findAllByEconomicOfficer_IdAndStateRequest_Name(officerId,
+                                                                                  requestState.getDisplayName()));
+    }
+
+    @Transactional(readOnly = true)
+    @Override
     public List<RequestDto> fetchRequestList(RequestState requestState) {
         return requestConverter.convertAll(requestRepository.findAllByStateRequest_Name(requestState.getDisplayName()));
     }
@@ -78,10 +86,19 @@ public class RequestServiceImpl implements RequestService {
     @Transactional
     @Override
     public void approve(Long requestId) {
-        RequestEntity requestEntity = requestRepository.findById(requestId)
-                                                       .orElseThrow(() -> new RequestNotFoundException(requestId));
-        requestEntity.setStateRequest(stateRequestRepository.findByName(RequestState.APPROVED.getDisplayName()));
-        requestRepository.save(requestEntity);
+        setRequestState(requestId, RequestState.APPROVED);
+    }
+
+    @Transactional
+    @Override
+    public void startRequestProcessing(Long requestId) {
+        setRequestState(requestId, RequestState.PROCESSING);
+    }
+
+    @Transactional
+    @Override
+    public void markRequestAsReady(Long requestId) {
+        setRequestState(requestId, RequestState.READY);
     }
 
     @Transactional
@@ -120,5 +137,11 @@ public class RequestServiceImpl implements RequestService {
         return requestConverter.convertAll(requestRepository.findAll());
     }
 
+    private void setRequestState(long requestId, RequestState requestState) {
+        RequestEntity requestEntity = requestRepository.findById(requestId)
+                                                       .orElseThrow(() -> new RequestNotFoundException(requestId));
+        requestEntity.setStateRequest(stateRequestRepository.findByName(requestState.getDisplayName()));
+        requestRepository.save(requestEntity);
+    }
 
 }

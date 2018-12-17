@@ -5,7 +5,7 @@ import AddIcon from "@material-ui/icons/Add";
 import { withRouter } from "react-router";
 import withStyles from "@material-ui/core/styles/withStyles";
 import Typography from "@material-ui/core/es/Typography/Typography";
-import WorkerRequestByStatusForm from "./WorkerRequestsByStatusForm";
+import WorkerRequestsByStatusForm from "./request/WorkerRequestsByStatusForm";
 
 const styles = theme => ({
   root: {
@@ -55,7 +55,7 @@ class WorkerHomeForm extends Component {
           </Button>
         </Grid>
         <Grid item xs={12}>
-          <WorkerRequestByStatusForm />
+          <WorkerRequestsByStatusForm />
         </Grid>
       </Grid>
     );

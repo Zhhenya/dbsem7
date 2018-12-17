@@ -11,6 +11,8 @@ public interface RequestRepository extends JpaRepository<RequestEntity, Long> {
 
     Iterable<RequestEntity> findAllByAccountant_IdAndStateRequest_Name(long id, String statusName);
 
+    Iterable<RequestEntity> findAllByEconomicOfficer_IdAndStateRequest_Name(long id, String statusName);
+
     Iterable<RequestEntity> findAllByStateRequest_Name(String statusName);
 
 }

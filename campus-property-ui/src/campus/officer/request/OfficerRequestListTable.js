@@ -1,16 +1,16 @@
 import React, { Component } from "react";
-import { withStyles } from "@material-ui/core/styles";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
 import RequestRecordListDialog from "../../request/record/RequestRecordListDialog";
-import Button from "@material-ui/core/Button/Button";
-import { RequestStatus } from "../../request/RequestStatus";
+import Table from "@material-ui/core/Table/Table";
+import TableHead from "@material-ui/core/TableHead/TableHead";
+import TableRow from "@material-ui/core/TableRow/TableRow";
 import RequestTableColumns from "../../request/RequestTableColumns";
+import TableCell from "@material-ui/core/TableCell/TableCell";
+import TableBody from "@material-ui/core/TableBody/TableBody";
+import { RequestStatus } from "../../request/RequestStatus";
+import Button from "@material-ui/core/Button/Button";
+import withStyles from "@material-ui/core/styles/withStyles";
 
-const styles = theme => ({
+const styles = () => ({
   root: {
     width: "100%",
     overflowX: "auto"
@@ -20,7 +20,21 @@ const styles = theme => ({
   }
 });
 
-const ApprovedButton = props => {
+const StartProcessingButton = props => {
+  const { classes, onClick } = props;
+  return (
+    <Button
+      variant="contained"
+      color="primary"
+      className={classes.button}
+      onClick={onClick}
+    >
+      Начать выполнение
+    </Button>
+  );
+};
+
+const MarkAsReadyButton = props => {
   const { classes, onClick } = props;
   return (
     <Button
@@ -29,18 +43,18 @@ const ApprovedButton = props => {
       className={classes.button}
       onClick={onClick}
     >
-      Одобрить
+      Выполнено
     </Button>
   );
 };
 
-class AccountantRequestListTable extends Component {
+class OfficerRequestListTable extends Component {
   state = {
     openRecords: false,
     selectedRequest: null
   };
   render() {
-    const { classes, data, status, onApprove } = this.props;
+    const { classes, data, status, onProcessing, onReady } = this.props;
     const { openRecords, selectedRequest } = this.state;
     return (
       <React.Fragment>
@@ -94,11 +108,19 @@ class AccountantRequestListTable extends Component {
                   <TableCell component="th" scope="row">
                     {row.accountant.name}
                   </TableCell>
-                  {status === RequestStatus.WAITING && (
+                  {status === RequestStatus.APPROVED && (
                     <TableCell component="th" scope="row">
-                      <ApprovedButton
+                      <StartProcessingButton
                         classes={classes}
-                        onClick={() => onApprove(row.id)}
+                        onClick={() => onProcessing(row.id)}
+                      />
+                    </TableCell>
+                  )}
+                  {status === RequestStatus.PROCESSING && (
+                    <TableCell component="th" scope="row">
+                      <MarkAsReadyButton
+                        classes={classes}
+                        onClick={() => onReady(row.id)}
                       />
                     </TableCell>
                   )}
@@ -111,4 +133,4 @@ class AccountantRequestListTable extends Component {
   }
 }
 
-export default withStyles(styles)(AccountantRequestListTable);
+export default withStyles(styles)(OfficerRequestListTable);

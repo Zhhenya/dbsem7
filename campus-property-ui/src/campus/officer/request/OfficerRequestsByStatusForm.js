@@ -1,17 +1,17 @@
 import React, { Component } from "react";
-import ExpansionPanel from "@material-ui/core/ExpansionPanel/ExpansionPanel";
-import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary/ExpansionPanelSummary";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import Typography from "@material-ui/core/Typography/Typography";
-import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails/ExpansionPanelDetails";
 import { RequestStatus } from "../../request/RequestStatus";
-import withStyles from "@material-ui/core/styles/withStyles";
 import * as request from "../../../commons/request";
 import stateProvider from "../../../commons/stateProvider";
-import AccountantRequestListTable from "./AccountantRequestListTable";
 import RequestPanels from "../../request/RequestPanels";
+import ExpansionPanel from "@material-ui/core/ExpansionPanel/ExpansionPanel";
+import ExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary/ExpansionPanelSummary";
+import ExpandMoreIcon from "@material-ui/core/SvgIcon/SvgIcon";
+import Typography from "@material-ui/core/Typography/Typography";
+import ExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails/ExpansionPanelDetails";
+import withStyles from "@material-ui/core/styles/withStyles";
+import OfficerRequestListTable from "./OfficerRequestListTable";
 
-class AccountantRequestsByStatusForm extends Component {
+class OfficerRequestsByStatusForm extends Component {
   state = {
     [RequestStatus.WAITING]: [],
     [RequestStatus.APPROVED]: [],
@@ -20,26 +20,32 @@ class AccountantRequestsByStatusForm extends Component {
   };
 
   componentDidMount() {
-    this.fetchRequestListOfAccountant();
+    this.fetchRequestListOfOfficer();
   }
 
-  fetchRequestListOfAccountant = () => {
+  fetchRequestListOfOfficer = () => {
     Object.values(RequestStatus).forEach(status => {
-      this.fetchRequestListOfAccountantByStatus(status);
+      this.fetchRequestListOfOfficerByStatus(status);
     });
   };
 
-  fetchRequestListOfAccountantByStatus = status => {
+  fetchRequestListOfOfficerByStatus = status => {
     request
-      .get("request/" + status + "/list/accountant/" + stateProvider.user.id)
+      .get("request/" + status + "/list/officer/" + stateProvider.user.id)
       .then(requestList => {
         this.setState({ [status]: requestList });
       });
   };
 
-  approveRequest = requestId => {
-    request.post("/approveRequest", requestId).then(() => {
-      this.fetchRequestListOfAccountant();
+  startRequestProcessing = requestId => {
+    request.post("/request/startProcessing", requestId).then(() => {
+      this.fetchRequestListOfOfficer();
+    });
+  };
+
+  markRequestAsReady = requestId => {
+    request.post("/request/markAsReady", requestId).then(() => {
+      this.fetchRequestListOfOfficer();
     });
   };
 
@@ -58,10 +64,11 @@ class AccountantRequestsByStatusForm extends Component {
               {!this.state[panel.status] || !this.state[panel.status].length ? (
                 <Typography variant="subtitle1">Нет заявок</Typography>
               ) : (
-                <AccountantRequestListTable
+                <OfficerRequestListTable
                   status={panel.status}
                   data={this.state[panel.status]}
-                  onApprove={this.approveRequest}
+                  onProcessing={this.startRequestProcessing}
+                  onReady={this.markRequestAsReady}
                 />
               )}
             </ExpansionPanelDetails>
@@ -72,4 +79,4 @@ class AccountantRequestsByStatusForm extends Component {
   }
 }
 
-export default withStyles(null)(AccountantRequestsByStatusForm);
+export default withStyles(null)(OfficerRequestsByStatusForm);
