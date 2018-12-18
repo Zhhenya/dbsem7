@@ -40,6 +40,9 @@ const styles = theme => ({
       duration: theme.transitions.duration.enteringScreen
     })
   },
+  paper: {
+    height: "100vh"
+  },
   menuButton: {
     marginLeft: 12,
     marginRight: 20
@@ -106,7 +109,9 @@ class AppWrapper extends Component {
 
   logout = () => {};
 
-  openProfile = () => {};
+  openProfile = () => {
+    this.props.history.push("/profile");
+  };
 
   render() {
     const { classes, children } = this.props;
@@ -205,7 +210,7 @@ class AppWrapper extends Component {
           })}
         >
           <div className={classes.drawerHeader} />
-          <Paper>{children}</Paper>
+          <Paper className={classes.paper}>{children}</Paper>
         </main>
       </div>
     );

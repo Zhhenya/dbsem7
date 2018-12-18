@@ -39,11 +39,11 @@ const INITIAL_VALUE = {
 const VALIDATION_SCHEMA = Yup.object().shape({
   requestRecordList: Yup.array().of(
     Yup.object().shape({
-      note: Yup.string().required("Required")
+      note: Yup.string().required("Поле не может быть пустым")
     })
   ),
-  content: Yup.string().required("Required"),
-  type: Yup.string().required("Required")
+  content: Yup.string().required("Поле не может быть пустым"),
+  type: Yup.string().required("Поле не может быть пустым")
 });
 
 class CreateRequestForm extends Component {
