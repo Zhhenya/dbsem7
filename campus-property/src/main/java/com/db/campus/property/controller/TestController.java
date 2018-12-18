@@ -39,7 +39,7 @@ public class TestController {
         userAccountEntity = userRepository.save(userAccountEntity);
         accountantEntity.setUserAccount(userRepository.findById(1).get());
         accountantRepository.save(accountantEntity);*/
-        securityService.autoLogin("ZHULITOV-MV", "ZHULITOV-MV-pass");
+        securityService.login("ZHULITOV-MV", "ZHULITOV-MV-pass");
         return "Hello World";
     }
 
