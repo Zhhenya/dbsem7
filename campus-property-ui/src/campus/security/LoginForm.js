@@ -30,8 +30,8 @@ const styles = theme => ({
 
 const login = (user, props) => {
   request.post("/loginRequest", user).then(() => {
-    if (this.props.location.pathname !== "/") {
-      this.props.history.replace("/");
+    if (props.location.pathname !== "/") {
+      props.history.replace("/");
     }
   });
 };
@@ -51,7 +51,7 @@ const LoginForm = props => {
             <Form className={classes.root}>
               <FormGroup>
                 <FormControl className={classes.marginNormal}>
-                  <InputField name="login" classes={classes} label="Логин"/>
+                  <InputField name="login" classes={classes} label="Логин" />
                 </FormControl>
                 <FormControl className={classes.marginNormal}>
                   <InputField
