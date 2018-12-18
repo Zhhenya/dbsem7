@@ -10,14 +10,15 @@ import SimpleAlertDialog from "../../commons/dialog/SimpleAlertDialog";
 import FormGroup from "@material-ui/core/es/FormGroup/FormGroup";
 import Grid from "@material-ui/core/Grid/Grid";
 import { withStyles } from "@material-ui/core";
+import { withRouter } from "react-router";
 
 const styles = theme => ({
   container: {
-    display: "flex",
     flexWrap: "wrap"
   },
-  margin: {
-    margin: theme.spacing.unit
+  formGroup: {
+    margin: theme.spacing.unit,
+    width: "100%"
   },
   button: {
     margin: 10
@@ -28,25 +29,26 @@ const VALIDATION_SCHEMA = Yup.object().shape({
   name: Yup.string().required("Поле не может быть пустым")
 });
 
-const saveUserName = user => {
-  save(user, Roles[user.role]);
-};
-
-const save = (user, role) => {
-  request
-    .post(role + "/save")
-    .then(() => {
-      this.setState({ success: true });
-    })
-    .catch(error => {
-      this.setState({ error });
-    });
-};
-
 class Profile extends Component {
   state = {
     success: false,
     error: null
+  };
+
+  saveUserName = user => {
+    console.log(user);
+    this.save(user, Roles[user.role].toLowerCase());
+  };
+
+  save = (user, role) => {
+    request
+      .post(role + "/save", user)
+      .then(() => {
+        this.setState({ success: true });
+      })
+      .catch(error => {
+        this.setState({ error });
+      });
   };
   render() {
     const { classes } = this.props;
@@ -56,10 +58,10 @@ class Profile extends Component {
       <React.Fragment>
         {success && (
           <SimpleAlertDialog
-            content="Имя сохранено"
+            title="Имя сохранено"
             open={success}
             onClose={() => {
-              this.setState({ success: false });
+              this.props.history.push("/");
             }}
           />
         )}
@@ -74,30 +76,32 @@ class Profile extends Component {
           />
         )}
         <Grid container justify="center" className={classes.container}>
-          <Formik
-            initialValues={user}
-            validationSchema={VALIDATION_SCHEMA}
-            onSubmit={saveUserName}
-            render={() => (
-              <Form>
-                <FormGroup className={classes.margin}>
-                  <InputField name="name" label="ФИО" />
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    type="submit"
-                    className={classes.button}
-                  >
-                    Изменить имя
-                  </Button>
-                </FormGroup>
-              </Form>
-            )}
-          />
+          <Grid item xs={6}>
+            <Formik
+              initialValues={user}
+              validationSchema={VALIDATION_SCHEMA}
+              onSubmit={this.saveUserName}
+              render={() => (
+                <Form>
+                  <FormGroup className={classes.formGroup}>
+                    <InputField name="name" label="ФИО" fullWidth />
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      type="submit"
+                      className={classes.button}
+                    >
+                      Изменить имя
+                    </Button>
+                  </FormGroup>
+                </Form>
+              )}
+            />
+          </Grid>
         </Grid>
       </React.Fragment>
     );
   }
 }
 
-export default withStyles(styles)(Profile);
+export default withStyles(styles)(withRouter(Profile));

@@ -1,30 +1,32 @@
 package com.db.campus.property.controller;
 
-import com.db.campus.property.converter.AccountantConverter;
-import com.db.campus.property.dao.AccountantRepository;
 import com.db.campus.property.dto.AccountantDto;
+import com.db.campus.property.service.accountant.AccountantService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 public class AccountantController {
 
-    private final AccountantRepository accountantRepository;
-    private final AccountantConverter accountantConverter;
+    private final AccountantService accountantService;
 
     @Autowired
-    public AccountantController(AccountantRepository accountantRepository, AccountantConverter accountantConverter) {
-        this.accountantRepository = accountantRepository;
-        this.accountantConverter = accountantConverter;
+    public AccountantController(AccountantService accountantService) {
+        this.accountantService = accountantService;
     }
 
     @RequestMapping("accountant/all")
     @ResponseBody
     public List<AccountantDto> fetchAll() {
-        return accountantConverter.convertAll(accountantRepository.findAll());
+        return accountantService.findAll();
+    }
+
+    @RequestMapping(value = "accountant/save", method = RequestMethod.POST)
+    @ResponseBody
+    public Boolean save(@RequestBody AccountantDto accountantDto) {
+        accountantService.save(accountantDto);
+        return true;
     }
 }

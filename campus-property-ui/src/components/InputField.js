@@ -27,7 +27,8 @@ const InputField = props => {
 
 InputField.propTypes = {
   ...TextField.propTypes,
-  name: PropTypes.string
+  name: PropTypes.string,
+  label: PropTypes.string
 };
 
 export default InputField;
