@@ -114,6 +114,7 @@ class AppWrapper extends Component {
         this.props.history.replace("/");
       }
       stateProvider.authorized = false;
+      stateProvider.user = null;
     });
   };
 
