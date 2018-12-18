@@ -12,7 +12,7 @@ public class ObjectPropertyFilterDto {
     private Date dateEarlier;
     private Double costGreater;
     private Double costLess;
-    private RoomDto room;
+    private Long room;
     private BuildingDto building;
     private String state;
     private EconomicOfficerDto officer;
@@ -82,11 +82,11 @@ public class ObjectPropertyFilterDto {
         this.costLess = costLess;
     }
 
-    public RoomDto getRoom() {
+    public Long getRoom() {
         return room;
     }
 
-    public void setRoom(RoomDto room) {
+    public void setRoom(Long room) {
         this.room = room;
     }
 

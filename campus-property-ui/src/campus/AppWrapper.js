@@ -43,7 +43,7 @@ class AppWrapper extends Component {
     const name = (stateProvider.user && stateProvider.user.name) || "";
     const open = Boolean(anchorEl);
     return (
-      <AppBar position="static">
+      <AppBar position="fixed">
         <Toolbar>
           <IconButton
             className={classes.menuButton}

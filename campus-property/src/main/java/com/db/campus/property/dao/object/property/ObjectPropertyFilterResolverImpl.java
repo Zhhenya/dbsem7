@@ -1,10 +1,14 @@
 package com.db.campus.property.dao.object.property;
 
 import com.db.campus.property.dao.*;
-import com.db.campus.property.dto.*;
+import com.db.campus.property.dto.AccountantDto;
+import com.db.campus.property.dto.BuildingDto;
+import com.db.campus.property.dto.EconomicOfficerDto;
+import com.db.campus.property.dto.ObjectPropertyFilterDto;
+import com.db.campus.property.entity.BuildingEntity;
 import com.db.campus.property.entity.ObjectPropertyEntity;
 import com.db.campus.property.exception.BuildingNotFoundException;
-import com.db.campus.property.exception.RoomNotFoundException;
+import com.db.campus.property.exception.RoomInBuildingNotFoundException;
 import com.db.campus.property.exception.WorkerNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -51,7 +55,7 @@ public class ObjectPropertyFilterResolverImpl implements ObjectPropertyFilterRes
                          resolveMaker(filterDto.getMaker()),
                          resolveDate(filterDto.getDateLater(), filterDto.getDateEarlier()),
                          resolveCost(filterDto.getCostGreater(), filterDto.getCostLess()),
-                         resolveRoom(filterDto.getRoom()),
+                         resolveRoom(filterDto.getRoom(), filterDto.getBuilding()),
                          resolveBuilding(filterDto.getBuilding()),
                          resolveState(filterDto.getState()),
                          resolveOfficer(filterDto.getOfficer()),
@@ -101,13 +105,19 @@ public class ObjectPropertyFilterResolverImpl implements ObjectPropertyFilterRes
         return propertyCriteriaBuilder.buildCostCriteria(costGreater, costLess);
     }
 
-    private Predicate resolveRoom(RoomDto roomDto) {
-        if (roomDto == null) {
+    private Predicate resolveRoom(Long room, BuildingDto buildingDto) {
+        if (room == null) {
             return null;
         }
-        return propertyCriteriaBuilder.buildRoomCriteria(
-                roomRepository.findById(roomDto.getId())
-                              .orElseThrow(() -> new RoomNotFoundException(roomDto.getNumber())));
+        if (buildingDto != null) {
+            BuildingEntity buildingEntity =
+                    buildingRepository.findById(buildingDto.getId())
+                                      .orElseThrow(() -> new BuildingNotFoundException(buildingDto.getAddress()));
+            if (buildingEntity.getRooms().stream().noneMatch(roomEntity -> roomEntity.getNumber() == room)) {
+                throw new RoomInBuildingNotFoundException(room, buildingEntity.getAddress());
+            }
+        }
+        return propertyCriteriaBuilder.buildRoomCriteria(room);
     }
 
     private Predicate resolveBuilding(BuildingDto buildingDto) {

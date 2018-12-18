@@ -1,6 +1,9 @@
 package com.db.campus.property.dao.object.property;
 
-import com.db.campus.property.entity.*;
+import com.db.campus.property.entity.AccountantEntity;
+import com.db.campus.property.entity.BuildingEntity;
+import com.db.campus.property.entity.EconomicOfficerEntity;
+import com.db.campus.property.entity.StateEntity;
 
 import javax.persistence.criteria.Predicate;
 import java.util.Date;
@@ -12,7 +15,7 @@ public interface PropertyCriteriaBuilder {
     Predicate buildMakerCriteria(String maker);
     Predicate buildDateCriteria(Date dateLater, Date dateEarlier);
     Predicate buildCostCriteria(Double costGreater, Double costLess);
-    Predicate buildRoomCriteria(RoomEntity roomEntity);
+    Predicate buildRoomCriteria(Long roomNumber);
     Predicate buildBuildingCriteria(BuildingEntity buildingEntity);
     Predicate buildStateCriteria(StateEntity stateEntity);
     Predicate buildOfficerCriteria(EconomicOfficerEntity officerEntity);

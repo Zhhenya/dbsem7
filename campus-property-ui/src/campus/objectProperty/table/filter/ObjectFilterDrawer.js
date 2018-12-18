@@ -101,7 +101,7 @@ class ObjectFilterDrawer extends Component {
 
   fetchRooms = () =>
     new Promise(resolve => {
-      request.get("room/all/distinct").then(rooms => {
+      request.get("room/number/all").then(rooms => {
         rooms.unshift(null);
         this.setState({ rooms });
         resolve();
@@ -132,6 +132,7 @@ class ObjectFilterDrawer extends Component {
           paper: classes.drawerPaper
         }}
       >
+        <div className={classes.toolbar} />
         <div className={classes.drawerHeader}>
           <IconButton onClick={onClose}>
             {theme.direction === "rtl" ? (

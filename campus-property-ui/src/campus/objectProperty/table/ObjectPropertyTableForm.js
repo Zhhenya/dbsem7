@@ -3,11 +3,26 @@ import Button from "@material-ui/core/Button/Button";
 import ObjectFilterForm from "./filter/ObjectFilterDrawer";
 import Grid from "@material-ui/core/Grid/Grid";
 import Typography from "@material-ui/core/es/Typography/Typography";
-import AddIcon from "@material-ui/core/SvgIcon/SvgIcon";
+import FilterList from "@material-ui/icons/FilterList";
 import ObjectPropertyTable from "../ObjectPropertyTable";
 import * as request from "../../../commons/request";
 import { withStyles } from "@material-ui/core";
 import { isEqual } from "lodash";
+
+const styles = theme => ({
+  root: {
+    flexGrow: 1
+  },
+  margin: {
+    margin: theme.spacing.unit * 4
+  },
+  button: {
+    margin: theme.spacing.unit * 4
+  },
+  rightIcon: {
+    marginLeft: theme.spacing.unit
+  }
+});
 
 const INITIAL_FILTER = {
   caption: null,
@@ -71,19 +86,18 @@ class ObjectPropertyTableForm extends Component {
           }}
         />
         <Grid
-          className={classes.root}
           container
           direction="row"
           justify="space-between"
           alignItems="center"
           spacing={24}
         >
-          <Grid item xs>
+          <Grid item>
             <Typography variant="h3" gutterBottom className={classes.margin}>
               Объекты учета
             </Typography>
           </Grid>
-          <Grid item xs={2}>
+          <Grid item>
             <Button
               variant="contained"
               color="primary"
@@ -91,7 +105,7 @@ class ObjectPropertyTableForm extends Component {
               className={classes.button}
             >
               Фильтр
-              <AddIcon className={classes.rightIcon} />
+              <FilterList className={classes.rightIcon} />
             </Button>
           </Grid>
           <Grid item xs={12}>
@@ -103,4 +117,4 @@ class ObjectPropertyTableForm extends Component {
   }
 }
 
-export default withStyles(null)(ObjectPropertyTableForm);
+export default withStyles(styles)(ObjectPropertyTableForm);

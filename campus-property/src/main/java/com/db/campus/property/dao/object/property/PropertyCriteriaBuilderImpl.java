@@ -45,8 +45,8 @@ public class PropertyCriteriaBuilderImpl implements PropertyCriteriaBuilder {
     }
 
     @Override
-    public Predicate buildRoomCriteria(RoomEntity roomEntity) {
-        return criteriaBuilder.equal(propertyEntity.get("room"), roomEntity);
+    public Predicate buildRoomCriteria(Long roomNumber) {
+        return criteriaBuilder.equal(propertyEntity.get("room").get("number"), roomNumber);
     }
 
     @Override

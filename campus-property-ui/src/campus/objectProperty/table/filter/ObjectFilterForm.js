@@ -8,10 +8,18 @@ import Typography from "@material-ui/core/es/Typography/Typography";
 import Grid from "@material-ui/core/Grid/Grid";
 import Divider from "@material-ui/core/Divider/Divider";
 import Button from "@material-ui/core/Button/Button";
+import { withStyles } from "@material-ui/core";
+
+const styles = theme => ({
+  button: {
+    margin: theme.spacing.unit * 4
+  }
+});
 
 const ObjectFilterForm = props => {
   const {
     onSubmit,
+    classes,
     initial,
     makers,
     rooms,
@@ -75,7 +83,6 @@ const ObjectFilterForm = props => {
             </Grid>
             <AutocompleteSelectField
               name="room"
-              label="number"
               displayLabel="Номер комнаты"
               options={rooms}
               placeholder=""
@@ -108,7 +115,12 @@ const ObjectFilterForm = props => {
               placeholder=""
             />
             <Divider />
-            <Button type="submit" variant="contained" color="primary">
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              className={classes.button}
+            >
               Применить фильтры
             </Button>
           </FormGroup>
@@ -128,4 +140,4 @@ ObjectFilterForm.propTypes = {
   accountants: PropTypes.array
 };
 
-export default ObjectFilterForm;
+export default withStyles(styles)(ObjectFilterForm);
