@@ -139,6 +139,8 @@ const ValueContainer = props => (
   </div>
 );
 
+const DEFAULT_LABEL = "Не выбрано";
+
 const components = {
   Control,
   Menu,
@@ -171,7 +173,7 @@ const AutocompleteSelectField = props => {
   };
   const options = suggestions.map(suggestion => ({
     value: suggestion,
-    label: suggestion[label]
+    label: !suggestion ? DEFAULT_LABEL : label ? suggestion[label] : suggestion
   }));
   return (
     <Field
@@ -211,6 +213,8 @@ AutocompleteSelectField.propTypes = {
   options: PropTypes.array,
   value: PropTypes.object,
   name: PropTypes.string,
+  label: PropTypes.string,
+  displayLabel: PropTypes.string,
   placeholder: PropTypes.string
 };
 

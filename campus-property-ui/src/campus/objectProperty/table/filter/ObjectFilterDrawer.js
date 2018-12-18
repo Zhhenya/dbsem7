@@ -1,0 +1,162 @@
+import React, { Component } from "react";
+import Drawer from "@material-ui/core/Drawer/Drawer";
+import { withStyles } from "@material-ui/core";
+import IconButton from "@material-ui/core/IconButton/IconButton";
+import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
+import ChevronRightIcon from "@material-ui/icons/ChevronRight";
+import Divider from "@material-ui/core/Divider/Divider";
+import Typography from "@material-ui/core/es/Typography/Typography";
+import ObjectFilterForm from "./ObjectFilterForm";
+import * as request from "../../../../commons/request";
+import CircularProgress from "@material-ui/core/CircularProgress/CircularProgress";
+
+const drawerWidth = 400;
+
+const styles = theme => ({
+  drawer: {
+    width: drawerWidth,
+    flexShrink: 0
+  },
+  drawerPaper: {
+    width: drawerWidth
+  },
+  drawerHeader: {
+    display: "flex",
+    alignItems: "center",
+    padding: "0 8px",
+    ...theme.mixins.toolbar,
+    justifyContent: "flex-start"
+  },
+  drawerContext: {
+    alignItems: "center",
+    padding: "15px",
+    justifyContent: "flex-start"
+  }
+});
+
+class ObjectFilterDrawer extends Component {
+  state = {
+    loading: true,
+    accountants: [],
+    buildings: [],
+    makers: [],
+    officers: [],
+    rooms: [],
+    states: []
+  };
+
+  componentDidMount() {
+    this.fetchOptions();
+  }
+
+  fetchOptions = () => {
+    this.setState({ loading: true });
+    Promise.all([
+      this.fetchAccountants(),
+      this.fetchBuildings(),
+      this.fetchMakers(),
+      this.fetchOfficers(),
+      this.fetchRooms(),
+      this.fetchStates()
+    ]).then(() => {
+      this.setState({ loading: false });
+    });
+  };
+
+  fetchAccountants = () =>
+    new Promise(resolve => {
+      request.get("accountant/all").then(accountants => {
+        accountants.unshift(null);
+        this.setState({ accountants });
+        resolve();
+      });
+    });
+
+  fetchBuildings = () =>
+    new Promise(resolve => {
+      request.get("building/all").then(buildings => {
+        buildings.unshift(null);
+        this.setState({ buildings });
+        resolve();
+      });
+    });
+
+  fetchMakers = () =>
+    new Promise(resolve => {
+      request.get("object/maker/all").then(makers => {
+        makers.unshift(null);
+        this.setState({ makers });
+        resolve();
+      });
+    });
+
+  fetchOfficers = () =>
+    new Promise(resolve => {
+      request.get("officer/all").then(officers => {
+        officers.unshift(null);
+        this.setState({ officers });
+        resolve();
+      });
+    });
+
+  fetchRooms = () =>
+    new Promise(resolve => {
+      request.get("room/all/distinct").then(rooms => {
+        rooms.unshift(null);
+        this.setState({ rooms });
+        resolve();
+      });
+    });
+
+  fetchStates = () =>
+    new Promise(resolve => {
+      request.get("object/state/all").then(states => {
+        console.log(states);
+        states.unshift(null);
+        this.setState({ states });
+        resolve();
+      });
+    });
+
+  render() {
+    const { classes, theme, open, onClose, onSubmit, filter } = this.props;
+    const { loading, ...options } = this.state;
+    console.log(this.state);
+    return (
+      <Drawer
+        className={classes.drawer}
+        variant="persistent"
+        anchor="right"
+        open={open}
+        classes={{
+          paper: classes.drawerPaper
+        }}
+      >
+        <div className={classes.drawerHeader}>
+          <IconButton onClick={onClose}>
+            {theme.direction === "rtl" ? (
+              <ChevronLeftIcon />
+            ) : (
+              <ChevronRightIcon />
+            )}
+          </IconButton>
+          <Typography variant="h5">Фильтр</Typography>
+        </div>
+        <Divider />
+        <div className={classes.drawerContext}>
+          {loading ? (
+            <CircularProgress className={classes.progress} />
+          ) : (
+            <ObjectFilterForm
+              initial={filter}
+              {...options}
+              onSubmit={onSubmit}
+            />
+          )}
+        </div>
+      </Drawer>
+    );
+  }
+}
+
+export default withStyles(styles, { withTheme: true })(ObjectFilterDrawer);
