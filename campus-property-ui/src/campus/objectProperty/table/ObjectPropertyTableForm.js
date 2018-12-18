@@ -8,6 +8,7 @@ import ObjectPropertyTable from "../ObjectPropertyTable";
 import * as request from "../../../commons/request";
 import { withStyles } from "@material-ui/core";
 import { isEqual } from "lodash";
+import SimpleAlertDialog from "../../../commons/dialog/SimpleAlertDialog";
 
 const styles = theme => ({
   root: {
@@ -44,7 +45,8 @@ class ObjectPropertyTableForm extends Component {
   state = {
     filter: INITIAL_FILTER,
     objects: [],
-    isFilterVisible: true
+    isFilterVisible: true,
+    error: null
   };
 
   componentDidMount() {
@@ -63,8 +65,8 @@ class ObjectPropertyTableForm extends Component {
       .then(objects => {
         this.setState({ objects });
       })
-      .catch(reason => {
-        console.log(reason);
+      .catch(error => {
+        this.setState({ error });
       });
   };
 
@@ -73,10 +75,20 @@ class ObjectPropertyTableForm extends Component {
   };
 
   render() {
-    const { filter, objects, isFilterVisible } = this.state;
+    const { filter, objects, isFilterVisible, error } = this.state;
     const { classes } = this.props;
     return (
       <React.Fragment>
+        {error && (
+          <SimpleAlertDialog
+            open={error}
+            title="Произошла ошибка"
+            content={error}
+            onClose={() => {
+              this.setState({ error: null });
+            }}
+          />
+        )}
         <ObjectFilterForm
           open={isFilterVisible}
           filter={filter}
