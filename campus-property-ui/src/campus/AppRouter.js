@@ -10,6 +10,7 @@ import { AccountantInventoryForm, AccountantLetterForm, AccountantRequestListFor
 import InventoryListForm from "./inventory/InventoryListForm";
 import ObjectPropertyForm from "./objectProperty/ObjectPropertyForm";
 import { OfficerRequestListForm } from "./officer";
+import ObjectPropertyTableForm from "./objectProperty/table/ObjectPropertyTableForm";
 
 const AppRouter = () => {
   return (
@@ -18,6 +19,7 @@ const AppRouter = () => {
       <Route exact path="/admin/create" component={AdminCreateForm} />
       <Route exact path="/request/list" component={RequestListForm} />
       <Route exact path="/objectProperty" component={ObjectPropertyForm} />
+      <Route exact path="/objectProperty/table" component={ObjectPropertyTableForm} />
       <Route exact path="/request/create" component={CreateRequestForm} />
       <Route exact path="/login" component={LoginForm} />
       <Route exact path="/inventory/list" component={InventoryListForm} />
