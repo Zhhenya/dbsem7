@@ -15,6 +15,7 @@ import MenuDrawer from "./menu/MenuDrawer";
 import CssBaseline from "@material-ui/core/CssBaseline/CssBaseline";
 import Menu from "@material-ui/core/Menu/Menu";
 import MenuItem from "@material-ui/core/MenuItem/MenuItem";
+import * as request from "../commons/request";
 
 const drawerWidth = 240;
 
@@ -107,7 +108,14 @@ class AppWrapper extends Component {
     this.setState({ anchorEl: null });
   };
 
-  logout = () => {};
+  logout = () => {
+    request.post("/logoutRequest").then(() => {
+      if (this.props.location.pathname !== "/") {
+        this.props.history.replace("/");
+      }
+      stateProvider.authorized = false;
+    });
+  };
 
   openProfile = () => {
     this.props.history.push("/profile");
