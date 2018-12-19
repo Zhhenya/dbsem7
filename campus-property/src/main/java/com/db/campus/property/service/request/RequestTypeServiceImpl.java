@@ -14,6 +14,7 @@ public class RequestTypeServiceImpl implements RequestTypeService {
     private final RequestTypeConverter requestTypeConverter;
 
     @Autowired
+
     public RequestTypeServiceImpl(TypeRequestRepository typeRequestRepository,
                                   RequestTypeConverter requestTypeConverter) {
         this.typeRequestRepository = typeRequestRepository;
