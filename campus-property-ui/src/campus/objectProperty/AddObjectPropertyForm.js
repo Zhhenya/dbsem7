@@ -66,7 +66,7 @@ class AddObjectPropertyForm extends Component {
 
     fetchObjectRooms = () => {
         request
-            .get("object/room")
+            .get("inventory/room")
             .then(room => this.setState({room}));
     };
 
@@ -139,7 +139,7 @@ class AddObjectPropertyForm extends Component {
                     onSubmit={this.createAddObjectRequest}
                     render={({values}) => (
                         <Form className={classes.container}>
-                            <Grid container spacing={16} justify="flex-start">
+                            <Grid container spacing={15} justify="space-around">
                                 <Grid item xs={6}>
                                     <FormGroup>
                                         <FormControl className={classes.margin} fullWidth>
@@ -189,45 +189,43 @@ class AddObjectPropertyForm extends Component {
                                         </FormControl>
                                     </FormGroup>
                                 </Grid>
-                                <Grid container spacing={16} alignContent="flex-end">
-                                    <Grid item xs={4}>
-                                        <FormControl className={classes.margin} style={{width: "35%"}}>
-                                            <AutocompleteSelectField
-                                                name={`number`}
-                                                options={rooms}
-                                                displayLabel="Комната"
-                                                label="room"
-                                                placeholder="Введите номер комнаты"
-                                            />
-                                        </FormControl>
-                                        <FormControl className={classes.margin} style={{width: "35%"}}>
-                                            <AutocompleteSelectField
-                                                name={`address`}
-                                                options={buildings}
-                                                displayLabel="Адрес здания"
-                                                label="building"
-                                                placeholder="Введите адрес здания"
-                                            />
-                                        </FormControl>
-                                        <FormControl className={classes.margin} style={{width: "35%"}}>
-                                            <AutocompleteSelectField
-                                                name={`s_name`}
-                                                options={states}
-                                                displayLabel="Состояние"
-                                                label="state"
-                                                placeholder="Выберите состояние"
-                                            />
-                                        </FormControl>
-                                        <FormControl className={classes.margin} style={{width: "35%"}}>
-                                            <AutocompleteSelectField
-                                                name={`EO_name`}
-                                                options={economicOfficers}
-                                                displayLabel="Материально ответственное лицо"
-                                                label="economicOfficer"
-                                                placeholder="Выберите списка"
-                                            />
-                                        </FormControl>
-                                    </Grid>
+                                <Grid item xs={6}>
+                                    <FormControl className={classes.margin} style={{width: "50%"}}>
+                                        <AutocompleteSelectField
+                                            name={`number`}
+                                            options={rooms}
+                                            displayLabel="Комната"
+                                            label="room"
+                                            placeholder="Введите номер комнаты"
+                                        />
+                                    </FormControl>
+                                    <FormControl className={classes.margin} style={{width: "50%"}}>
+                                        <AutocompleteSelectField
+                                            name={`address`}
+                                            options={buildings}
+                                            displayLabel="Адрес здания"
+                                            label="building"
+                                            placeholder="Введите адрес здания"
+                                        />
+                                    </FormControl>
+                                    <FormControl className={classes.margin} style={{width: "50%"}}>
+                                        <AutocompleteSelectField
+                                            name={`s_name`}
+                                            options={states}
+                                            displayLabel="Состояние"
+                                            label="state"
+                                            placeholder="Выберите состояние"
+                                        />
+                                    </FormControl>
+                                    <FormControl className={classes.margin} style={{width: "50%"}}>
+                                        <AutocompleteSelectField
+                                            name={`EO_name`}
+                                            options={economicOfficers}
+                                            displayLabel="Материально ответственное лицо"
+                                            label="economicOfficer"
+                                            placeholder="Выберите списка"
+                                        />
+                                    </FormControl>
                                 </Grid>
                                 <Grid container justify="center">
                                     <Grid item xs={12}>
