@@ -1,13 +1,12 @@
 package com.db.campus.property.controller;
 
 import com.db.campus.property.dto.ObjectPropertyDto;
+import com.db.campus.property.dto.ObjectPropertyFilterDto;
 import com.db.campus.property.dto.RoomDto;
 import com.db.campus.property.service.object.ObjectPropertyService;
 import com.db.campus.property.service.room.RoomNumberService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -36,10 +35,28 @@ public class ObjectPropertyController {
         return roomNumberService.fetchRoomNumberList();
     }
 
-    @RequestMapping("/inventory")
+    @RequestMapping("/objectProperty")
     @ResponseBody
-    public List<ObjectPropertyDto> getInventoryList() {
+    public List<ObjectPropertyDto> getObjectPropertyList() {
         return objectPropertyService.fetchObjectList();
+    }
+
+    @RequestMapping("object/state/all")
+    @ResponseBody
+    public List<String> fetchStateList() {
+        return objectPropertyService.fetchStates();
+    }
+
+    @RequestMapping("object/maker/all")
+    @ResponseBody
+    public List<String> fetchMakerList() {
+        return objectPropertyService.fetchMakers();
+    }
+
+    @RequestMapping(value = "object/filtered", method = RequestMethod.POST)
+    @ResponseBody
+    public List<ObjectPropertyDto> fetchFiltered(@RequestBody ObjectPropertyFilterDto filter) {
+        return objectPropertyService.fetchFiltered(filter);
     }
 
 }

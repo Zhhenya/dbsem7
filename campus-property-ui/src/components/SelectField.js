@@ -1,26 +1,47 @@
 import React from "react";
-import { Field } from "formik";
-import Select from "@material-ui/core/Select/Select";
+import { Field, getIn } from "formik";
 import MenuItem from "@material-ui/core/MenuItem/MenuItem";
+import TextField from "@material-ui/core/TextField/TextField";
+import * as PropTypes from "prop-types";
+import { withStyles } from "@material-ui/core";
 
 const SelectField = props => {
-  const { name, values, label } = props;
+  const { classes, name, values, label } = props;
   return (
     <Field
       name={name}
-      render={({ field }) => {
+      render={({ field, form }) => {
+        const errorText = getIn(form.errors, name);
         return (
-          <Select {...field}>
-            {values.map((value, index) => (
-              <MenuItem key={index} value={value}>
-                {label ? value[label] : value}
+          <TextField
+            select
+            label={label}
+            SelectProps={{
+              MenuProps: {
+                className: classes.menu
+              }
+            }}
+            error={Boolean(errorText)}
+            helperText={errorText}
+            margin="normal"
+            {...field}
+          >
+            {values.map((option, index) => (
+              <MenuItem key={index} value={option}>
+                {option}
               </MenuItem>
             ))}
-          </Select>
+          </TextField>
         );
       }}
     />
   );
 };
 
-export default SelectField;
+SelectField.propTypes = {
+  name: PropTypes.string,
+  values: PropTypes.array,
+  label: PropTypes.string
+};
+
+export default withStyles(null)(SelectField);

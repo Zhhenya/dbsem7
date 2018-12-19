@@ -1,7 +1,6 @@
 import React from "react";
 import { Form, Formik } from "formik";
 import FormControl from "@material-ui/core/FormControl/FormControl";
-import InputLabel from "@material-ui/core/InputLabel/InputLabel";
 import { withStyles } from "@material-ui/core";
 import Button from "@material-ui/core/Button/Button";
 import Card from "@material-ui/core/Card/Card";
@@ -10,13 +9,14 @@ import Grid from "@material-ui/core/Grid/Grid";
 import FormGroup from "@material-ui/core/FormGroup/FormGroup";
 import request from "../../commons/request";
 import InputField from "../../components/InputField";
+import { withRouter } from "react-router";
 
 const styles = theme => ({
-  container: {
+  root: {
     display: "flex",
     flexWrap: "wrap"
   },
-  margin: {
+  marginNormal: {
     margin: theme.spacing.unit
   },
   card: {
@@ -28,8 +28,12 @@ const styles = theme => ({
   }
 });
 
-const login = user => {
-  request.post("/loginRequest", user);
+const login = (user, props) => {
+  request.post("/loginRequest", user).then(() => {
+    if (props.location.pathname !== "/") {
+      props.history.replace("/");
+    }
+  });
 };
 
 const LoginForm = props => {
@@ -38,22 +42,22 @@ const LoginForm = props => {
     <Grid container justify="center">
       <Card className={classes.card}>
         <CardContent>
-          <Formik initialValues={{ login: "", password: "" }} onSubmit={login}>
-            <Form className={classes.container}>
+          <Formik
+            initialValues={{ login: "", password: "" }}
+            onSubmit={user => {
+              login(user, props);
+            }}
+          >
+            <Form className={classes.root}>
               <FormGroup>
-                <FormControl className={classes.margin}>
-                  <InputLabel htmlFor="input-with-icon-adornment">
-                    Логин
-                  </InputLabel>
-                  <InputField name="login" classes={classes} />
+                <FormControl className={classes.marginNormal}>
+                  <InputField name="login" classes={classes} label="Логин" />
                 </FormControl>
-                <FormControl className={classes.margin}>
-                  <InputLabel htmlFor="input-with-icon-adornment">
-                    Пароль
-                  </InputLabel>
+                <FormControl className={classes.marginNormal}>
                   <InputField
                     name="password"
                     type="password"
+                    label="Пароль"
                     classes={classes}
                   />
                 </FormControl>
@@ -73,4 +77,4 @@ const LoginForm = props => {
   );
 };
 
-export default withStyles(styles)(LoginForm);
+export default withStyles(styles)(withRouter(LoginForm));
