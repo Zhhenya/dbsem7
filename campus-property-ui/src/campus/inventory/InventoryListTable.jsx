@@ -58,11 +58,11 @@ const InventoryListTable = props => {
                     <TableBody>
                         {data && data.map(row => (
                             <TableRow key={row.id}>
-                                <TableCell component="th" scope="row">
-                                    {row.content}
+                                <TableCell scope="row">
+                                    {row.date}
                                 </TableCell>
-                                <TableCell component="th" scope="row">
-                                    {row.type}
+                                <TableCell scope="row">
+                                    {row.id}
                                 </TableCell>
                             </TableRow>
                         ))}
