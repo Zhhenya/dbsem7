@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import request from "../../commons/request";
-import RequestInventoryTable from "./ObjectPropertyTable"
+import ObjectPropertyTable from "./ObjectPropertyTable";
 
 class ObjectPropertyForm extends Component{
     state = {
@@ -16,7 +16,7 @@ class ObjectPropertyForm extends Component{
             this.setState({ data });
         });
     render() {
-        return <RequestInventoryTable data={this.state.data} />;
+        return <ObjectPropertyTable data={this.state.data} />;
     }
 }
 

@@ -5,7 +5,7 @@ import java.util.Date;
 public class InventoryDto {
 
     private Long id;
-    private Date name;
+    private Date date;
 
     public Long getId() {
         return id;
@@ -16,11 +16,11 @@ public class InventoryDto {
     }
 
     public Date getDate() {
-        return name;
+        return date;
     }
 
     public void setDate(Date date) {
-        this.name = name;
+        this.date = date;
     }
 
 }

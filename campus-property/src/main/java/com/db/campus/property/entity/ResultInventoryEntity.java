@@ -23,7 +23,7 @@ public class ResultInventoryEntity {
     }
 
     @Id
-    @Column(name = "PK_ResultInventarisation", nullable = false)
+    @Column(name = "PK_Result_Inventarisation", nullable = false)
     public long getId() {
         return id;
     }

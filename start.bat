@@ -1,2 +1,2 @@
 cd campus-property-ui
-npm run electron npm start
+npm start npm run electron
