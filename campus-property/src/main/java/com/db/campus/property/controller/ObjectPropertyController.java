@@ -4,7 +4,7 @@ import com.db.campus.property.dto.ObjectPropertyDto;
 import com.db.campus.property.dto.ObjectPropertyFilterDto;
 import com.db.campus.property.dto.RoomDto;
 import com.db.campus.property.service.object.ObjectPropertyService;
-import com.db.campus.property.service.room.RoomNumberService;
+import com.db.campus.property.service.room.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,13 +14,13 @@ import java.util.List;
 public class ObjectPropertyController {
 
     private final ObjectPropertyService objectPropertyService;
-    private final RoomNumberService roomNumberService;
+    private final RoomService roomService;
 
     @Autowired
     public ObjectPropertyController(ObjectPropertyService objectPropertyService,
-                                    RoomNumberService roomNumberService) {
+                                    RoomService roomService) {
         this.objectPropertyService = objectPropertyService;
-        this.roomNumberService = roomNumberService;
+        this.roomService = roomService;
     }
 
     @RequestMapping("/object/list")
@@ -32,7 +32,7 @@ public class ObjectPropertyController {
     @RequestMapping("/inventory/room")
     @ResponseBody
     public List<RoomDto> getRequestRoomList() {
-        return roomNumberService.fetchRoomNumberList();
+        return roomService.fetchRoomNumberList();
     }
 
     @RequestMapping("/objectProperty")
