@@ -28,7 +28,12 @@ public class RoomServiceImp implements RoomService {
     }
 
     @Override
-    public List<Long> fetchRoomNumberList() {
+    public List<RoomDto> fetchRoomNumberList() {
+        return roomConverter.convertAll(roomRepository.findAll());
+    }
+
+    @Override
+    public List<Long> fetchDistinctNumbers() {
         return roomRepository.findAllNumbers();
     }
 

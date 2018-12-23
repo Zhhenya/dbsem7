@@ -20,7 +20,7 @@ public class RoomController {
     @RequestMapping("room/number/all")
     @ResponseBody
     public List<Long> fetchAllDistinct() {
-        return roomService.fetchRoomNumberList();
+        return roomService.fetchDistinctNumbers();
     }
 
     @RequestMapping("room/all/{buildingId}")

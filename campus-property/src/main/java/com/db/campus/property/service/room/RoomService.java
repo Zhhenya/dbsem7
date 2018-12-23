@@ -5,7 +5,9 @@ import com.db.campus.property.dto.RoomDto;
 import java.util.List;
 
 public interface RoomService {
-    List<Long> fetchRoomNumberList();
+    List<RoomDto> fetchRoomNumberList();
+
+    List<Long> fetchDistinctNumbers();
 
     List<RoomDto> fetchAll(long buildingId);
 
