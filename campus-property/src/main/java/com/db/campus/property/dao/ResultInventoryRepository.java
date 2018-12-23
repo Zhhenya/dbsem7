@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ResultInventoryRepository extends JpaRepository<ResultInventoryEntity, Long> {
 
+    Iterable<ResultInventoryEntity> findAllByInventory_Id(long inventoryId);
 }

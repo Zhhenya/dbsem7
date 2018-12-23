@@ -10,3 +10,4 @@ target/
 
 #rest
 .idea/httpRequests/
+.project
