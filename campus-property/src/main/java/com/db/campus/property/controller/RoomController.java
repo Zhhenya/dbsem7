@@ -29,6 +29,12 @@ public class RoomController {
         return roomService.fetchAll(buildingId);
     }
 
+    @RequestMapping("room/{roomId}")
+    @ResponseBody
+    public RoomDto fetch(@PathVariable("roomId") long roomId) {
+        return roomService.fetch(roomId);
+    }
+
     @RequestMapping(value = "room/save", method = RequestMethod.POST)
     @ResponseBody
     public Boolean save(@RequestBody RoomDto roomDto) {

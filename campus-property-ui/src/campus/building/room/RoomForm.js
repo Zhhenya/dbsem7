@@ -1,15 +1,14 @@
 import React, { Component } from "react";
-import { Form, Formik } from "formik";
+import SimpleAlertDialog from "../../../commons/dialog/SimpleAlertDialog";
 import Grid from "@material-ui/core/Grid/Grid";
-import InputField from "../../components/InputField";
-import Button from "@material-ui/core/es/Button/Button";
+import { Form, Formik } from "formik";
 import FormGroup from "@material-ui/core/es/FormGroup/FormGroup";
-import * as PropTypes from "prop-types";
-import * as request from "../../commons/request";
-import SimpleAlertDialog from "../../commons/dialog/SimpleAlertDialog";
+import InputField from "../../../components/InputField";
+import Button from "@material-ui/core/es/Button/Button";
 import { withStyles } from "@material-ui/core";
+import * as PropTypes from "prop-types";
+import * as request from "../../../commons/request";
 import { withRouter } from "react-router";
-import RoomListForm from "./room/RoomListForm";
 
 const styles = theme => ({
   container: {
@@ -27,22 +26,27 @@ const styles = theme => ({
   }
 });
 
-const INITIAL_BUILDING = {
+const INITIAL_ROOM = building => ({
   id: null,
-  address: ""
-};
+  number: "",
+  floor: "",
+  building: building
+});
 
-class BuildingForm extends Component {
+class RoomForm extends Component {
   state = {
     saved: false,
     error: null
   };
 
-  submitBuilding = building => {
+  saveRoom = room => {
     request
-      .post("building/save", building)
+      .post("/room/save", room)
       .then(() => {
-        this.setState({ saved: true });
+        this.setState({
+          saved: true
+        });
+        this.props.history.goBack();
       })
       .catch(error => {
         this.setState({ error });
@@ -50,7 +54,7 @@ class BuildingForm extends Component {
   };
 
   render() {
-    const { classes, initialValues } = this.props;
+    const { classes, initialValues, building } = this.props;
     const { saved, error } = this.state;
     return (
       <>
@@ -66,7 +70,7 @@ class BuildingForm extends Component {
         )}
         {saved && (
           <SimpleAlertDialog
-            title="Адрес здания сохранен"
+            title="Комната сохранена"
             onClose={() => {
               this.setState({ saved: false });
             }}
@@ -76,14 +80,19 @@ class BuildingForm extends Component {
         <Grid container>
           <Grid item xs={12}>
             <Formik
-              initialValues={initialValues || INITIAL_BUILDING}
-              onSubmit={this.submitBuilding}
+              initialValues={initialValues || INITIAL_ROOM(building)}
+              onSubmit={this.saveRoom}
               render={() => (
                 <Form className={classes.container}>
-                  <FormGroup className={classes.formGroup} row>
+                  <FormGroup className={classes.formGroup}>
                     <InputField
-                      name="address"
-                      label="Адрес"
+                      name="number"
+                      label="Номер"
+                      className={classes.input}
+                    />
+                    <InputField
+                      name="floor"
+                      label="Этаж"
                       className={classes.input}
                     />
                     <Button
@@ -100,18 +109,14 @@ class BuildingForm extends Component {
             />
           </Grid>
         </Grid>
-        <Grid>
-          <Grid item xs={12}>
-            <RoomListForm buildingId={this.props.match.params.id} />
-          </Grid>
-        </Grid>
       </>
     );
   }
 }
 
-BuildingForm.propTypes = {
-  initialValues: PropTypes.object
+RoomForm.propTypes = {
+  initialValues: PropTypes.object,
+  building: PropTypes.object
 };
 
-export default withStyles(styles)(withRouter(BuildingForm));
+export default withStyles(styles)(withRouter(RoomForm));

@@ -15,6 +15,8 @@ import Profile from "./account/Profile";
 import BuildingListForm from "./building/BuildingListForm";
 import BuildingEditForm from "./building/BuildingEditForm";
 import BuildingCreateForm from "./building/BuildingCreateForm";
+import RoomEditForm from "./building/room/RoomEditForm";
+import RoomCreateForm from "./building/room/RoomCreateForm";
 
 const AppRouter = () => {
   return (
@@ -48,6 +50,8 @@ const AppRouter = () => {
       <Route exact path="/building/list" component={BuildingListForm} />
       <Route exact path="/building/edit/:id" component={BuildingEditForm} />
       <Route exact path="/building/create" component={BuildingCreateForm} />
+      <Route exact path="/room/edit/:id" component={RoomEditForm} />
+      <Route exact path="/room/create/:id" component={RoomCreateForm} />
     </Switch>
   );
 };

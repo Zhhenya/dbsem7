@@ -1,12 +1,12 @@
 import React, { Component } from "react";
+import SimpleAlertDialog from "../../../commons/dialog/SimpleAlertDialog";
 import Grid from "@material-ui/core/Grid/Grid";
 import Typography from "@material-ui/core/es/Typography/Typography";
-import BuildingTable from "./BuildingTable";
-import * as request from "../../commons/request";
-import SimpleAlertDialog from "../../commons/dialog/SimpleAlertDialog";
-import { withStyles } from "@material-ui/core";
 import Button from "@material-ui/core/es/Button/Button";
 import AddIcon from "@material-ui/icons/Add";
+import { withStyles } from "@material-ui/core";
+import RoomTable from "./RoomTable";
+import * as request from "../../../commons/request";
 import { withRouter } from "react-router";
 
 const styles = theme => ({
@@ -24,43 +24,49 @@ const styles = theme => ({
   }
 });
 
-class BuildingListForm extends Component {
+class RoomListForm extends Component {
   state = {
-    buildings: [],
+    rooms: [],
     deleted: false,
     error: null
   };
 
   componentDidMount() {
-    this.fetchBuildings();
+    this.fetchRooms();
   }
 
-  fetchBuildings = () => {
+  fetchRooms = () => {
+    const { buildingId } = this.props;
     request
-      .get("/building/all")
-      .then(buildings => {
-        this.setState({ buildings });
+      .get("/room/all/" + buildingId)
+      .then(rooms => {
+        this.setState({ rooms });
       })
-      .catch(error => this.setState({ error }));
+      .catch(error => {
+        this.setState({ error });
+      });
   };
 
-  deleteBuilding = building => {
+  deleteRoom = id => {
     request
-      .post("/building/delete", building)
+      .post("/room/delete", id)
       .then(() => {
         this.setState({ deleted: true });
-        this.fetchBuildings();
+        this.fetchRooms();
       })
-      .catch(error => this.setState({ error }));
+      .catch(error => {
+        this.setState({ error });
+      });
   };
 
-  openCreateBuildingForm = () => {
-    this.props.history.push("/building/create");
+  openCreateRoomForm = () => {
+    const { buildingId } = this.props;
+    this.props.history.push("/room/create/" + buildingId);
   };
 
   render() {
     const { classes } = this.props;
-    const { buildings, deleted, error } = this.state;
+    const { building, rooms, deleted, error } = this.state;
     return (
       <>
         {error && (
@@ -75,7 +81,7 @@ class BuildingListForm extends Component {
         )}
         {deleted && (
           <SimpleAlertDialog
-            title="Здание удалено"
+            title="Комната удалена"
             onClose={() => {
               this.setState({ deleted: false });
             }}
@@ -90,23 +96,29 @@ class BuildingListForm extends Component {
           spacing={24}
         >
           <Grid item xs>
-            <Typography variant="h3" gutterBottom className={classes.margin}>
-              Здания кампуса
+            <Typography variant="h5" gutterBottom className={classes.margin}>
+              Комнаты
             </Typography>
           </Grid>
           <Grid item xs={2}>
             <Button
               variant="contained"
               color="primary"
-              onClick={this.openCreateBuildingForm}
+              onClick={this.openCreateRoomForm}
               className={classes.button}
             >
-              Добавить новое здание
+              Добавить новую комнату
               <AddIcon className={classes.rightIcon} />
             </Button>
           </Grid>
           <Grid item xs={12}>
-            <BuildingTable data={buildings} onDelete={this.deleteBuilding} />
+            {rooms.length ? (
+              <RoomTable data={rooms} onDelete={this.deleteRoom} />
+            ) : (
+              <Typography className={classes.margin} variant={"body1"}>
+                В здании нет комнат
+              </Typography>
+            )}
           </Grid>
         </Grid>
       </>
@@ -114,4 +126,4 @@ class BuildingListForm extends Component {
   }
 }
 
-export default withStyles(styles)(withRouter(BuildingListForm));
+export default withStyles(styles)(withRouter(RoomListForm));

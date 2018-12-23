@@ -11,6 +11,8 @@ public interface RoomService {
 
     List<RoomDto> fetchAll(long buildingId);
 
+    RoomDto fetch(long roomId);
+
     void save(RoomDto roomDto);
 
     void delete(RoomDto roomDto);

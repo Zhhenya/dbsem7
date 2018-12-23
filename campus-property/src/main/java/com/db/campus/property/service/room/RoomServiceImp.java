@@ -43,6 +43,12 @@ public class RoomServiceImp implements RoomService {
     }
 
     @Override
+    public RoomDto fetch(long roomId) {
+        return roomConverter.convert(roomRepository.findById(roomId)
+                                                   .orElseThrow(() -> new RoomNotFoundException(roomId)));
+    }
+
+    @Override
     public void delete(RoomDto roomDto) {
         roomRepository.deleteById(roomDto.getId());
     }
