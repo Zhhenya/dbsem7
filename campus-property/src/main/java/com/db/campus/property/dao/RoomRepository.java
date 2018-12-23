@@ -13,4 +13,6 @@ public interface RoomRepository extends JpaRepository<RoomEntity, Long> {
     @Query("SELECT DISTINCT number FROM RoomEntity")
     List<Long> findAllNumbers();
 
+    List<RoomEntity> findAllByBuilding_Id(long buildingId);
+
 }

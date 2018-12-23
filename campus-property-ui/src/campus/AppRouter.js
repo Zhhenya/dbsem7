@@ -13,6 +13,11 @@ import { OfficerRequestListForm } from "./officer";
 import ObjectPropertyTableForm from "./objectProperty/table/ObjectPropertyTableForm";
 import ResultInventoryListForm from "./resultInventory/ResultInventoryListForm";
 import Profile from "./account/Profile";
+import BuildingListForm from "./building/BuildingListForm";
+import BuildingEditForm from "./building/BuildingEditForm";
+import BuildingCreateForm from "./building/BuildingCreateForm";
+import RoomEditForm from "./building/room/RoomEditForm";
+import RoomCreateForm from "./building/room/RoomCreateForm";
 
 const AppRouter = () => {
   return (
@@ -29,11 +34,28 @@ const AppRouter = () => {
       <Route exact path="/login" component={LoginForm} />
       <Route exact path="/inventory/" component={InventoryListForm} />
       <Route exact path="/admin/create/account" component={WorkerAccountForm} />
-      <Route exact path="/officer/request/list" component={OfficerRequestListForm} />
-      <Route exact path="/accountant/request/list" component={AccountantRequestListForm} />
-      <Route exact path="/accountant/inventory" component={AccountantInventoryForm} />
+      <Route
+        exact
+        path="/officer/request/list"
+        component={OfficerRequestListForm}
+      />
+      <Route
+        exact
+        path="/accountant/request/list"
+        component={AccountantRequestListForm}
+      />
+      <Route
+        exact
+        path="/accountant/inventory"
+        component={AccountantInventoryForm}
+      />
       <Route exact path="/accountant/letter" component={AccountantLetterForm} />
       <Route exact path="/inventory/:inventoryId/result-inventory/" component={ResultInventoryListForm}/>
+      <Route exact path="/building/list" component={BuildingListForm} />
+      <Route exact path="/building/edit/:id" component={BuildingEditForm} />
+      <Route exact path="/building/create" component={BuildingCreateForm} />
+      <Route exact path="/room/edit/:id" component={RoomEditForm} />
+      <Route exact path="/room/create/:id" component={RoomCreateForm} />
     </Switch>
   );
 };
