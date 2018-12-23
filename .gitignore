@@ -11,3 +11,8 @@ target/
 #rest
 .idea/httpRequests/
 .project
+
+#eclipse
+.settings/
+*.project
+*.classpath
