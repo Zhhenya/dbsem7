@@ -18,7 +18,7 @@ public class InventoryController {
         this.inventoryService = inventoryService;
     }
 
-	@RequestMapping("/inventory/list")
+	@RequestMapping("/inventory/")
     @ResponseBody
     public List<InventoryDto> getInventoryList() {
         return inventoryService.fetchInventoryList();
