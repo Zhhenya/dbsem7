@@ -12,4 +12,6 @@ public interface BuildingService {
 
     void delete(BuildingDto buildingDto);
 
+    BuildingDto fetch(long id);
+
 }

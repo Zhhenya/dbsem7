@@ -42,4 +42,10 @@ public class BuildingServiceImpl implements BuildingService {
     public void delete(BuildingDto buildingDto) {
         buildingRepository.deleteById(buildingDto.getId());
     }
+
+    @Override
+    public BuildingDto fetch(long id) {
+        return buildingConverter.convert(buildingRepository.findById(id)
+                                                           .orElseThrow(() -> new BuildingNotFoundException(id)));
+    }
 }

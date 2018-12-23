@@ -7,6 +7,7 @@ import SimpleAlertDialog from "../../commons/dialog/SimpleAlertDialog";
 import { withStyles } from "@material-ui/core";
 import Button from "@material-ui/core/es/Button/Button";
 import AddIcon from "@material-ui/icons/Add";
+import { withRouter } from "react-router";
 
 const styles = theme => ({
   root: {
@@ -48,12 +49,13 @@ class BuildingListForm extends Component {
       .post("/building/delete", building)
       .then(() => {
         this.setState({ deleted: true });
+        this.fetchBuildings();
       })
       .catch(error => this.setState({ error }));
   };
 
   openCreateBuildingForm = () => {
-
+    this.props.history.push("/building/create");
   };
 
   render() {
@@ -89,7 +91,7 @@ class BuildingListForm extends Component {
         >
           <Grid item xs>
             <Typography variant="h3" gutterBottom className={classes.margin}>
-             Здания кампуса
+              Здания кампуса
             </Typography>
           </Grid>
           <Grid item xs={2}>
@@ -112,4 +114,4 @@ class BuildingListForm extends Component {
   }
 }
 
-export default withStyles(styles)(BuildingListForm);
+export default withStyles(styles)(withRouter(BuildingListForm));

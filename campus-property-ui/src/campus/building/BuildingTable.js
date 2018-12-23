@@ -17,6 +17,10 @@ const columns = [
   { title: "", key: uniqueId(), property: "" }
 ];
 
+const openEditForm = (props, id) => {
+  props.history.push("/building/edit/" + id);
+};
+
 const BuildingTable = props => {
   const { classes, data, onDelete } = props;
   return (
@@ -35,7 +39,7 @@ const BuildingTable = props => {
               hover
               key={row.id}
               onDoubleClick={() => {
-                this.setState({ openRecords: true, selectedRequest: row });
+                openEditForm(props, row.id);
               }}
             >
               <TableCell component="th" scope="row">

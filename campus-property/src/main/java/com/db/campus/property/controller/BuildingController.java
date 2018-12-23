@@ -23,6 +23,12 @@ public class BuildingController {
         return buildingService.fetchAll();
     }
 
+    @RequestMapping("building/{id}")
+    @ResponseBody
+    public BuildingDto fetch(@PathVariable("id") long id) {
+        return buildingService.fetch(id);
+    }
+
     @RequestMapping(value = "building/save", method = RequestMethod.POST)
     @ResponseBody
     public Boolean fetchAll(@RequestBody BuildingDto buildingDto) {

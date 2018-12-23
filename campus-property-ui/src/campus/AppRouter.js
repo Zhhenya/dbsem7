@@ -13,6 +13,8 @@ import { OfficerRequestListForm } from "./officer";
 import ObjectPropertyTableForm from "./objectProperty/table/ObjectPropertyTableForm";
 import Profile from "./account/Profile";
 import BuildingListForm from "./building/BuildingListForm";
+import BuildingEditForm from "./building/BuildingEditForm";
+import BuildingCreateForm from "./building/BuildingCreateForm";
 
 const AppRouter = () => {
   return (
@@ -44,6 +46,8 @@ const AppRouter = () => {
       />
       <Route exact path="/accountant/letter" component={AccountantLetterForm} />
       <Route exact path="/building/list" component={BuildingListForm} />
+      <Route exact path="/building/edit/:id" component={BuildingEditForm} />
+      <Route exact path="/building/create" component={BuildingCreateForm} />
     </Switch>
   );
 };
