@@ -7,15 +7,20 @@ class ResultInventoryListForm extends Component{
     data: []
   };
 
+  constructor(props) {
+    super(props);
+  }
+
   componentDidMount() {
     this.fetchTableData();
   }
 
-  fetchTableData = () =>
-    request.get("/result-inventory/list").then(data => {
-      console.log(data);
+  fetchTableData = () => {
+    console.log(this.props);
+    request.get("/inventory/" + this.props.match.params.inventoryId + "/result-inventory/list").then(data => {
       this.setState({ data });
-    });
+    })
+  };
 
   render() {
     return <ResultInventoryListTable data={this.state.data} />;

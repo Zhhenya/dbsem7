@@ -29,4 +29,10 @@ public class ResultInventoryServiceImpl implements ResultInventoryService {
         );
     }
 
+    public List<ResultInventoryDto> fetchResultInventoryListByInventoryId(long inventoryId) {
+        return resultInventoryConverter.convertAll(
+                resultInventoryRepository.findAllByInventory_Id(inventoryId)
+        );
+    }
+
 }

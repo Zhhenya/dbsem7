@@ -20,8 +20,7 @@ public class InventoryController {
 
 	@RequestMapping("/inventory/list")
     @ResponseBody
-    public List<InventoryDto> getInventarisationList() {
+    public List<InventoryDto> getInventoryList() {
         return inventoryService.fetchInventoryList();
     }
-
 }

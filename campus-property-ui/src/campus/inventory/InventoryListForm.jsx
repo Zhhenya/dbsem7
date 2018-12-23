@@ -13,6 +13,7 @@ class InventoryListForm extends Component {
 
     fetchTableData = () =>
         request.get("/inventory/list").then(data => {
+            console.log(data);
             this.setState({ data });
         });
 
