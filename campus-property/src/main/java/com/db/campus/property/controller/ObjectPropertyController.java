@@ -42,32 +42,38 @@ public class ObjectPropertyController {
 
     @RequestMapping("/inventory/room")
     @ResponseBody
-    public List<RoomDto> getRequestRoomList() {
+    public List<RoomDto> fetchRequestRoomList() {
         return roomNumberService.fetchRoomNumberList();
     }
 
     @RequestMapping("object/building")
     @ResponseBody
-    public List<BuildingDto> getBuildingAddressList(){
+    public List<BuildingDto> fetchBuildingAddressList(){
         return buildingAddressService.fetchBuildingAddress();
     }
 
     @RequestMapping("object/state")
     @ResponseBody
-    public List<StateDto> getStateObjectProperty(){
+    public List<StateDto> fetchStateObjectProperty(){
         return stateObjectPropertyService.fetchStateObjectProperty();
     }
 
     @RequestMapping("/objectProperty")
     @ResponseBody
-    public List<ObjectPropertyDto> getObjectPropertyList() {
+    public List<ObjectPropertyDto> fetchObjectPropertyList() {
         return objectPropertyService.fetchObjectList();
     }
 
     @RequestMapping("object/economicOfficers")
     @ResponseBody
-    public List<EconomicOfficerDto> getEconomicOfficerList(){
+    public List<EconomicOfficerDto> fetchEconomicOfficerList(){
         return officerService.findAll();
+    }
+
+    @RequestMapping(value = "object/add", method = RequestMethod.POST)
+    @ResponseBody
+    public void save(@RequestBody ObjectPropertyDto objectPropertyDto){
+        objectPropertyService.save(objectPropertyDto);
     }
 
     @RequestMapping("object/state/all")

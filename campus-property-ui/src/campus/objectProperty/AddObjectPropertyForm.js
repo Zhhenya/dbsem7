@@ -15,6 +15,7 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import {withRouter} from "react-router";
 
 
+
 const styles = theme => ({
     root: {
         flexGrow: 1
@@ -31,11 +32,11 @@ const styles = theme => ({
 });
 
 const INITIAL_VALUE = {
-    propertyNumber: "",
+    propertyNumber: null,
     caption: "",
     maker: "",
     date: null,
-    cost: "",
+    cost: null,
 };
 
 const VALIDATION_SCHEMA = Yup.object().shape({
@@ -67,7 +68,7 @@ class AddObjectPropertyForm extends Component {
     fetchObjectRooms = () => {
         request
             .get("inventory/room")
-            .then(room => this.setState({room}));
+            .then(rooms => this.setState({rooms}));
     };
 
     fetchObjectBuilding = () => {
@@ -170,13 +171,14 @@ class AddObjectPropertyForm extends Component {
                                             />
                                         </FormControl>
                                         <FormControl className={classes.margin} fullWidth>
-                                            <InputField
-                                                name="contentDate"
-                                                label="Дата приобритения"
-                                                classes={classes}
-                                                multiline
-                                                fullWidth
-                                            />
+                                            <FormGroup>
+                                                <InputField
+                                                    name="date"
+                                                    label="Дата приема"
+                                                    type="date"
+                                                    InputLabelProps={{ shrink: true }}
+                                                />
+                                            </FormGroup>
                                         </FormControl>
                                         <FormControl className={classes.margin} fullWidth>
                                             <InputField
@@ -192,25 +194,25 @@ class AddObjectPropertyForm extends Component {
                                 <Grid item xs={6}>
                                     <FormControl className={classes.margin} style={{width: "50%"}}>
                                         <AutocompleteSelectField
-                                            name={`number`}
+                                            name="id"
                                             options={rooms}
                                             displayLabel="Комната"
-                                            label="room"
+                                            label="number"
                                             placeholder="Введите номер комнаты"
                                         />
                                     </FormControl>
                                     <FormControl className={classes.margin} style={{width: "50%"}}>
                                         <AutocompleteSelectField
-                                            name={`address`}
+                                            name="id"
                                             options={buildings}
                                             displayLabel="Адрес здания"
-                                            label="building"
+                                            label="address"
                                             placeholder="Введите адрес здания"
                                         />
                                     </FormControl>
                                     <FormControl className={classes.margin} style={{width: "50%"}}>
                                         <AutocompleteSelectField
-                                            name={`s_name`}
+                                            name="id"
                                             options={states}
                                             displayLabel="Состояние"
                                             label="state"
@@ -219,10 +221,10 @@ class AddObjectPropertyForm extends Component {
                                     </FormControl>
                                     <FormControl className={classes.margin} style={{width: "50%"}}>
                                         <AutocompleteSelectField
-                                            name={`EO_name`}
+                                            name="id"
                                             options={economicOfficers}
                                             displayLabel="Материально ответственное лицо"
-                                            label="economicOfficer"
+                                            label="name"
                                             placeholder="Выберите списка"
                                         />
                                     </FormControl>
