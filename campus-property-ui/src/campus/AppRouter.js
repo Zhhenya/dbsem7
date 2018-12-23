@@ -33,6 +33,7 @@ const AppRouter = () => {
       <Route exact path="/accountant/request/list" component={AccountantRequestListForm} />
       <Route exact path="/accountant/inventory" component={AccountantInventoryForm} />
       <Route exact path="/accountant/letter" component={AccountantLetterForm} />
+      <Route exact path="/result-inventory/list" component={ResultInventoryListForm}/>
     </Switch>
   );
 };

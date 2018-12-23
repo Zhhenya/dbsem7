@@ -12,9 +12,9 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
 
-const styles = theme => ({
+const styles = () => ({
   root: {
-    marginTop: theme.spacing.unit * 3,
+    width: "100%",
     overflowX: "auto"
   },
   table: {
@@ -23,11 +23,11 @@ const styles = theme => ({
 });
 
 const columns = [
-  { title: "Инвентарный номер", key: uniqueId(), property: "propertyNumber" },
-  { title: "Название", key: uniqueId(), property: "caption" },
-  { title: "Адрес здания", key: uniqueId(), property: "building" },
-  { title: "Комната", key: uniqueId(), property: "room" },
-  { title: "Результат инвентаризации", key: uniqueId(), property: "result" }
+  { title: "Инвентарный номер",         key: uniqueId(), property: "propertyNumber" },
+  { title: "Название",                  key: uniqueId(), property: "caption" },
+  { title: "Адрес здания",              key: uniqueId(), property: "building" },
+  { title: "Комната",                   key: uniqueId(), property: "room" },
+  { title: "Результат инвентаризации",  key: uniqueId(), property: "result" }
 ];
 
 const ResultInventoryListTable = props => {
@@ -59,7 +59,7 @@ const ResultInventoryListTable = props => {
                 {row.objectProperty.caption}
               </TableCell>
               <TableCell scope="row">
-                {row.objectProperty}
+                {row.objectProperty.room.building.address}
               </TableCell>
               <TableCell scope="row">
                 {row.objectProperty.room}
