@@ -12,71 +12,26 @@ import ObjectPropertyForm from "./objectProperty/ObjectPropertyForm";
 import { OfficerRequestListForm } from "./officer";
 import ObjectPropertyTableForm from "./objectProperty/table/ObjectPropertyTableForm";
 import ResultInventoryListForm from "./resultInventory/ResultInventoryListForm";
-
+import Profile from "./account/Profile";
 
 const AppRouter = () => {
   return (
     <Switch>
-      <Route
-        exact
-        path="/"
-        component={HomeForm}
-      />
-      <Route
-        exact
-        path="/admin/create"
-        component={AdminCreateForm}
-      />
-      <Route
-        exact
-        path="/request/list"
-        component={RequestListForm}
-      />
-      <Route
-        exact
-        path="/objectProperty"
-        component={ObjectPropertyForm}
-      />
-      <Route
-        exact
-        path="/objectProperty/table"
-        component={ObjectPropertyTableForm}
-      />
-      <Route
-        exact
-        path="/request/create"
-        component={CreateRequestForm} />
-      <Route
-        exact
-        path="/login"
-        component={LoginForm} />
-      <Route
-        exact
-        path="/inventory/list"
-        component={InventoryListForm} />
-      <Route
-        exact
-        path="/result-inventarisation/list"
-        component={ResultInventoryListForm} />
-      <Route
-        exact
-        path="/admin/create/account"
-        component={WorkerAccountForm} />
-      <Route
-        exact
-        path="/officer/request/list"
-        component={OfficerRequestListForm}
-      />
-      <Route
-        exact
-        path="/accountant/request/list"
-        component={AccountantRequestListForm}
-      />
-      <Route
-        exact
-        path="/accountant/inventory"
-        component={AccountantInventoryForm}
-      />
+      <Route exact path="/" component={HomeForm} />
+
+      <Route exact path="/profile" component={Profile} />
+
+      <Route exact path="/admin/create" component={AdminCreateForm} />
+      <Route exact path="/request/list" component={RequestListForm} />
+      <Route exact path="/objectProperty" component={ObjectPropertyForm} />
+      <Route exact path="/objectProperty/table" component={ObjectPropertyTableForm} />
+      <Route exact path="/request/create" component={CreateRequestForm} />
+      <Route exact path="/login" component={LoginForm} />
+      <Route exact path="/inventory/list" component={InventoryListForm} />
+      <Route exact path="/admin/create/account" component={WorkerAccountForm} />
+      <Route exact path="/officer/request/list" component={OfficerRequestListForm} />
+      <Route exact path="/accountant/request/list" component={AccountantRequestListForm} />
+      <Route exact path="/accountant/inventory" component={AccountantInventoryForm} />
       <Route exact path="/accountant/letter" component={AccountantLetterForm} />
     </Switch>
   );

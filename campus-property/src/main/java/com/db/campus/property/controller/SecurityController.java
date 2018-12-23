@@ -8,6 +8,8 @@ import com.db.campus.property.service.CampusWorkerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -31,7 +33,14 @@ public class SecurityController {
     @RequestMapping(value = "/loginRequest", method = RequestMethod.POST)
     @ResponseBody
     public Boolean login(@RequestBody UserAccountDto userDetails) {
-        securityService.autoLogin(userDetails.getLogin(), userDetails.getPassword());
+        securityService.login(userDetails.getLogin(), userDetails.getPassword());
+        return true;
+    }
+
+    @RequestMapping(value = "/logoutRequest", method = RequestMethod.POST)
+    @ResponseBody
+    public Boolean logout(HttpServletRequest request, HttpServletResponse response) {
+        securityService.logout(request, response);
         return true;
     }
 

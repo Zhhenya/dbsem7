@@ -12,11 +12,11 @@ import InputField from "../../components/InputField";
 import { withRouter } from "react-router";
 
 const styles = theme => ({
-  container: {
+  root: {
     display: "flex",
     flexWrap: "wrap"
   },
-  margin: {
+  marginNormal: {
     margin: theme.spacing.unit
   },
   card: {
@@ -30,7 +30,9 @@ const styles = theme => ({
 
 const login = (user, props) => {
   request.post("/loginRequest", user).then(() => {
-    props.history.push("/");
+    if (props.location.pathname !== "/") {
+      props.history.replace("/");
+    }
   });
 };
 
@@ -46,12 +48,12 @@ const LoginForm = props => {
               login(user, props);
             }}
           >
-            <Form className={classes.container}>
+            <Form className={classes.root}>
               <FormGroup>
-                <FormControl className={classes.margin}>
+                <FormControl className={classes.marginNormal}>
                   <InputField name="login" classes={classes} label="Логин" />
                 </FormControl>
-                <FormControl className={classes.margin}>
+                <FormControl className={classes.marginNormal}>
                   <InputField
                     name="password"
                     type="password"

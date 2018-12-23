@@ -10,7 +10,6 @@ const HomeForm = () => {
   if (!user) {
     return null;
   }
-  console.log(user);
 
   switch (user.role) {
     case Roles.WORKER:
