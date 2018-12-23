@@ -90,9 +90,25 @@ const styles = theme => ({
 
 class AppWrapper extends Component {
   state = {
+    currentLocation: undefined,
     anchorEl: null,
     isMenuOpen: false
   };
+
+  static getDerivedStateFromProps(nextProps, prevState) {
+    const {
+      location: { pathname }
+    } = nextProps;
+
+    if (pathname !== prevState.currentLocation) {
+      return {
+        currentLocation: pathname,
+        isMenuOpen: false
+      };
+    }
+
+    return null;
+  }
 
   isHome = () => this.props.location.pathname === "/";
 
@@ -128,6 +144,9 @@ class AppWrapper extends Component {
     const auth = stateProvider.authorized;
     const name = (stateProvider.user && stateProvider.user.name) || "";
     const isAccountMenuOpen = Boolean(anchorEl);
+
+    console.log({ props: this.props, state: this.state });
+
     return (
       <div className={classes.root}>
         <CssBaseline />
