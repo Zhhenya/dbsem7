@@ -12,7 +12,6 @@ import TableRow from "@material-ui/core/TableRow";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
-import Paper from "@material-ui/core/Paper";
 
 const styles = theme => ({
     root: {
@@ -32,7 +31,7 @@ const columns = [
 const InventoryListTable = props => {
     const { classes, data } = props;
     return (
-        <Paper className={classes.root}>
+        <React.Fragment>
             <AppBar position="static" color="default">
                 <Toolbar>
                     <Grid container justify={"flex-start"}>
@@ -68,7 +67,7 @@ const InventoryListTable = props => {
                         ))}
                     </TableBody>
             </Table>
-        </Paper>
+        </React.Fragment>
     );
 };
 

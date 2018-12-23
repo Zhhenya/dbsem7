@@ -10,7 +10,6 @@ import TableRow from "@material-ui/core/TableRow";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
-import Paper from "@material-ui/core/Paper";
 
 const styles = () => ({
   root: {
@@ -33,7 +32,7 @@ const columns = [
 const ResultInventoryListTable = props => {
   const { classes, data } = props;
   return (
-    <Paper className={classes.root}>
+    <React.Fragment>
       <AppBar position="static" color="default">
         <Toolbar>
           <Typography variant="h6" color="inherit">
@@ -62,7 +61,7 @@ const ResultInventoryListTable = props => {
                 {row.objectProperty.room.building.address}
               </TableCell>
               <TableCell scope="row">
-                {row.objectProperty.room}
+                {row.objectProperty.room.number}
               </TableCell>
               <TableCell scope="row">
                 {row.result}
@@ -71,7 +70,7 @@ const ResultInventoryListTable = props => {
           ))}
         </TableBody>
       </Table>
-    </Paper>
+    </React.Fragment>
   );
 };
 
