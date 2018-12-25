@@ -19,6 +19,7 @@ import BuildingCreateForm from "./building/BuildingCreateForm";
 import RoomEditForm from "./building/room/RoomEditForm";
 import RoomCreateForm from "./building/room/RoomCreateForm";
 import EditObjectPropertyForm from "./objectProperty/EditObjectPropertyForm";
+import CopyObjectPropertyForm from "./objectProperty/CopyObjectPropertyForm";
 
 const AppRouter = () => {
   return (
@@ -33,6 +34,7 @@ const AppRouter = () => {
       <Route exact path="/request/create" component={CreateRequestForm} />
       <Route exact path="/object/add" component={AddObjectPropertyForm} />
       <Route exact path="/object/edit/:id" component={EditObjectPropertyForm} />
+      <Route exact path="/object/copy/:id" component={CopyObjectPropertyForm} />
       <Route exact path="/login" component={LoginForm} />
       <Route exact path="/inventory/" component={InventoryListForm} />
       <Route exact path="/admin/create/account" component={WorkerAccountForm} />
