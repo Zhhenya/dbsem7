@@ -1,8 +1,8 @@
 package com.db.campus.property.controller;
 
-import com.db.campus.property.converter.CancellationActConverter;
-import com.db.campus.property.dao.CancellationActRepository;
 import com.db.campus.property.dto.CancellationActDto;
+import com.db.campus.property.dto.CancellationProtocolRecordDto;
+import com.db.campus.property.service.cancellation.CancellationActService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -13,20 +13,23 @@ import java.util.List;
 @RestController
 public class CancellationActController {
 
-    private final CancellationActRepository cancellationActRepository;
-    private final CancellationActConverter cancellationActConverter;
+    private final CancellationActService cancellationActService;
 
     @Autowired
-    public CancellationActController(CancellationActRepository cancellationActRepository,
-                                     CancellationActConverter cancellationActConverter) {
-        this.cancellationActRepository = cancellationActRepository;
-        this.cancellationActConverter = cancellationActConverter;
+    public CancellationActController(CancellationActService cancellationActService) {
+        this.cancellationActService = cancellationActService;
     }
 
     @RequestMapping("/cancellation/act/all")
     @ResponseBody
     public List<CancellationActDto> fetchAll() {
-        return cancellationActConverter.convertAll(cancellationActRepository.findAll());
+        return cancellationActService.fetchAll();
+    }
+
+    @RequestMapping("/cancellation/protocol")
+    @ResponseBody
+    public List<CancellationProtocolRecordDto> protocol() {
+        return cancellationActService.fetchProtocol();
     }
 
 }

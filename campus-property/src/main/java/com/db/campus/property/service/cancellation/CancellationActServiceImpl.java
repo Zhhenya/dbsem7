@@ -1,7 +1,11 @@
 package com.db.campus.property.service.cancellation;
 
+import com.db.campus.property.converter.CancellationActConverter;
 import com.db.campus.property.dao.CancellationActRepository;
 import com.db.campus.property.dao.CancellationRecordRepository;
+import com.db.campus.property.dao.StoredProcedureProvider;
+import com.db.campus.property.dto.CancellationActDto;
+import com.db.campus.property.dto.CancellationProtocolRecordDto;
 import com.db.campus.property.entity.AccountantEntity;
 import com.db.campus.property.entity.CancellationActEntity;
 import com.db.campus.property.entity.CancellationRecordEntity;
@@ -20,15 +24,21 @@ public class CancellationActServiceImpl implements CancellationActService {
 
     private final CancellationActRepository cancellationActRepository;
     private final CancellationRecordRepository cancellationRecordRepository;
+    private final CancellationActConverter cancellationActConverter;
     private final ObjectPropertyService objectPropertyService;
+    private final StoredProcedureProvider storedProcedureProvider;
 
     @Autowired
     public CancellationActServiceImpl(CancellationActRepository cancellationActRepository,
                                       CancellationRecordRepository cancellationRecordRepository,
-                                      ObjectPropertyService objectPropertyService) {
+                                      CancellationActConverter cancellationActConverter,
+                                      ObjectPropertyService objectPropertyService,
+                                      StoredProcedureProvider storedProcedureProvider) {
         this.cancellationActRepository = cancellationActRepository;
         this.cancellationRecordRepository = cancellationRecordRepository;
+        this.cancellationActConverter = cancellationActConverter;
         this.objectPropertyService = objectPropertyService;
+        this.storedProcedureProvider = storedProcedureProvider;
     }
 
     @Transactional
@@ -51,4 +61,13 @@ public class CancellationActServiceImpl implements CancellationActService {
         });
     }
 
+    @Override
+    public List<CancellationActDto> fetchAll() {
+        return cancellationActConverter.convertAll(cancellationActRepository.findAll());
+    }
+
+    @Override
+    public List<CancellationProtocolRecordDto> fetchProtocol() {
+        return storedProcedureProvider.protocol();
+    }
 }
