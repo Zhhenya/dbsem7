@@ -34,13 +34,9 @@ class RoomCreateForm extends Component {
 
   render() {
     const { building } = this.state;
-
-    console.log("111");
     if (!building) {
       return null;
     }
-    console.log("here");
-
     return <RoomForm building={building} />;
   }
 }

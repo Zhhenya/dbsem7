@@ -111,7 +111,6 @@ class ObjectFilterDrawer extends Component {
   fetchStates = () =>
     new Promise(resolve => {
       request.get("object/state/all").then(states => {
-        console.log(states);
         states.unshift(null);
         this.setState({ states });
         resolve();
@@ -121,7 +120,6 @@ class ObjectFilterDrawer extends Component {
   render() {
     const { classes, theme, open, onClose, onSubmit, filter } = this.props;
     const { loading, ...options } = this.state;
-    console.log(this.state);
     return (
       <Drawer
         className={classes.drawer}

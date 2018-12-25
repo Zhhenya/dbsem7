@@ -7,8 +7,10 @@ import com.db.campus.property.dto.ObjectPropertyDto;
 import com.db.campus.property.dto.ObjectPropertyFilterDto;
 import com.db.campus.property.entity.ObjectPropertyEntity;
 import com.db.campus.property.enums.ObjectState;
+import com.db.campus.property.exception.ObjectNotFoundException;
+import com.db.campus.property.exception.RoomNotFoundException;
+import com.db.campus.property.exception.WorkerNotFoundException;
 import com.db.campus.property.service.RandomProviderService;
-import com.db.campus.property.service.officer.OfficerServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -66,8 +68,8 @@ public class ObjectPropertyServiceImpl implements ObjectPropertyService {
     @Override
     public List<String> fetchStates() {
         return Arrays.stream(ObjectState.values())
-                .map(ObjectState::getDisplayName)
-                .collect(Collectors.toList());
+                     .map(ObjectState::getDisplayName)
+                     .collect(Collectors.toList());
     }
 
     @Override
@@ -78,16 +80,28 @@ public class ObjectPropertyServiceImpl implements ObjectPropertyService {
     @Override
     public ObjectPropertyEntity save(ObjectPropertyDto objectPropertyDto) {
         ObjectPropertyEntity objectPropertyEntity = new ObjectPropertyEntity();
+        if (objectPropertyDto.getId() != null) {
+            objectPropertyEntity = objectPropertyRepository
+                    .findById(objectPropertyDto.getId())
+                    .orElseThrow(() -> new ObjectNotFoundException(objectPropertyDto.getPropertyNumber()));
+        }
         objectPropertyEntity.setPropertyNumber(objectPropertyDto.getPropertyNumber());
         objectPropertyEntity.setCaption(objectPropertyDto.getCaption());
         objectPropertyEntity.setDate(Date.valueOf(objectPropertyDto.getDate()));
-        objectPropertyEntity.setCost(BigDecimal.valueOf(
-                Long.parseLong(objectPropertyDto.getCost())));
-        objectPropertyEntity.setAccountant(randomProviderService.retrieveRandom(accountantRepository.findAll()));
-        objectPropertyEntity.setEconomicOfficer(randomProviderService.retrieveRandom(economicOfficerRepository.findAll()));
+        objectPropertyEntity.setCost(BigDecimal.valueOf(Double.parseDouble(objectPropertyDto.getCost())));
+        objectPropertyEntity.setAccountant(
+                accountantRepository
+                        .findById(objectPropertyDto.getAccountant().getId())
+                        .orElseThrow(() -> new WorkerNotFoundException(objectPropertyDto.getAccountant().getName())));
+        objectPropertyEntity.setEconomicOfficer(
+                economicOfficerRepository
+                        .findById(objectPropertyDto.getEconomicOfficer().getId())
+                        .orElseThrow(() -> new WorkerNotFoundException(objectPropertyDto.getEconomicOfficer().getName())));
         objectPropertyEntity.setMaker(objectPropertyDto.getMaker());
-        objectPropertyEntity.setRoom(randomProviderService.retrieveRandom(roomRepository.findAll()));
-        objectPropertyEntity.setState(randomProviderService.retrieveRandom(stateRepository.findAll()));
+        objectPropertyEntity.setRoom(roomRepository
+                                             .findById(objectPropertyDto.getRoom().getId())
+                                             .orElseThrow(() -> new RoomNotFoundException(objectPropertyDto.getRoom().getId())));
+        objectPropertyEntity.setState(stateRepository.findByName(objectPropertyDto.getState()));
         return objectPropertyRepository.save(objectPropertyEntity);
     }
 
@@ -97,5 +111,10 @@ public class ObjectPropertyServiceImpl implements ObjectPropertyService {
                 objectPropertyCriteriaRepository.findFiltered(objectPropertyFilterDto));
     }
 
-
+    @Override
+    public ObjectPropertyDto fetch(Long objectId) {
+        return objectPropertyConverter.convert(
+                objectPropertyRepository.findById(objectId)
+                                        .orElseThrow(() -> new ObjectNotFoundException(objectId.toString())));
+    }
 }

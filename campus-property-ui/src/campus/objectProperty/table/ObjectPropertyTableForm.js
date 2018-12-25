@@ -4,11 +4,13 @@ import ObjectFilterForm from "./filter/ObjectFilterDrawer";
 import Grid from "@material-ui/core/Grid/Grid";
 import Typography from "@material-ui/core/es/Typography/Typography";
 import FilterList from "@material-ui/icons/FilterList";
-import ObjectPropertyTable from "../ObjectPropertyTable";
+import AddIcon from "@material-ui/icons/Add";
+import ObjectPropertyTable from "./ObjectPropertyTable";
 import * as request from "../../../commons/request";
 import { withStyles } from "@material-ui/core";
 import { isEqual } from "lodash";
 import SimpleAlertDialog from "../../../commons/dialog/SimpleAlertDialog";
+import { withRouter } from "react-router";
 
 const styles = theme => ({
   root: {
@@ -45,7 +47,7 @@ class ObjectPropertyTableForm extends Component {
   state = {
     filter: INITIAL_FILTER,
     objects: [],
-    isFilterVisible: true,
+    isFilterVisible: false,
     error: null
   };
 
@@ -72,6 +74,10 @@ class ObjectPropertyTableForm extends Component {
 
   changeFilterVisibility = () => {
     this.setState({ isFilterVisible: !this.state.isFilterVisible });
+  };
+
+  createObject = () => {
+    this.props.history.push("/object/add");
   };
 
   render() {
@@ -104,12 +110,12 @@ class ObjectPropertyTableForm extends Component {
           alignItems="center"
           spacing={24}
         >
-          <Grid item>
+          <Grid item xs>
             <Typography variant="h3" gutterBottom className={classes.margin}>
               Объекты учета
             </Typography>
           </Grid>
-          <Grid item>
+          <Grid item xs={1}>
             <Button
               variant="contained"
               color="primary"
@@ -118,6 +124,17 @@ class ObjectPropertyTableForm extends Component {
             >
               Фильтр
               <FilterList className={classes.rightIcon} />
+            </Button>
+          </Grid>
+          <Grid item xs={3}>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={this.createObject}
+              className={classes.button}
+            >
+              Зарегистрировать новый объект
+              <AddIcon className={classes.rightIcon} />
             </Button>
           </Grid>
           <Grid item xs={12}>
@@ -129,4 +146,4 @@ class ObjectPropertyTableForm extends Component {
   }
 }
 
-export default withStyles(styles)(ObjectPropertyTableForm);
+export default withStyles(styles)(withRouter(ObjectPropertyTableForm));
