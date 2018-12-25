@@ -21,6 +21,7 @@ import RoomCreateForm from "./building/room/RoomCreateForm";
 import EditObjectPropertyForm from "./objectProperty/EditObjectPropertyForm";
 import CopyObjectPropertyForm from "./objectProperty/CopyObjectPropertyForm";
 import CancellationActListForm from "./cancellation/CancellationActListForm";
+import CancellationProtocol from "./cancellation/CancellationProtocol";
 
 const AppRouter = () => {
   return (
@@ -31,7 +32,11 @@ const AppRouter = () => {
 
       <Route exact path="/admin/create" component={AdminCreateForm} />
       <Route exact path="/request/list" component={RequestListForm} />
-      <Route exact path="/objectProperty/table" component={ObjectPropertyTableForm} />
+      <Route
+        exact
+        path="/objectProperty/table"
+        component={ObjectPropertyTableForm}
+      />
       <Route exact path="/request/create" component={CreateRequestForm} />
       <Route exact path="/object/add" component={AddObjectPropertyForm} />
       <Route exact path="/object/edit/:id" component={EditObjectPropertyForm} />
@@ -50,8 +55,21 @@ const AppRouter = () => {
         component={AccountantRequestListForm}
       />
       <Route exact path="/accountant/letter" component={AccountantLetterForm} />
-      <Route exact path="/cancellation/acts" component={CancellationActListForm} />
-      <Route exact path="/inventory/:inventoryId/result-inventory/" component={ResultInventoryListForm}/>
+      <Route
+        exact
+        path="/cancellation/acts"
+        component={CancellationActListForm}
+      />
+      <Route
+        exact
+        path="/cancellation/protocol"
+        component={CancellationProtocol}
+      />
+      <Route
+        exact
+        path="/inventory/:inventoryId/result-inventory/"
+        component={ResultInventoryListForm}
+      />
       <Route exact path="/building/list" component={BuildingListForm} />
       <Route exact path="/building/edit/:id" component={BuildingEditForm} />
       <Route exact path="/building/create" component={BuildingCreateForm} />
