@@ -16,7 +16,7 @@ const LinkToRequests = props => (
 const LinkToPropertyTable = props => (
   <Link to="/objectProperty/table" {...props} />
 );
-const LinkToInventory = props => <Link to="/accountant/inventory" {...props} />;
+const LinkToObjectCreating = props => <Link to="/object/add" {...props} />;
 const LinkToLetter = props => <Link to="/accountant/letter" {...props} />;
 
 const AccountantMenu = () => {
@@ -38,7 +38,7 @@ const AccountantMenu = () => {
           </ListItemIcon>
           <ListItemText primary={"Инвентарь"} />
         </ListItem>
-        <ListItem button component={LinkToInventory}>
+        <ListItem button component={LinkToObjectCreating}>
           <ListItemIcon>
             <AddBox />
           </ListItemIcon>
