@@ -11,6 +11,10 @@ const editObject = (props, id) => {
   props.history.push("/object/edit/" + id);
 };
 
+const mail = (props, id) => {
+  props.history.push("/accountant/letter/" + id);
+};
+
 const ObjectPropertyDialog = props => {
   const { open, onClose, property } = props;
   return (
@@ -29,6 +33,12 @@ const ObjectPropertyDialog = props => {
       <DialogActions>
         <Button onClick={() => editObject(props, property.id)} color="primary">
           Редактировать
+        </Button>
+        <Button
+          color="primary"
+          onClick={() => mail(props, property.economicOfficer.id)}
+        >
+          Связаться с материально-ответственным лицом
         </Button>
       </DialogActions>
     </Dialog>

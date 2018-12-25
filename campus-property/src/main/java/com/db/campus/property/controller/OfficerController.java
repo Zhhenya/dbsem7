@@ -29,4 +29,11 @@ public class OfficerController {
         officerService.save(officerDto);
         return true;
     }
+
+    @RequestMapping("officer/{id}")
+    @ResponseBody
+    public EconomicOfficerDto fetch(@PathVariable("id") Long id) {
+        return officerService.fetch(id);
+    }
+
 }

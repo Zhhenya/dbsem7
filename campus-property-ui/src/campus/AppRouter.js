@@ -23,6 +23,7 @@ import CopyObjectPropertyForm from "./objectProperty/CopyObjectPropertyForm";
 import CancellationActListForm from "./cancellation/CancellationActListForm";
 import CancellationProtocol from "./cancellation/CancellationProtocol";
 import ProcessingInventory from "./inventory/result/ProcessingInventory";
+import AccountantLetterFormWithInitial from "./accountant/AccountantLetterFormWithInitial";
 
 const AppRouter = () => {
   return (
@@ -56,8 +57,21 @@ const AppRouter = () => {
         component={AccountantRequestListForm}
       />
       <Route exact path="/accountant/letter" component={AccountantLetterForm} />
-      <Route exact path="/cancellation/acts" component={CancellationActListForm} />
-      <Route exact path="/inventory/:inventoryId/result-inventory/:roomId" component={ResultInventoryListForm}/>
+      <Route
+        exact
+        path="/accountant/letter/:id"
+        component={AccountantLetterFormWithInitial}
+      />
+      <Route
+        exact
+        path="/cancellation/acts"
+        component={CancellationActListForm}
+      />
+      <Route
+        exact
+        path="/inventory/:inventoryId/result-inventory/:roomId"
+        component={ResultInventoryListForm}
+      />
       <Route
         exact
         path="/cancellation/acts"

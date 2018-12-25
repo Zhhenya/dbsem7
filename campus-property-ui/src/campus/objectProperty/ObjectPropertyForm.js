@@ -15,6 +15,8 @@ import { withRouter } from "react-router";
 import stateProvider from "../../commons/stateProvider";
 import CircularProgress from "@material-ui/core/CircularProgress/CircularProgress";
 import { isEqual } from "lodash";
+import Typography from "@material-ui/core/Typography/Typography";
+import Toolbar from "@material-ui/core/Toolbar/Toolbar";
 
 const styles = theme => ({
   root: {
@@ -157,6 +159,9 @@ class ObjectPropertyForm extends Component {
   closeErrorDialog = () => {
     this.setState({ error: null });
   };
+
+  mail = () => {};
+
   render() {
     const { classes, initialValues, readOnly } = this.props;
     const {
@@ -174,6 +179,12 @@ class ObjectPropertyForm extends Component {
     }
     return (
       <>
+        <Toolbar>
+          <Typography variant="h6" color="inherit">
+            Инвентарный объект
+          </Typography>
+          <div style={{ flexGrow: 1 }} />
+        </Toolbar>
         {success && (
           <SimpleAlertDialog
             title="Объект сохранен"
@@ -256,7 +267,9 @@ class ObjectPropertyForm extends Component {
                     <FormControl className={classes.margin}>
                       <AutocompleteSelectField
                         value={this.state.selectedBuilding}
-                        options={readOnly ? [this.state.selectedBuilding] : buildings}
+                        options={
+                          readOnly ? [this.state.selectedBuilding] : buildings
+                        }
                         displayLabel="Адрес здания"
                         label="address"
                         placeholder="Введите адрес здания"
@@ -289,7 +302,9 @@ class ObjectPropertyForm extends Component {
                     <FormControl className={classes.margin}>
                       <AutocompleteSelectField
                         name="economicOfficer"
-                        options={readOnly ? [initialValues.economicOfficer] : officers}
+                        options={
+                          readOnly ? [initialValues.economicOfficer] : officers
+                        }
                         displayLabel="Материально ответственное лицо"
                         label="name"
                         placeholder="Выберите списка"

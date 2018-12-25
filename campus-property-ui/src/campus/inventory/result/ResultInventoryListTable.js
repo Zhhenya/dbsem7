@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
 import { uniqueId } from "lodash";
 
 import { withStyles } from "@material-ui/core/styles";
@@ -12,6 +12,7 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button/Button";
 import { FieldArray, Form, Formik } from "formik";
 import InputField from "../../../components/InputField";
+import ObjectPropertyDialog from "../../objectProperty/ObjectPropertyDialog";
 
 const styles = () => ({
   root: {
@@ -31,70 +32,96 @@ const columns = [
   { title: "Результат инвентаризации", key: uniqueId(), property: "result" }
 ];
 
-class ResultInventoryListTable extends React.Component {
+class ResultInventoryListTable extends Component {
+  state = {
+    selectedObject: null
+  };
+  openObjectForm = selectedObject => {
+    this.setState({ selectedObject });
+  };
+
   render() {
     const { onSave, data, editable } = this.props;
+    const { selectedObject } = this.state;
     return (
-      <Formik
-        initialValues={{ data: data }}
-        onSubmit={onSave}
-        render={() => (
-          <Form>
-            <Toolbar>
-              <Typography variant="h6" color="inherit">
-                Результаты инвентаризации
-              </Typography>
-              <div style={{ flexGrow: 1 }} />
-              {editable && (
-                <Button variant="contained" color="primary" type="submit">
-                  Сохранить изменения
-                </Button>
-              )}
-            </Toolbar>
-            <Table className={this.props.classes.table}>
-              <TableHead>
-                <TableRow>
-                  {columns.map(column => (
-                    <TableCell key={column.key}>{column.title}</TableCell>
-                  ))}
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                <FieldArray
-                  name="data"
-                  render={() =>
-                    data &&
-                    data.length > 0 &&
-                    data.map((row, index) => (
-                      <TableRow key={row.id}>
-                        <TableCell scope="row">
-                          {row.objectProperty.propertyNumber}
-                        </TableCell>
-                        <TableCell scope="row">
-                          {row.objectProperty.caption}
-                        </TableCell>
-                        <TableCell scope="row">
-                          {row.objectProperty.room.building.address}
-                        </TableCell>
-                        <TableCell scope="row">
-                          {row.objectProperty.room.number}
-                        </TableCell>
-                        <TableCell scope="row">
-                          {!editable ? (
-                            row.result
-                          ) : (
-                            <InputField name={`data[${index}]result`} />
-                          )}
-                        </TableCell>
-                      </TableRow>
-                    ))
-                  }
-                />
-              </TableBody>
-            </Table>
-          </Form>
+      <>
+        {selectedObject && (
+          <ObjectPropertyDialog
+            onClose={() => {
+              this.setState({
+                selectedObject: null
+              });
+            }}
+            open={Boolean(selectedObject)}
+            property={selectedObject}
+          />
         )}
-      />
+        <Formik
+          initialValues={{ data: data }}
+          onSubmit={onSave}
+          render={() => (
+            <Form>
+              <Toolbar>
+                <Typography variant="h6" color="inherit">
+                  Результаты инвентаризации
+                </Typography>
+                <div style={{ flexGrow: 1 }} />
+                {editable && (
+                  <Button variant="contained" color="primary" type="submit">
+                    Сохранить изменения
+                  </Button>
+                )}
+              </Toolbar>
+              <Table className={this.props.classes.table}>
+                <TableHead>
+                  <TableRow>
+                    {columns.map(column => (
+                      <TableCell key={column.key}>{column.title}</TableCell>
+                    ))}
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  <FieldArray
+                    name="data"
+                    render={() =>
+                      data &&
+                      data.length > 0 &&
+                      data.map((row, index) => (
+                        <TableRow
+                          key={row.id}
+                          onDoubleClick={() =>
+                            this.openObjectForm(row.objectProperty)
+                          }
+                        >
+                          <TableCell scope="row">
+                            {row.objectProperty.propertyNumber}
+                          </TableCell>
+                          <TableCell scope="row">
+                            {row.objectProperty.caption}
+                          </TableCell>
+                          <TableCell scope="row">
+                            {row.objectProperty.room.building.address}
+                          </TableCell>
+                          <TableCell scope="row">
+                            {row.objectProperty.room.number}
+                          </TableCell>
+                          <TableCell scope="row">
+                            {!editable ? (
+                              row.result
+                            ) : (
+                              <InputField name={`data[${index}]result`} />
+                            )}
+                          </TableCell>
+                        </TableRow>
+                      ))
+                    }
+                  />
+                </TableBody>
+              </Table>
+            </Form>
+          )}
+        />
+      </>
     );
   }
 }
