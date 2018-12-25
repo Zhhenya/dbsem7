@@ -9,8 +9,8 @@ import { withStyles } from "@material-ui/core";
 import RequestRecordListDialog from "../../request/record/RequestRecordListDialog";
 import { withRouter } from "react-router";
 import CopyIcon from "@material-ui/icons/FileCopy";
-
 import IconButton from "@material-ui/core/IconButton/IconButton";
+import PrintProvider, { NoPrint, Print } from "react-easy-print";
 
 const styles = () => ({
   root: {
@@ -68,65 +68,71 @@ class ObjectPropertyTable extends Component {
             number={selectedRequest.id}
           />
         )}
-        <Table className={classes.table}>
-          <TableHead>
-            <TableRow>
-              {columns.map(column => (
-                <TableCell key={column.key}>{column.title}</TableCell>
-              ))}
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {data &&
-              data.map(row => (
-                <TableRow
-                  hover
-                  key={row.id}
-                  onDoubleClick={() => this.editObject(row.id)}
-                >
-                  <TableCell component="th" scope="row">
-                    {row.propertyNumber}
-                  </TableCell>
-                  <TableCell component="th" scope="row">
-                    {row.caption}
-                  </TableCell>
-                  <TableCell component="th" scope="row">
-                    {row.maker}
-                  </TableCell>
-                  <TableCell component="th" scope="row">
-                    {row.date}
-                  </TableCell>
-                  <TableCell component="th" scope="row">
-                    {row.cost}
-                  </TableCell>
-                  <TableCell component="th" scope="row">
-                    {row.room.number}
-                  </TableCell>
-                  <TableCell component="th" scope="row">
-                    {row.room.building.address}
-                  </TableCell>
-                  <TableCell component="th" scope="row">
-                    {row.state}
-                  </TableCell>
-                  <TableCell component="th" scope="row">
-                    {row.economicOfficer.name}
-                  </TableCell>
-                  <TableCell component="th" scope="row">
-                    {row.accountant.name}
-                  </TableCell>
-                  <TableCell component="th" scope="row">
-                    <IconButton
-                      className={classes.margin}
-                      aria-label="Copy"
-                      onClick={() => this.copyObject(row.id)}
-                    >
-                      <CopyIcon />
-                    </IconButton>
-                  </TableCell>
+        <PrintProvider>
+          <Print single name="objectPropertyTable">
+            <Table className={classes.table}>
+              <TableHead>
+                <TableRow>
+                  {columns.map(column => (
+                    <TableCell key={column.key}>{column.title}</TableCell>
+                  ))}
                 </TableRow>
-              ))}
-          </TableBody>
-        </Table>
+              </TableHead>
+              <TableBody>
+                {data &&
+                  data.map(row => (
+                    <TableRow
+                      hover
+                      key={row.id}
+                      onDoubleClick={() => this.editObject(row.id)}
+                    >
+                      <TableCell component="th" scope="row">
+                        {row.propertyNumber}
+                      </TableCell>
+                      <TableCell component="th" scope="row">
+                        {row.caption}
+                      </TableCell>
+                      <TableCell component="th" scope="row">
+                        {row.maker}
+                      </TableCell>
+                      <TableCell component="th" scope="row">
+                        {row.date}
+                      </TableCell>
+                      <TableCell component="th" scope="row">
+                        {row.cost}
+                      </TableCell>
+                      <TableCell component="th" scope="row">
+                        {row.room.number}
+                      </TableCell>
+                      <TableCell component="th" scope="row">
+                        {row.room.building.address}
+                      </TableCell>
+                      <TableCell component="th" scope="row">
+                        {row.state}
+                      </TableCell>
+                      <TableCell component="th" scope="row">
+                        {row.economicOfficer.name}
+                      </TableCell>
+                      <TableCell component="th" scope="row">
+                        {row.accountant.name}
+                      </TableCell>
+                      <TableCell component="th" scope="row">
+                        <NoPrint>
+                          <IconButton
+                            className={classes.margin}
+                            aria-label="Copy"
+                            onClick={() => this.copyObject(row.id)}
+                          >
+                            <CopyIcon />
+                          </IconButton>
+                        </NoPrint>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+              </TableBody>
+            </Table>
+          </Print>
+        </PrintProvider>
       </React.Fragment>
     );
   }
