@@ -42,6 +42,13 @@ public class ResultInventoryController {
         return resultInventoryService.fetchResultInventoryListByInventoryIdAndRoomId(inventoryId, roomId);
     }
 
+    @RequestMapping("/inventory/{inventoryId}/result-inventory/building/{buildingId}")
+    @ResponseBody
+    public List<ResultInventoryDto> fetchResultInventoryInBuilding(@PathVariable("inventoryId") long inventoryId,
+                                                                   @PathVariable("buildingId") long buildingId) {
+        return resultInventoryService.fetchResultInventoryListInBuilding(inventoryId, buildingId);
+    }
+
     @RequestMapping("/inventory/result/save")
     @ResponseBody
     public Boolean saveResults(@RequestBody List<ResultInventoryDto> inventories) {

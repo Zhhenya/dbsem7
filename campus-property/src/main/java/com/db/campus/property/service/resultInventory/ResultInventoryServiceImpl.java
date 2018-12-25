@@ -45,6 +45,13 @@ public class ResultInventoryServiceImpl implements ResultInventoryService {
                                                   );
     }
 
+    @Override
+    public List<ResultInventoryDto> fetchResultInventoryListInBuilding(long inventoryId, long buildingId) {
+        return resultInventoryConverter.convertAll(
+                resultInventoryRepository.findAllByInventory_IdAndObjectProperty_Room_Building_Id(inventoryId,
+                                                                                                  buildingId));
+    }
+
     @Transactional
     @Override
     public void saveResultInventories(List<ResultInventoryDto> results) {

@@ -12,4 +12,7 @@ public interface ResultInventoryRepository extends JpaRepository<ResultInventory
 
     Iterable<ResultInventoryEntity> findAllByInventory_IdAndObjectProperty_Room_Id(long inventoryId, long roomId);
 
+    Iterable<ResultInventoryEntity> findAllByInventory_IdAndObjectProperty_Room_Building_Id(long inventoryId,
+                                                                                            long buildingId);
+
 }

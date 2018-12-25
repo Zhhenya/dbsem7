@@ -8,6 +8,7 @@ import { isEqual } from "lodash";
 import Typography from "@material-ui/core/es/Typography/Typography";
 import Button from "@material-ui/core/es/Button/Button";
 import { withStyles } from "@material-ui/core";
+import Toolbar from "@material-ui/core/Toolbar/Toolbar";
 
 const styles = theme => ({
   root: {
@@ -46,6 +47,7 @@ class ResultInventoryListForm extends Component {
 
   componentDidMount() {
     this.fetchBuildings();
+    this.fetchTableData();
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
@@ -56,6 +58,7 @@ class ResultInventoryListForm extends Component {
     } = prevState;
     if (!isEqual(selectedBuilding, prevSelectedBuilding)) {
       this.fetchRooms(selectedBuilding);
+      this.fetchTableData();
       return;
     }
     if (!isEqual(selectedRoom, prevSelectedRoom)) {
@@ -70,13 +73,33 @@ class ResultInventoryListForm extends Component {
   }
 
   fetchTableData = () => {
-    const { selectedRoom } = this.state;
+    const { selectedRoom, selectedBuilding } = this.state;
     const { inventoryId } = this.props.match.params;
-    if (!selectedRoom) {
+    if (selectedRoom) {
+      request
+        .get(
+          "/inventory/" + inventoryId + "/result-inventory/" + selectedRoom.id
+        )
+        .then(data => {
+          this.setState({ data });
+        });
+      return;
+    }
+    if (selectedBuilding) {
+      request
+        .get(
+          "/inventory/" +
+            inventoryId +
+            "/result-inventory/building/" +
+            selectedBuilding.id
+        )
+        .then(data => {
+          this.setState({ data });
+        });
       return;
     }
     request
-      .get("/inventory/" + inventoryId + "/result-inventory/" + selectedRoom.id)
+      .get("/inventory/" + inventoryId + "/result-inventory")
       .then(data => {
         this.setState({ data });
       });
@@ -102,8 +125,12 @@ class ResultInventoryListForm extends Component {
     });
   };
 
+  finish = () => {
+    this.props.history.goBack();
+  };
+
   render() {
-    const { classes } = this.props;
+    const { classes, editable } = this.props;
     const {
       buildings,
       rooms,
@@ -116,29 +143,17 @@ class ResultInventoryListForm extends Component {
     }
     return (
       <>
-        <Grid
-          className={classes.root}
-          container
-          justify="space-between"
-          alignItems="center"
-          spacing={24}
-        >
-          <Grid item xs>
-            <Typography variant="h3" gutterBottom className={classes.margin}>
-              Инвентаризация
-            </Typography>
-          </Grid>
-          <Grid item xs={2}>
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={this.finish}
-              className={classes.button}
-            >
+        <Toolbar>
+          <Typography variant="h6" color="inherit">
+            Инвентаризация
+          </Typography>
+          <div style={{ flexGrow: 1 }} />
+          {editable && (
+            <Button variant="contained" color="primary" onClick={this.finish}>
               Завершить инветаризацию
             </Button>
-          </Grid>
-        </Grid>
+          )}
+        </Toolbar>
         <Grid className={classes.root} container spacing={32}>
           <Grid item>
             <form>
@@ -182,7 +197,11 @@ class ResultInventoryListForm extends Component {
         {data.length > 0 && (
           <Grid container>
             <Grid item xs={12}>
-              <ResultInventoryListTable data={data} onSave={this.saveResults} />
+              <ResultInventoryListTable
+                data={data}
+                onSave={this.saveResults}
+                editable={editable}
+              />
             </Grid>
           </Grid>
         )}

@@ -33,7 +33,7 @@ const columns = [
 
 class ResultInventoryListTable extends React.Component {
   render() {
-    const { onSave, data } = this.props;
+    const { onSave, data, editable } = this.props;
     return (
       <Formik
         initialValues={{ data: data }}
@@ -45,9 +45,11 @@ class ResultInventoryListTable extends React.Component {
                 Результаты инвентаризации
               </Typography>
               <div style={{ flexGrow: 1 }} />
-              <Button variant="contained" color="primary" type="submit">
-                Сохранить изменения
-              </Button>
+              {editable && (
+                <Button variant="contained" color="primary" type="submit">
+                  Сохранить изменения
+                </Button>
+              )}
             </Toolbar>
             <Table className={this.props.classes.table}>
               <TableHead>
@@ -78,7 +80,11 @@ class ResultInventoryListTable extends React.Component {
                           {row.objectProperty.room.number}
                         </TableCell>
                         <TableCell scope="row">
-                          <InputField name={`data[${index}]result`} />
+                          {!editable ? (
+                            row.result
+                          ) : (
+                            <InputField name={`data[${index}]result`} />
+                          )}
                         </TableCell>
                       </TableRow>
                     ))

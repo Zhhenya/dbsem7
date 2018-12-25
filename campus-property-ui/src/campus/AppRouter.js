@@ -22,6 +22,7 @@ import EditObjectPropertyForm from "./objectProperty/EditObjectPropertyForm";
 import CopyObjectPropertyForm from "./objectProperty/CopyObjectPropertyForm";
 import CancellationActListForm from "./cancellation/CancellationActListForm";
 import CancellationProtocol from "./cancellation/CancellationProtocol";
+import ProcessingInventory from "./inventory/result/ProcessingInventory";
 
 const AppRouter = () => {
   return (
@@ -69,8 +70,13 @@ const AppRouter = () => {
       />
       <Route
         exact
-        path="/inventory/:inventoryId/result-inventory/"
+        path="/inventory/:inventoryId/result-inventory"
         component={ResultInventoryListForm}
+      />
+      <Route
+        exact
+        path="/inventory/:inventoryId/result-inventory/processing"
+        component={ProcessingInventory}
       />
       <Route exact path="/building/list" component={BuildingListForm} />
       <Route exact path="/building/edit/:id" component={BuildingEditForm} />

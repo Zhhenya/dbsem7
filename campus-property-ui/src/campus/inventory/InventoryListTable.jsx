@@ -23,8 +23,10 @@ const styles = theme => ({
 
 const start = props => {
   request.get("/inventory/init").then(inventoryId => {
-    props.history.push("/inventory/" + inventoryId + "/result-inventory/");
-  }) ;
+    props.history.push(
+      "/inventory/" + inventoryId + "/result-inventory/processing"
+    );
+  });
 };
 
 const InventoryListTable = props => {
