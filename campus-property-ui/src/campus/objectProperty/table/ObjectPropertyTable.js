@@ -10,7 +10,7 @@ import RequestRecordListDialog from "../../request/record/RequestRecordListDialo
 import { withRouter } from "react-router";
 import CopyIcon from "@material-ui/icons/FileCopy";
 import IconButton from "@material-ui/core/IconButton/IconButton";
-import { NoPrint, Print } from "react-easy-print";
+import PrintProvider, { NoPrint, Print } from "react-easy-print";
 
 const styles = () => ({
   root: {
@@ -68,6 +68,7 @@ class ObjectPropertyTable extends Component {
             number={selectedRequest.id}
           />
         )}
+        <PrintProvider>
           <Print single name="objectPropertyTable">
             <Table className={classes.table}>
               <TableHead>
@@ -115,8 +116,8 @@ class ObjectPropertyTable extends Component {
                       <TableCell component="th" scope="row">
                         {row.accountant.name}
                       </TableCell>
-                      <NoPrint>
-                        <TableCell component="th" scope="row">
+                      <TableCell component="th" scope="row">
+                        <NoPrint>
                           <IconButton
                             className={classes.margin}
                             aria-label="Copy"
@@ -124,13 +125,14 @@ class ObjectPropertyTable extends Component {
                           >
                             <CopyIcon />
                           </IconButton>
-                        </TableCell>
-                      </NoPrint>
+                        </NoPrint>
+                      </TableCell>
                     </TableRow>
                   ))}
               </TableBody>
             </Table>
           </Print>
+        </PrintProvider>
       </React.Fragment>
     );
   }
