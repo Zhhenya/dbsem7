@@ -21,7 +21,6 @@ import RoomCreateForm from "./building/room/RoomCreateForm";
 import EditObjectPropertyForm from "./objectProperty/EditObjectPropertyForm";
 import CopyObjectPropertyForm from "./objectProperty/CopyObjectPropertyForm";
 import CancellationActListForm from "./cancellation/CancellationActListForm";
-// import LetterForm from "./email/LetterForm";
 
 const AppRouter = () => {
   return (
