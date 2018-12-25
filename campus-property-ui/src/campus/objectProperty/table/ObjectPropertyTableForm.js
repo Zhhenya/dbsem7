@@ -11,6 +11,8 @@ import { isEqual } from "lodash";
 import SimpleAlertDialog from "../../../commons/dialog/SimpleAlertDialog";
 import { withRouter } from "react-router";
 import Toolbar from "@material-ui/core/Toolbar/Toolbar";
+import stateProvider from "../../../commons/stateProvider";
+import Roles from "../../enums/Roles";
 
 const styles = theme => ({
   root: {
@@ -80,6 +82,8 @@ class ObjectPropertyTableForm extends Component {
     this.props.history.push("/object/add");
   };
 
+  canAdd = () => stateProvider.user.role === Roles.ACCOUNTANT;
+
   render() {
     const { filter, objects, isFilterVisible, error } = this.state;
     const { classes } = this.props;
@@ -117,15 +121,17 @@ class ObjectPropertyTableForm extends Component {
             Фильтр
             <FilterList className={classes.rightIcon} />
           </Button>
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={this.createObject}
-            className={classes.button}
-          >
-            Зарегистрировать новый объект
-            <AddIcon className={classes.rightIcon} />
-          </Button>
+          {this.canAdd() && (
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={this.createObject}
+              className={classes.button}
+            >
+              Зарегистрировать новый объект
+              <AddIcon className={classes.rightIcon} />
+            </Button>
+          )}
         </Toolbar>
         <ObjectPropertyTable data={objects} />
       </>

@@ -9,6 +9,8 @@ import ListItemLink from "../../components/ListItemLink";
 import * as request from "../../commons/request";
 import { withRouter } from "react-router";
 import Divider from "@material-ui/core/es/Divider/Divider";
+import stateProvider from "../../commons/stateProvider";
+import Roles from "../enums/Roles";
 
 const styles = theme => ({
   root: {
@@ -28,6 +30,8 @@ const start = props => {
   });
 };
 
+const canStart = () => stateProvider.user.role === Roles.OFFICER;
+
 const InventoryListTable = props => {
   const { classes, data } = props;
   return (
@@ -37,14 +41,16 @@ const InventoryListTable = props => {
           Список инвентаризаций
         </Typography>
         <div style={{ flexGrow: 1 }} />
-        <Button
-          variant="contained"
-          color="primary"
-          className={classes.button}
-          onClick={() => start(props)}
-        >
-          Начать новую инвентаризацию
-        </Button>
+        {canStart() && (
+          <Button
+            variant="contained"
+            color="primary"
+            className={classes.button}
+            onClick={() => start(props)}
+          >
+            Начать новую инвентаризацию
+          </Button>
+        )}
       </Toolbar>
       <Divider />
       <List>
