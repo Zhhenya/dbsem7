@@ -7,21 +7,27 @@ import MenuItem from "@material-ui/core/MenuItem/MenuItem";
 import { isEqual } from "lodash";
 import Typography from "@material-ui/core/es/Typography/Typography";
 import Button from "@material-ui/core/es/Button/Button";
-import AddIcon from "@material-ui/core/SvgIcon/SvgIcon";
 import { withStyles } from "@material-ui/core";
 
 const styles = theme => ({
   root: {
-    flexGrow: 1
+    flexGrow: 1,
+    marginBottom: theme.spacing.unit
   },
   margin: {
-    margin: theme.spacing.unit * 4
+    margin: theme.spacing.unit * 4,
+    marginBottom: theme.spacing.unit
   },
   button: {
-    margin: theme.spacing.unit * 4
+    margin: theme.spacing.unit * 4,
+    marginBottom: theme.spacing.unit
   },
   rightIcon: {
     marginLeft: theme.spacing.unit
+  },
+  selectField: {
+    marginLeft: theme.spacing.unit * 4,
+    marginRight: theme.spacing.unit * 4
   }
 });
 
@@ -66,6 +72,9 @@ class ResultInventoryListForm extends Component {
   fetchTableData = () => {
     const { selectedRoom } = this.state;
     const { inventoryId } = this.props.match.params;
+    if (!selectedRoom) {
+      return;
+    }
     request
       .get("/inventory/" + inventoryId + "/result-inventory/" + selectedRoom.id)
       .then(data => {
@@ -87,6 +96,12 @@ class ResultInventoryListForm extends Component {
     this.setState({ selectedRoom: event.target.value, data: [] });
   };
 
+  saveResults = data => {
+    request.post("/inventory/result/save", data.data).then(() => {
+      this.fetchTableData();
+    });
+  };
+
   render() {
     const { classes } = this.props;
     const {
@@ -96,6 +111,9 @@ class ResultInventoryListForm extends Component {
       selectedBuilding,
       selectedRoom
     } = this.state;
+    if (!buildings.length) {
+      return null;
+    }
     return (
       <>
         <Grid
@@ -114,29 +132,18 @@ class ResultInventoryListForm extends Component {
             <Button
               variant="contained"
               color="primary"
-              onClick={this.save}
-              className={classes.button}
-            >
-              Сохранить изменения
-              <AddIcon className={classes.rightIcon} />
-            </Button>
-          </Grid>
-          <Grid item xs={2}>
-            <Button
-              variant="contained"
-              color="primary"
               onClick={this.finish}
               className={classes.button}
             >
               Завершить инветаризацию
-              <AddIcon className={classes.rightIcon} />
             </Button>
           </Grid>
         </Grid>
-        <Grid container spacing={32}>
+        <Grid className={classes.root} container spacing={32}>
           <Grid item>
             <form>
               <TextField
+                className={classes.selectField}
                 id="standard-select-buildings"
                 select
                 value={selectedBuilding || ""}
@@ -155,6 +162,7 @@ class ResultInventoryListForm extends Component {
           </Grid>
           <Grid item>
             <TextField
+              className={classes.selectField}
               id="standard-select-room"
               select
               label="Комната"
@@ -171,11 +179,13 @@ class ResultInventoryListForm extends Component {
             </TextField>
           </Grid>
         </Grid>
-        <Grid container>
-          <Grid item>
-            <ResultInventoryListTable data={data} />
+        {data.length > 0 && (
+          <Grid container>
+            <Grid item xs={12}>
+              <ResultInventoryListTable data={data} onSave={this.saveResults} />
+            </Grid>
           </Grid>
-        </Grid>
+        )}
       </>
     );
   }
