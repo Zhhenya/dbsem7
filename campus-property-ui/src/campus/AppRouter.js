@@ -22,6 +22,7 @@ import EditObjectPropertyForm from "./objectProperty/EditObjectPropertyForm";
 import CopyObjectPropertyForm from "./objectProperty/CopyObjectPropertyForm";
 import CancellationActListForm from "./cancellation/CancellationActListForm";
 import CancellationProtocol from "./cancellation/CancellationProtocol";
+import WorkerAccountTableForm from "./admin/WorkerAccountTableForm";
 
 const AppRouter = () => {
   return (
@@ -44,6 +45,7 @@ const AppRouter = () => {
       <Route exact path="/login" component={LoginForm} />
       <Route exact path="/inventory/" component={InventoryListForm} />
       <Route exact path="/admin/create/account" component={WorkerAccountForm} />
+      <Route exact path="/admin/users" component={WorkerAccountTableForm} />
       <Route
         exact
         path="/officer/request/list"
