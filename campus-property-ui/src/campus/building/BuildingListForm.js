@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import Grid from "@material-ui/core/Grid/Grid";
 import Typography from "@material-ui/core/es/Typography/Typography";
 import BuildingTable from "./BuildingTable";
 import * as request from "../../commons/request";
@@ -8,17 +7,9 @@ import { withStyles } from "@material-ui/core";
 import Button from "@material-ui/core/es/Button/Button";
 import AddIcon from "@material-ui/icons/Add";
 import { withRouter } from "react-router";
+import Toolbar from "@material-ui/core/Toolbar/Toolbar";
 
 const styles = theme => ({
-  root: {
-    flexGrow: 1
-  },
-  margin: {
-    margin: theme.spacing.unit * 4
-  },
-  button: {
-    margin: theme.spacing.unit * 4
-  },
   rightIcon: {
     marginLeft: theme.spacing.unit
   }
@@ -82,33 +73,21 @@ class BuildingListForm extends Component {
             open={deleted}
           />
         )}
-        <Grid
-          className={classes.root}
-          container
-          justify="space-between"
-          alignItems="center"
-          spacing={24}
-        >
-          <Grid item xs>
-            <Typography variant="h3" gutterBottom className={classes.margin}>
-              Здания кампуса
-            </Typography>
-          </Grid>
-          <Grid item xs={2}>
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={this.openCreateBuildingForm}
-              className={classes.button}
-            >
-              Добавить новое здание
-              <AddIcon className={classes.rightIcon} />
-            </Button>
-          </Grid>
-          <Grid item xs={12}>
-            <BuildingTable data={buildings} onDelete={this.deleteBuilding} />
-          </Grid>
-        </Grid>
+        <Toolbar>
+          <Typography variant="h6" color="inherit">
+            Здания кампуса
+          </Typography>
+          <div style={{ flexGrow: 1 }} />
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={this.openCreateBuildingForm}
+          >
+            Добавить новое здание
+            <AddIcon className={classes.rightIcon} />
+          </Button>
+        </Toolbar>
+        <BuildingTable data={buildings} onDelete={this.deleteBuilding} />
       </>
     );
   }

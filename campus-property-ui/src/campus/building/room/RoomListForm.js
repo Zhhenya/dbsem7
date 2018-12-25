@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import SimpleAlertDialog from "../../../commons/dialog/SimpleAlertDialog";
-import Grid from "@material-ui/core/Grid/Grid";
 import Typography from "@material-ui/core/es/Typography/Typography";
 import Button from "@material-ui/core/es/Button/Button";
 import AddIcon from "@material-ui/icons/Add";
@@ -8,6 +7,7 @@ import { withStyles } from "@material-ui/core";
 import RoomTable from "./RoomTable";
 import * as request from "../../../commons/request";
 import { withRouter } from "react-router";
+import Toolbar from "@material-ui/core/Toolbar/Toolbar";
 
 const styles = theme => ({
   root: {
@@ -88,39 +88,27 @@ class RoomListForm extends Component {
             open={deleted}
           />
         )}
-        <Grid
-          className={classes.root}
-          container
-          justify="space-between"
-          alignItems="center"
-          spacing={24}
-        >
-          <Grid item xs>
-            <Typography variant="h5" gutterBottom className={classes.margin}>
-              Комнаты
-            </Typography>
-          </Grid>
-          <Grid item xs={2}>
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={this.openCreateRoomForm}
-              className={classes.button}
-            >
-              Добавить новую комнату
-              <AddIcon className={classes.rightIcon} />
-            </Button>
-          </Grid>
-          <Grid item xs={12}>
-            {rooms.length ? (
-              <RoomTable data={rooms} onDelete={this.deleteRoom} />
-            ) : (
-              <Typography className={classes.margin} variant={"body1"}>
-                В здании нет комнат
-              </Typography>
-            )}
-          </Grid>
-        </Grid>
+        <Toolbar>
+          <Typography variant="h6" color="inherit">
+            Комнаты
+          </Typography>
+          <div style={{ flexGrow: 1 }} />
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={this.openCreateRoomForm}
+          >
+            Добавить новую комнату
+            <AddIcon className={classes.rightIcon} />
+          </Button>
+        </Toolbar>
+        {rooms.length ? (
+          <RoomTable data={rooms} onDelete={this.deleteRoom} />
+        ) : (
+          <Typography className={classes.margin} variant={"body1"}>
+            В здании нет комнат
+          </Typography>
+        )}
       </>
     );
   }

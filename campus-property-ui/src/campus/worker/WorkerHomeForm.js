@@ -1,11 +1,11 @@
 import React, { Component } from "react";
-import Grid from "@material-ui/core/Grid/Grid";
 import Button from "@material-ui/core/es/Button/Button";
 import AddIcon from "@material-ui/icons/Add";
 import { withRouter } from "react-router";
 import withStyles from "@material-ui/core/styles/withStyles";
 import Typography from "@material-ui/core/es/Typography/Typography";
 import WorkerRequestsByStatusForm from "./request/WorkerRequestsByStatusForm";
+import Toolbar from "@material-ui/core/Toolbar/Toolbar";
 
 const styles = theme => ({
   root: {
@@ -30,34 +30,23 @@ class WorkerHomeForm extends Component {
   render() {
     const { classes } = this.props;
     return (
-      <Grid
-        className={classes.root}
-        container
-        direction="row"
-        justify="space-between"
-        alignItems="center"
-        spacing={24}
-      >
-        <Grid item xs>
-          <Typography variant="h3" gutterBottom className={classes.margin}>
+      <>
+        <Toolbar>
+          <Typography variant="h6" color="inherit">
             Мои заявки
           </Typography>
-        </Grid>
-        <Grid item xs={2}>
+          <div style={{ flexGrow: 1 }} />
           <Button
             variant="contained"
             color="primary"
             onClick={this.openCreateRequestForm}
-            className={classes.button}
           >
             Создать заявку
             <AddIcon className={classes.rightIcon} />
           </Button>
-        </Grid>
-        <Grid item xs={12}>
-          <WorkerRequestsByStatusForm />
-        </Grid>
-      </Grid>
+        </Toolbar>
+        <WorkerRequestsByStatusForm />
+      </>
     );
   }
 }
