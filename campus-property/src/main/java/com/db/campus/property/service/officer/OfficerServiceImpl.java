@@ -36,4 +36,10 @@ public class OfficerServiceImpl implements OfficerService {
         officerEntity.setName(officerDto.getName());
         economicOfficerRepository.save(officerEntity);
     }
+
+    @Override
+    public EconomicOfficerDto fetch(Long id) {
+        return economicOfficerConverter.convert(economicOfficerRepository.findById(id)
+                                                                         .orElseThrow(() -> new WorkerNotFoundException(id.toString())));
+    }
 }

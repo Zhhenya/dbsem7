@@ -11,7 +11,7 @@ import InventoryListForm from "./inventory/InventoryListForm";
 import { OfficerRequestListForm } from "./officer";
 import ObjectPropertyTableForm from "./objectProperty/table/ObjectPropertyTableForm";
 import AddObjectPropertyForm from "./objectProperty/AddObjectPropertyForm";
-import ResultInventoryListForm from "./resultInventory/ResultInventoryListForm";
+import ResultInventoryListForm from "./inventory/result/ResultInventoryListForm";
 import Profile from "./account/Profile";
 import BuildingListForm from "./building/BuildingListForm";
 import BuildingEditForm from "./building/BuildingEditForm";
@@ -22,6 +22,8 @@ import EditObjectPropertyForm from "./objectProperty/EditObjectPropertyForm";
 import CopyObjectPropertyForm from "./objectProperty/CopyObjectPropertyForm";
 import CancellationActListForm from "./cancellation/CancellationActListForm";
 import CancellationProtocol from "./cancellation/CancellationProtocol";
+import ProcessingInventory from "./inventory/result/ProcessingInventory";
+import AccountantLetterFormWithInitial from "./accountant/AccountantLetterFormWithInitial";
 
 const AppRouter = () => {
   return (
@@ -57,6 +59,21 @@ const AppRouter = () => {
       <Route exact path="/accountant/letter" component={AccountantLetterForm} />
       <Route
         exact
+        path="/accountant/letter/:id"
+        component={AccountantLetterFormWithInitial}
+      />
+      <Route
+        exact
+        path="/cancellation/acts"
+        component={CancellationActListForm}
+      />
+      <Route
+        exact
+        path="/inventory/:inventoryId/result-inventory/:roomId"
+        component={ResultInventoryListForm}
+      />
+      <Route
+        exact
         path="/cancellation/acts"
         component={CancellationActListForm}
       />
@@ -67,8 +84,13 @@ const AppRouter = () => {
       />
       <Route
         exact
-        path="/inventory/:inventoryId/result-inventory/"
+        path="/inventory/:inventoryId/result-inventory"
         component={ResultInventoryListForm}
+      />
+      <Route
+        exact
+        path="/inventory/:inventoryId/result-inventory/processing"
+        component={ProcessingInventory}
       />
       <Route exact path="/building/list" component={BuildingListForm} />
       <Route exact path="/building/edit/:id" component={BuildingEditForm} />

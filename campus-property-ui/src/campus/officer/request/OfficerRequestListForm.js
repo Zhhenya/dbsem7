@@ -1,8 +1,7 @@
 import React from "react";
-import Grid from "@material-ui/core/Grid/Grid";
 import Typography from "@material-ui/core/es/Typography/Typography";
 import OfficerRequestsByStatusForm from "./OfficerRequestsByStatusForm";
-import withStyles from "@material-ui/core/styles/withStyles";
+import Toolbar from "@material-ui/core/Toolbar/Toolbar";
 
 const styles = theme => ({
   root: {
@@ -13,28 +12,16 @@ const styles = theme => ({
   }
 });
 
-const OfficerRequestListForm = props => {
-  const { classes } = props;
-  return (
-    <React.Fragment>
-      <Grid
-        className={classes.root}
-        container
-        justify="space-between"
-        alignItems="center"
-        spacing={24}
-      >
-        <Grid item xs>
-          <Typography variant="h3" gutterBottom className={classes.margin}>
-            Заявки работников
-          </Typography>
-        </Grid>
-        <Grid item xs={12}>
-          <OfficerRequestsByStatusForm />
-        </Grid>
-      </Grid>
-    </React.Fragment>
-  );
-};
+const OfficerRequestListForm = () => (
+  <>
+    <Toolbar>
+      <Typography variant="h6" color="inherit">
+        Заявки работников
+      </Typography>
+      <div style={{ flexGrow: 1 }} />
+    </Toolbar>
+    <OfficerRequestsByStatusForm />
+  </>
+);
 
-export default withStyles(styles)(OfficerRequestListForm);
+export default OfficerRequestListForm;

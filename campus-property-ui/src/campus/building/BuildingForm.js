@@ -43,6 +43,7 @@ class BuildingForm extends Component {
       .post("building/save", building)
       .then(() => {
         this.setState({ saved: true });
+        this.props.history.goBack();
       })
       .catch(error => {
         this.setState({ error });
@@ -100,11 +101,13 @@ class BuildingForm extends Component {
             />
           </Grid>
         </Grid>
-        <Grid>
-          <Grid item xs={12}>
-            <RoomListForm buildingId={this.props.match.params.id} />
+        {this.props.match.params.id && (
+          <Grid>
+            <Grid item xs={12}>
+              <RoomListForm buildingId={this.props.match.params.id} />
+            </Grid>
           </Grid>
-        </Grid>
+        )}
       </>
     );
   }

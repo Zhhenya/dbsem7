@@ -52,7 +52,7 @@ class OfficerRequestsByStatusForm extends Component {
   render() {
     const { classes } = this.props;
     return (
-      <React.Fragment>
+      <>
         {RequestPanels.map(panel => (
           <ExpansionPanel key={panel.id} defaultExpanded>
             <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
@@ -74,7 +74,7 @@ class OfficerRequestsByStatusForm extends Component {
             </ExpansionPanelDetails>
           </ExpansionPanel>
         ))}
-      </React.Fragment>
+      </>
     );
   }
 }
