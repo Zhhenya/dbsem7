@@ -16,24 +16,33 @@ class ResultInventoryListForm extends Component {
   }
 
   fetchTableData = () => {
-    console.log(this.props.match.params);
-    request
-      .get(() => {
-        if (this.props.match.params.roomId)
-          return "/inventory/" +
+    new Promise(
+      (onSuccess) => {
+        let url;
+        if (this.props.match.params.roomId){
+          let url = "/inventory/" +
             this.props.match.params.inventoryId +
             "/result-inventory/" +
-            this.props.match.params.roomId
-        else
-          return "/inventory/" +
+            this.props.match.params.roomId;
+          onSuccess(url);
+        }
+        else {
+          url = "/inventory/" +
             this.props.match.params.inventoryId +
-            "/result-inventory"
+            "/result-inventory";
+          onSuccess(url);
+        }
       }
+    ).then(
+      (url) => {
+        request
+          .get(url)
+          .then(data => {
+            this.setState({ data });
+          });
+      }
+    );
 
-      )
-      .then(data => {
-        this.setState({ data });
-      });
   };
 
   render() {
