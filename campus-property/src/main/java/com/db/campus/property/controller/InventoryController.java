@@ -27,8 +27,8 @@ public class InventoryController {
 
     @RequestMapping("/inventory/init")
     @ResponseBody
-    public Boolean initInventory() {
+    public Long initInventory() {
         inventoryService.initInventory();
-        return true;
+        return inventoryService.fetchLastId();
     }
 }

@@ -9,6 +9,7 @@ import Typography from "@material-ui/core/Typography";
 import List from "@material-ui/core/List/List";
 import ListItemLink from "../../components/ListItemLink";
 import * as request from "../../commons/request";
+import { withRouter } from "react-router";
 
 const styles = theme => ({
   root: {
@@ -20,8 +21,10 @@ const styles = theme => ({
   }
 });
 
-const start = () => {
-  request.get("/inventory/init");
+const start = props => {
+  request.get("/inventory/init").then(inventoryId => {
+    props.history.push("/inventory/" + inventoryId + "/result-inventory/");
+  }) ;
 };
 
 const InventoryListTable = props => {
@@ -40,7 +43,7 @@ const InventoryListTable = props => {
               variant="contained"
               color="primary"
               className={classes.button}
-              onClick={start}
+              onClick={() => start(props)}
             >
               Начать новую инвентаризацию
             </Button>
@@ -67,4 +70,4 @@ const InventoryListTable = props => {
   );
 };
 
-export default withStyles(styles)(InventoryListTable);
+export default withStyles(styles)(withRouter(InventoryListTable));

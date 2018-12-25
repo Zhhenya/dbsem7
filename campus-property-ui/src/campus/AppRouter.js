@@ -11,7 +11,7 @@ import InventoryListForm from "./inventory/InventoryListForm";
 import { OfficerRequestListForm } from "./officer";
 import ObjectPropertyTableForm from "./objectProperty/table/ObjectPropertyTableForm";
 import AddObjectPropertyForm from "./objectProperty/AddObjectPropertyForm";
-import ResultInventoryListForm from "./resultInventory/ResultInventoryListForm";
+import ResultInventoryListForm from "./inventory/result/ResultInventoryListForm";
 import Profile from "./account/Profile";
 import BuildingListForm from "./building/BuildingListForm";
 import BuildingEditForm from "./building/BuildingEditForm";

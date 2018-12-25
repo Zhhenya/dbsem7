@@ -14,6 +14,7 @@ const LinkToPropertyTable = props => (
   <Link to="/objectProperty/table" {...props} />
 );
 const LinkToBuildings = props => <Link to="/building/list" {...props} />;
+const LinkToInventoryProcess = props => <Link to="/inventory" {...props} />;
 
 const OfficerMenu = () => {
   return (
@@ -42,6 +43,15 @@ const OfficerMenu = () => {
             <Store />
           </ListItemIcon>
           <ListItemText primary={"Здания"} />
+        </ListItem>
+      </List>
+      <Divider />
+      <List>
+        <ListItem button component={LinkToInventoryProcess}>
+          <ListItemIcon>
+            <Store />
+          </ListItemIcon>
+          <ListItemText primary={"Начать инвентаризацию"} />
         </ListItem>
       </List>
     </React.Fragment>
