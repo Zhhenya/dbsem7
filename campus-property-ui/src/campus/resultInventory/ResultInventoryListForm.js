@@ -4,6 +4,8 @@ import ResultInventoryListTable from "./ResultInventoryListTable";
 
 class ResultInventoryListForm extends Component {
   state = {
+    buildings: ['None'],
+    rooms: ['None'],
     data: []
   };
 
@@ -12,8 +14,25 @@ class ResultInventoryListForm extends Component {
   }
 
   componentDidMount() {
-    this.fetchTableData();
+    this.fetchBuildingsData();
   }
+
+  fetchBuildingsData() {
+    console.log(this.props);
+    request
+      .get("building/all")
+      .then(buildings => {
+        this.setState({ buildings });
+      });
+  }
+
+  // fetchRoomsInBuildingData() {
+  //   request
+  //     .get("/room/all/" + buildingId)
+  //     .then(rooms => {
+  //       this.setState({ rooms });
+  //     })
+  // }
 
   fetchTableData = () => {
     new Promise(
@@ -46,7 +65,11 @@ class ResultInventoryListForm extends Component {
   };
 
   render() {
-    return <ResultInventoryListTable data={this.state.data} />;
+    return <ResultInventoryListTable
+      data={this.state.data}
+      buildings={this.state.buildings}
+      rooms={this.state.rooms}
+    />;
   }
 }
 
