@@ -11,7 +11,7 @@ import { RequestStatus } from "../../request/RequestStatus";
 import RequestTableColumns from "../../request/RequestTableColumns";
 import RequestType from "../../enums/RequestType";
 
-const styles = theme => ({
+const styles = () => ({
   root: {
     width: "100%",
     overflowX: "auto"
