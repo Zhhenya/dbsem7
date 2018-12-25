@@ -78,7 +78,7 @@ class RoomListForm extends Component {
             }}
             open={error !== null}
           />
-        )}AppRouter
+        )}
         {deleted && (
           <SimpleAlertDialog
             title="Комната удалена"
