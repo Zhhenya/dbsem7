@@ -8,4 +8,6 @@ public interface InventoryService {
 
     List<InventoryDto> fetchInventoryList();
 
+    void initInventory();
+
 }
