@@ -44,7 +44,7 @@ class AccountantRequestListTable extends Component {
     const { classes, data, status, onApprove, onCancel } = this.props;
     const { openRecords, selectedRequest } = this.state;
     return (
-      <React.Fragment>
+      <>
         {selectedRequest && openRecords && (
           <RequestRecordListDialog
             open={openRecords}
@@ -115,7 +115,7 @@ class AccountantRequestListTable extends Component {
               ))}
           </TableBody>
         </Table>
-      </React.Fragment>
+      </>
     );
   }
 }

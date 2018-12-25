@@ -20,6 +20,7 @@ import RoomEditForm from "./building/room/RoomEditForm";
 import RoomCreateForm from "./building/room/RoomCreateForm";
 import EditObjectPropertyForm from "./objectProperty/EditObjectPropertyForm";
 import CopyObjectPropertyForm from "./objectProperty/CopyObjectPropertyForm";
+import CancellationActListForm from "./cancellation/CancellationActListForm";
 
 const AppRouter = () => {
   return (
@@ -49,6 +50,7 @@ const AppRouter = () => {
         component={AccountantRequestListForm}
       />
       <Route exact path="/accountant/letter" component={AccountantLetterForm} />
+      <Route exact path="/cancellation/acts" component={CancellationActListForm} />
       <Route exact path="/inventory/:inventoryId/result-inventory/" component={ResultInventoryListForm}/>
       <Route exact path="/building/list" component={BuildingListForm} />
       <Route exact path="/building/edit/:id" component={BuildingEditForm} />

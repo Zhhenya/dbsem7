@@ -7,6 +7,7 @@ import EventNote from "@material-ui/icons/EventNote";
 import Storage from "@material-ui/icons/Storage";
 import AddBox from "@material-ui/icons/AddBox";
 import Mail from "@material-ui/icons/Mail";
+import AssignmentLate from "@material-ui/icons/AssignmentLate";
 import { Link } from "react-router-dom";
 import Divider from "@material-ui/core/es/Divider/Divider";
 
@@ -18,6 +19,7 @@ const LinkToPropertyTable = props => (
 );
 const LinkToObjectCreating = props => <Link to="/object/add" {...props} />;
 const LinkToLetter = props => <Link to="/accountant/letter" {...props} />;
+const LinkToActList = props => <Link to="/cancellation/acts" {...props} />;
 
 const AccountantMenu = () => {
   return (
@@ -52,6 +54,15 @@ const AccountantMenu = () => {
             <Mail />
           </ListItemIcon>
           <ListItemText primary={"Сообщение для взыскания средств"} />
+        </ListItem>
+      </List>
+      <Divider />
+      <List>
+        <ListItem button component={LinkToActList}>
+          <ListItemIcon>
+            <AssignmentLate />
+          </ListItemIcon>
+          <ListItemText primary={"Акты о списании"} />
         </ListItem>
       </List>
     </React.Fragment>
