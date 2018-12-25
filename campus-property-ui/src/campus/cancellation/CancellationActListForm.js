@@ -5,6 +5,8 @@ import CancellationActTable from "./CancellationActTable";
 import * as request from "../../commons/request";
 import CircularProgress from "@material-ui/core/CircularProgress/CircularProgress";
 import { withStyles } from "@material-ui/core";
+import Button from "@material-ui/core/Button/Button";
+import { withRouter } from "react-router";
 
 const styles = theme => ({
   root: {
@@ -36,6 +38,10 @@ class CancellationActListForm extends Component {
     });
   };
 
+  protocol = () => {
+    this.props.history.push("/cancellation/protocol");
+  };
+
   render() {
     const { classes } = this.props;
     const { acts } = this.state;
@@ -55,6 +61,16 @@ class CancellationActListForm extends Component {
             Акты о списании
           </Typography>
         </Grid>
+        <Grid item xs={4}>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={this.protocol}
+            className={classes.button}
+          >
+            Сформировать протокол о списании
+          </Button>
+        </Grid>
         <Grid item xs={12}>
           <CancellationActTable data={acts} />
         </Grid>
@@ -63,4 +79,4 @@ class CancellationActListForm extends Component {
   }
 }
 
-export default withStyles(styles)(CancellationActListForm);
+export default withStyles(styles)(withRouter(CancellationActListForm));
