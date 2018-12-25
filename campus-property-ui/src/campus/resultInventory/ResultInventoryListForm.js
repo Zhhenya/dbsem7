@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import request from "../../commons/request";
-import ResultInventoryListTable from "./ResultInventoryListTable"
+import ResultInventoryListTable from "./ResultInventoryListTable";
 
-class ResultInventoryListForm extends Component{
+class ResultInventoryListForm extends Component {
   state = {
     data: []
   };
@@ -16,10 +16,15 @@ class ResultInventoryListForm extends Component{
   }
 
   fetchTableData = () => {
-    console.log(this.props);
-    request.get("/inventory/" + this.props.match.params.inventoryId + "/result-inventory/list").then(data => {
-      this.setState({ data });
-    })
+    request
+      .get(
+        "/inventory/" +
+          this.props.match.params.inventoryId +
+          "/result-inventory/list"
+      )
+      .then(data => {
+        this.setState({ data });
+      });
   };
 
   render() {

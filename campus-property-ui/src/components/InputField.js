@@ -4,7 +4,7 @@ import TextField from "@material-ui/core/TextField/TextField";
 import * as PropTypes from "prop-types";
 
 const InputField = props => {
-  const { name, ...other } = props;
+  const { name, readOnly, ...other } = props;
 
   return (
     <Field
@@ -16,6 +16,9 @@ const InputField = props => {
             margin="normal"
             error={Boolean(errorText)}
             helperText={errorText}
+            inputProps={{
+              readOnly: Boolean(readOnly)
+            }}
             {...field}
             {...other}
           />

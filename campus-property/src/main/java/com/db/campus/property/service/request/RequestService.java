@@ -26,6 +26,8 @@ public interface RequestService {
 
     void approve(Long requestId);
 
+    void cancelObjects(Long requestId);
+
     void startRequestProcessing(Long requestId);
 
     void markRequestAsReady(Long requestId);

@@ -54,7 +54,6 @@ class WorkerAccountForm extends Component {
     request
       .post("/account/create", userDetails)
       .then(result => {
-        console.log(result);
         this.setState({ result });
       })
       .catch(reason => this.setState({ result: reason.toString() }));

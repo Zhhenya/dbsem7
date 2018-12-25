@@ -66,7 +66,7 @@ class RoomListForm extends Component {
 
   render() {
     const { classes } = this.props;
-    const { building, rooms, deleted, error } = this.state;
+    const { rooms, deleted, error } = this.state;
     return (
       <>
         {error && (
@@ -78,7 +78,7 @@ class RoomListForm extends Component {
             }}
             open={error !== null}
           />
-        )}
+        )}AppRouter
         {deleted && (
           <SimpleAlertDialog
             title="Комната удалена"

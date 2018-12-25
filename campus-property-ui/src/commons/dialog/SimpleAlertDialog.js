@@ -1,5 +1,5 @@
 import React from "react";
-import PropTypes from "prop-types";
+import * as PropTypes from "prop-types";
 import Dialog from "@material-ui/core/Dialog/Dialog";
 import DialogTitle from "@material-ui/core/DialogTitle/DialogTitle";
 import DialogContent from "@material-ui/core/DialogContent/DialogContent";
@@ -25,7 +25,7 @@ const SimpleAlertDialog = props => {
 };
 
 SimpleAlertDialog.propTypes = {
-  open: PropTypes.boolean,
+  open: PropTypes.bool,
   onClose: PropTypes.func,
   title: PropTypes.string,
   content: PropTypes.string

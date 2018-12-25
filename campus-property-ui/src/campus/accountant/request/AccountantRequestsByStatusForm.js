@@ -43,6 +43,12 @@ class AccountantRequestsByStatusForm extends Component {
     });
   };
 
+  cancelObjects = requestId => {
+    request.post("/request/cancelObjects", requestId).then(() => {
+      this.fetchRequestListOfAccountant();
+    });
+  };
+
   render() {
     const { classes } = this.props;
     return (
@@ -62,6 +68,7 @@ class AccountantRequestsByStatusForm extends Component {
                   status={panel.status}
                   data={this.state[panel.status]}
                   onApprove={this.approveRequest}
+                  onCancel={this.cancelObjects}
                 />
               )}
             </ExpansionPanelDetails>

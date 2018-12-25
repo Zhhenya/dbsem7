@@ -6,36 +6,51 @@ import TableRow from "@material-ui/core/TableRow";
 import TableCell from "@material-ui/core/TableCell";
 import TableBody from "@material-ui/core/TableBody";
 import { withStyles } from "@material-ui/core";
-import RequestRecordListDialog from "../request/record/RequestRecordListDialog";
+import RequestRecordListDialog from "../../request/record/RequestRecordListDialog";
+import { withRouter } from "react-router";
+import CopyIcon from "@material-ui/icons/FileCopy";
 
+import IconButton from "@material-ui/core/IconButton/IconButton";
 
 const styles = () => ({
-    root: {
-        width: "100%",
-        overflowX: "auto"
-    },
-    table: {
-        minWidth: 700
-    }
+  root: {
+    width: "100%",
+    overflowX: "auto"
+  },
+  table: {
+    minWidth: 700
+  }
 });
 
 const columns = [
-    { title: "Инвентарный номер", key: uniqueId(), property: "propertyNumber" },
-    { title: "Название", key: uniqueId(), property: "caption" },
-    { title: "Поставщик", key: uniqueId(), property: "maker" },
-    { title: "Дата приобритения", key: uniqueId(), property: "date" },
-    { title: "Стоимость", key: uniqueId(), property: "cost"},
-    { title: "Комната", key: uniqueId(), property: "room"},
-    { title: "Адрес здания", key: uniqueId(), property: "building"},
-    { title: "Состояние", key: uniqueId(), property: "state"},
-    { title: "Материально ответственное лицо", key: uniqueId(), property: "economicOfficer" },
-    { title: "Принимающий бухгалтер", key: uniqueId(), property: "accountant"}
+  { title: "Инвентарный номер", key: uniqueId(), property: "propertyNumber" },
+  { title: "Название", key: uniqueId(), property: "caption" },
+  { title: "Поставщик", key: uniqueId(), property: "maker" },
+  { title: "Дата приобритения", key: uniqueId(), property: "date" },
+  { title: "Стоимость", key: uniqueId(), property: "cost" },
+  { title: "Комната", key: uniqueId(), property: "room" },
+  { title: "Адрес здания", key: uniqueId(), property: "building" },
+  { title: "Состояние", key: uniqueId(), property: "state" },
+  {
+    title: "Материально ответственное лицо",
+    key: uniqueId(),
+    property: "economicOfficer"
+  },
+  { title: "Принимающий бухгалтер", key: uniqueId(), property: "accountant" }
 ];
 
 class ObjectPropertyTable extends Component {
   state = {
     openRecords: false,
     selectedRequest: null
+  };
+
+  editObject = id => {
+    this.props.history.push("/object/edit/" + id);
+  };
+
+  copyObject = id => {
+    this.props.history.push("/object/copy/" + id);
   };
 
   render() {
@@ -47,7 +62,6 @@ class ObjectPropertyTable extends Component {
           <RequestRecordListDialog
             open={openRecords}
             onClose={() => {
-              console.log("close");
               this.setState({ openRecords: false });
             }}
             records={selectedRequest.requestRecordList}
@@ -65,7 +79,11 @@ class ObjectPropertyTable extends Component {
           <TableBody>
             {data &&
               data.map(row => (
-                <TableRow hover key={row.id}>
+                <TableRow
+                  hover
+                  key={row.id}
+                  onDoubleClick={() => this.editObject(row.id)}
+                >
                   <TableCell component="th" scope="row">
                     {row.propertyNumber}
                   </TableCell>
@@ -96,6 +114,15 @@ class ObjectPropertyTable extends Component {
                   <TableCell component="th" scope="row">
                     {row.accountant.name}
                   </TableCell>
+                  <TableCell component="th" scope="row">
+                    <IconButton
+                      className={classes.margin}
+                      aria-label="Copy"
+                      onClick={() => this.copyObject(row.id)}
+                    >
+                      <CopyIcon />
+                    </IconButton>
+                  </TableCell>
                 </TableRow>
               ))}
           </TableBody>
@@ -105,4 +132,4 @@ class ObjectPropertyTable extends Component {
   }
 }
 
-export default withStyles(styles)(ObjectPropertyTable);
+export default withStyles(styles)(withRouter(ObjectPropertyTable));
