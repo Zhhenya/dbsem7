@@ -15,7 +15,6 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import {withRouter} from "react-router";
 
 
-
 const styles = theme => ({
     root: {
         flexGrow: 1
@@ -50,6 +49,7 @@ const VALIDATION_SCHEMA = Yup.object().shape({
 
 class AddObjectPropertyForm extends Component {
     state = {
+        loading: true,
         rooms: [],
         buildings: [],
         states: [],
@@ -59,36 +59,56 @@ class AddObjectPropertyForm extends Component {
     };
 
     componentDidMount() {
-        this.fetchObjectRooms();
-        this.fetchObjectBuilding();
-        this.fetchObjectState();
-        this.fetchObjectEconomicOfficers();
+        this.fetchOptions();
     }
 
-    fetchObjectRooms = () => {
-        request
-            .get("inventory/room")
-            .then(rooms => this.setState({rooms}));
+    fetchOptions = () => {
+        this.setState({loading: true});
+        Promise.all([
+            this.fetchObjectEconomicOfficers(),
+            this.fetchObjectBuilding(),
+            this.fetchObjectRooms(),
+            this.fetchObjectState()
+        ]).then(() => {
+            this.setState({loading: false});
+        });
     };
 
-    fetchObjectBuilding = () => {
-        request
-            .get("object/building")
-            .then(buildings => this.setState({buildings}));
-    };
+    fetchObjectRooms = () => new Promise(resolve => {
+        request.get("room/number/all").then(rooms => {
+            rooms.unshift(null);
+            this.setState({ rooms });
+            resolve();
+        });
+    });
 
-    fetchObjectState = () => {
-        request
-            .get("object/state")
-            .then(states => this.setState({states}));
-    };
+    fetchObjectBuilding = () =>
+        new Promise(resolve => {
+            request.get("building/all").then(buildings => {
+                buildings.unshift(null);
+                this.setState({buildings});
+                resolve();
+            });
+        });
 
-    fetchObjectEconomicOfficers = () => {
-        request
-            .get("object/economicOfficers")
-            .then(economicOfficers => this.setState({economicOfficers}));
-    };
+    fetchObjectState = () =>
+        new Promise(resolve => {
+        request.get("object/state/all").then(states => {
+            console.log(states);
+            states.unshift(null);
+            this.setState({states});
+            resolve();
+        });
+    });
 
+    fetchObjectEconomicOfficers = () =>
+        new Promise(resolve => {
+            request.get("officer/all").then(officers => {
+                officers.unshift(null);
+                this.setState({officers});
+                resolve();
+            });
+        });
 
     createAddObjectRequest = requestObj => {
         console.log(requestObj);
@@ -145,7 +165,7 @@ class AddObjectPropertyForm extends Component {
                                     <FormGroup>
                                         <FormControl className={classes.margin} fullWidth>
                                             <InputField
-                                                name="contentPropertyNumber"
+                                                name="propertyNumber"
                                                 label="Инвентарный номер"
                                                 classes={classes}
                                                 multiline
@@ -154,7 +174,7 @@ class AddObjectPropertyForm extends Component {
                                         </FormControl>
                                         <FormControl className={classes.margin} fullWidth>
                                             <InputField
-                                                name="contentCaption"
+                                                name="caption"
                                                 label="Название"
                                                 classes={classes}
                                                 multiline
@@ -163,7 +183,7 @@ class AddObjectPropertyForm extends Component {
                                         </FormControl>
                                         <FormControl className={classes.margin} fullWidth>
                                             <InputField
-                                                name="contentMaker"
+                                                name="maker"
                                                 label="Поставщик"
                                                 classes={classes}
                                                 multiline
@@ -176,13 +196,13 @@ class AddObjectPropertyForm extends Component {
                                                     name="date"
                                                     label="Дата приема"
                                                     type="date"
-                                                    InputLabelProps={{ shrink: true }}
+                                                    InputLabelProps={{shrink: true}}
                                                 />
                                             </FormGroup>
                                         </FormControl>
                                         <FormControl className={classes.margin} fullWidth>
                                             <InputField
-                                                name="contentCost"
+                                                name="cost"
                                                 label="Стоимость"
                                                 classes={classes}
                                                 multiline
