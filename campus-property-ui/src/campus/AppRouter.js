@@ -6,7 +6,7 @@ import AdminCreateForm from "./security/AdminCreateForm";
 import WorkerAccountForm from "./admin/WorkerAccountForm";
 import HomeForm from "./HomeForm";
 import { CreateRequestForm } from "./worker";
-import { AccountantInventoryForm, AccountantLetterForm, AccountantRequestListForm } from "./accountant";
+import { AccountantLetterForm, AccountantRequestListForm } from "./accountant";
 import InventoryListForm from "./inventory/InventoryListForm";
 import { OfficerRequestListForm } from "./officer";
 import ObjectPropertyTableForm from "./objectProperty/table/ObjectPropertyTableForm";
@@ -20,6 +20,7 @@ import RoomEditForm from "./building/room/RoomEditForm";
 import RoomCreateForm from "./building/room/RoomCreateForm";
 import EditObjectPropertyForm from "./objectProperty/EditObjectPropertyForm";
 import CopyObjectPropertyForm from "./objectProperty/CopyObjectPropertyForm";
+import CancellationActListForm from "./cancellation/CancellationActListForm";
 
 const AppRouter = () => {
   return (
@@ -48,12 +49,8 @@ const AppRouter = () => {
         path="/accountant/request/list"
         component={AccountantRequestListForm}
       />
-      <Route
-        exact
-        path="/accountant/inventory"
-        component={AccountantInventoryForm}
-      />
       <Route exact path="/accountant/letter" component={AccountantLetterForm} />
+      <Route exact path="/cancellation/acts" component={CancellationActListForm} />
       <Route exact path="/inventory/:inventoryId/result-inventory/" component={ResultInventoryListForm}/>
       <Route exact path="/building/list" component={BuildingListForm} />
       <Route exact path="/building/edit/:id" component={BuildingEditForm} />

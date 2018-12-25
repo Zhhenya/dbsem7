@@ -9,8 +9,9 @@ import RequestRecordListDialog from "../../request/record/RequestRecordListDialo
 import Button from "@material-ui/core/Button/Button";
 import { RequestStatus } from "../../request/RequestStatus";
 import RequestTableColumns from "../../request/RequestTableColumns";
+import RequestType from "../../enums/RequestType";
 
-const styles = theme => ({
+const styles = () => ({
   root: {
     width: "100%",
     overflowX: "auto"
@@ -21,7 +22,7 @@ const styles = theme => ({
 });
 
 const ApprovedButton = props => {
-  const { classes, onClick } = props;
+  const { classes, onClick, title } = props;
   return (
     <Button
       variant="contained"
@@ -29,7 +30,7 @@ const ApprovedButton = props => {
       className={classes.button}
       onClick={onClick}
     >
-      Одобрить
+      {title}
     </Button>
   );
 };
@@ -40,10 +41,10 @@ class AccountantRequestListTable extends Component {
     selectedRequest: null
   };
   render() {
-    const { classes, data, status, onApprove } = this.props;
+    const { classes, data, status, onApprove, onCancel } = this.props;
     const { openRecords, selectedRequest } = this.state;
     return (
-      <React.Fragment>
+      <>
         {selectedRequest && openRecords && (
           <RequestRecordListDialog
             open={openRecords}
@@ -97,7 +98,16 @@ class AccountantRequestListTable extends Component {
                     <TableCell component="th" scope="row">
                       <ApprovedButton
                         classes={classes}
-                        onClick={() => onApprove(row.id)}
+                        onClick={
+                          row.type === RequestType.CANCELLATION
+                            ? () => onCancel(row.id)
+                            : () => onApprove(row.id)
+                        }
+                        title={
+                          row.type === RequestType.CANCELLATION
+                            ? "Списать"
+                            : "Одобрить"
+                        }
                       />
                     </TableCell>
                   )}
@@ -105,7 +115,7 @@ class AccountantRequestListTable extends Component {
               ))}
           </TableBody>
         </Table>
-      </React.Fragment>
+      </>
     );
   }
 }

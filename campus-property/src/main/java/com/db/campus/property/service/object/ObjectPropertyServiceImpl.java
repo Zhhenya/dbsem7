@@ -10,7 +10,6 @@ import com.db.campus.property.enums.ObjectState;
 import com.db.campus.property.exception.ObjectNotFoundException;
 import com.db.campus.property.exception.RoomNotFoundException;
 import com.db.campus.property.exception.WorkerNotFoundException;
-import com.db.campus.property.service.RandomProviderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,7 +27,6 @@ public class ObjectPropertyServiceImpl implements ObjectPropertyService {
     private final ObjectPropertyRepository objectPropertyRepository;
     private final ObjectPropertyConverter objectPropertyConverter;
     private final ObjectPropertyCriteriaRepository objectPropertyCriteriaRepository;
-    private final RandomProviderService randomProviderService;
     private final AccountantRepository accountantRepository;
     private final EconomicOfficerRepository economicOfficerRepository;
     private final RoomRepository roomRepository;
@@ -38,7 +36,6 @@ public class ObjectPropertyServiceImpl implements ObjectPropertyService {
     public ObjectPropertyServiceImpl(ObjectPropertyRepository objectPropertyRepository,
                                      ObjectPropertyConverter objectPropertyConverter,
                                      ObjectPropertyCriteriaRepository objectPropertyCriteriaRepository,
-                                     RandomProviderService randomProviderService,
                                      AccountantRepository accountantRepository,
                                      EconomicOfficerRepository economicOfficerRepository,
                                      RoomRepository roomRepository,
@@ -46,13 +43,13 @@ public class ObjectPropertyServiceImpl implements ObjectPropertyService {
         this.objectPropertyRepository = objectPropertyRepository;
         this.objectPropertyConverter = objectPropertyConverter;
         this.objectPropertyCriteriaRepository = objectPropertyCriteriaRepository;
-        this.randomProviderService = randomProviderService;
         this.accountantRepository = accountantRepository;
         this.economicOfficerRepository = economicOfficerRepository;
         this.roomRepository = roomRepository;
         this.stateRepository = stateRepository;
     }
 
+    @Transactional(readOnly = true)
     @Override
     public List<ObjectPropertyDto> fetchAll() {
         return objectPropertyConverter.convertAll(objectPropertyRepository.findAll());
@@ -72,11 +69,13 @@ public class ObjectPropertyServiceImpl implements ObjectPropertyService {
                      .collect(Collectors.toList());
     }
 
+    @Transactional(readOnly = true)
     @Override
     public List<String> fetchMakers() {
         return objectPropertyRepository.findDistinctMakers();
     }
 
+    @Transactional
     @Override
     public ObjectPropertyEntity save(ObjectPropertyDto objectPropertyDto) {
         ObjectPropertyEntity objectPropertyEntity = new ObjectPropertyEntity();
@@ -105,16 +104,24 @@ public class ObjectPropertyServiceImpl implements ObjectPropertyService {
         return objectPropertyRepository.save(objectPropertyEntity);
     }
 
+    @Transactional(readOnly = true)
     @Override
     public List<ObjectPropertyDto> fetchFiltered(ObjectPropertyFilterDto objectPropertyFilterDto) {
         return objectPropertyConverter.convertAll(
                 objectPropertyCriteriaRepository.findFiltered(objectPropertyFilterDto));
     }
 
+    @Transactional(readOnly = true)
     @Override
     public ObjectPropertyDto fetch(Long objectId) {
         return objectPropertyConverter.convert(
                 objectPropertyRepository.findById(objectId)
                                         .orElseThrow(() -> new ObjectNotFoundException(objectId.toString())));
+    }
+
+    @Override
+    public void changeState(ObjectPropertyEntity entity, ObjectState state) {
+        entity.setState(stateRepository.findByName(state.getDisplayName()));
+        objectPropertyRepository.save(entity);
     }
 }
