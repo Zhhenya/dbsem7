@@ -3,8 +3,8 @@ package com.db.campus.property.controller;
 import com.db.campus.property.dto.*;
 import com.db.campus.property.service.builder.BuildingAddressService;
 import com.db.campus.property.service.object.ObjectPropertyService;
+import com.db.campus.property.service.room.RoomService;
 import com.db.campus.property.service.officer.OfficerService;
-import com.db.campus.property.service.room.RoomNumberService;
 import com.db.campus.property.service.state.StateObjectPropertyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -15,7 +15,7 @@ import java.util.List;
 public class ObjectPropertyController {
 
     private final ObjectPropertyService objectPropertyService;
-    private final RoomNumberService roomNumberService;
+    private final RoomService roomService;
     private final BuildingAddressService buildingAddressService;
     private final StateObjectPropertyService stateObjectPropertyService;
     private final OfficerService officerService;
@@ -23,12 +23,12 @@ public class ObjectPropertyController {
 
     @Autowired
     public ObjectPropertyController(ObjectPropertyService objectPropertyService,
-                                    RoomNumberService roomNumberService,
+                                    RoomService roomService) {
                                     BuildingAddressService buildingAddressService,
                                     StateObjectPropertyService stateObjectPropertyService,
                                     OfficerService officerService) {
         this.objectPropertyService = objectPropertyService;
-        this.roomNumberService = roomNumberService;
+        this.roomService = roomService;
         this.buildingAddressService = buildingAddressService;
         this.stateObjectPropertyService = stateObjectPropertyService;
         this.officerService = officerService;
@@ -42,8 +42,8 @@ public class ObjectPropertyController {
 
     @RequestMapping("/inventory/room")
     @ResponseBody
-    public List<RoomDto> fetchRequestRoomList() {
-        return roomNumberService.fetchRoomNumberList();
+    public List<RoomDto> getRequestRoomList() {
+        return roomService.fetchRoomNumberList();
     }
 
     @RequestMapping("object/building")

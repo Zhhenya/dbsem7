@@ -6,11 +6,14 @@ import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import stateProvider from "../../commons/stateProvider";
 import AccountantMenu from "./AcountantMenu";
 import Roles from "../enums/Roles";
+import OfficerMenu from "./OfficerMenu";
 
 const getMenuList = () => {
   switch (stateProvider.user.role) {
     case Roles.ACCOUNTANT:
       return <AccountantMenu />;
+    case Roles.OFFICER:
+      return <OfficerMenu />;
     default:
       return null;
   }

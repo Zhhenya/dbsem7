@@ -1,4 +1,4 @@
-package com.db.campus.property.dao;
+package com.db.campus.property.dao.inventory;
 
 import com.db.campus.property.entity.InventoryEntity;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -4,15 +4,11 @@ import { uniqueId } from "lodash";
 import { withStyles } from "@material-ui/core/styles";
 import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
-import Paper from "@material-ui/core/Paper";
+import List from "@material-ui/core/List/List";
+import ListItemLink from "../../components/ListItemLink";
 
 const styles = theme => ({
     root: {
@@ -24,20 +20,15 @@ const styles = theme => ({
     }
 });
 
-const columns = [
-    { title: "Дата инвентаризации", key: uniqueId(), property: "date" },
-    { title: "Список объектов", key: uniqueId(), property: "list_objects" }
-];
-
 const InventoryListTable = props => {
     const { classes, data } = props;
     return (
-        <Paper className={classes.root}>
+        <React.Fragment>
             <AppBar position="static" color="default">
                 <Toolbar>
                     <Grid container justify={"flex-start"}>
                         <Typography variant="h6" color="inherit">
-                            Список заявок
+                            Список инвентаризаций
                         </Typography>
                     </Grid>
                     <Grid container justify={"flex-end"}>
@@ -47,28 +38,23 @@ const InventoryListTable = props => {
                     </Grid>
                 </Toolbar>
             </AppBar>
-            <Table className={classes.table}>
-                <TableHead>
-                    <TableRow>
-                        {columns.map(column => (
-                            <TableCell key={ column.key }>{ column.title }</TableCell>
-                        ))}
-                    </TableRow>
-                </TableHead>
-                    <TableBody>
-                        {data && data.map(row => (
-                            <TableRow key={row.id}>
-                                <TableCell component="th" scope="row">
-                                    {row.content}
-                                </TableCell>
-                                <TableCell component="th" scope="row">
-                                    {row.type}
-                                </TableCell>
-                            </TableRow>
-                        ))}
-                    </TableBody>
-            </Table>
-        </Paper>
+            <List>
+                {
+                    data && data.map(
+                        row => {
+                            const date = new Date(Date.parse(row.date));
+                            const outDate = date.getDate() + '.' + date.getMonth() + '.' + date.getFullYear();
+                            return (
+                                <ListItemLink href={"#/inventory/" + row.id + "/result-inventory/"} key={row.id}>
+                                    Инвентаризация от {outDate}
+                                </ListItemLink>
+                            )
+                        }
+                    )
+                }
+            </List>
+
+        </React.Fragment>
     );
 };
 

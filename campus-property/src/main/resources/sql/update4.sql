@@ -1,0 +1,1 @@
+alter table resultinventarisation change PK_ResultInventarisation PK_Result_Inventarisation bigint auto_increment;
