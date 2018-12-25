@@ -8,6 +8,9 @@ import TableBody from "@material-ui/core/TableBody";
 import { withStyles } from "@material-ui/core";
 import RequestRecordListDialog from "../../request/record/RequestRecordListDialog";
 import { withRouter } from "react-router";
+import CopyIcon from "@material-ui/icons/FileCopy";
+
+import IconButton from "@material-ui/core/IconButton/IconButton";
 
 const styles = () => ({
   root: {
@@ -44,6 +47,10 @@ class ObjectPropertyTable extends Component {
 
   editObject = id => {
     this.props.history.push("/object/edit/" + id);
+  };
+
+  copyObject = id => {
+    this.props.history.push("/object/copy/" + id);
   };
 
   render() {
@@ -106,6 +113,15 @@ class ObjectPropertyTable extends Component {
                   </TableCell>
                   <TableCell component="th" scope="row">
                     {row.accountant.name}
+                  </TableCell>
+                  <TableCell component="th" scope="row">
+                    <IconButton
+                      className={classes.margin}
+                      aria-label="Copy"
+                      onClick={() => this.copyObject(row.id)}
+                    >
+                      <CopyIcon />
+                    </IconButton>
                   </TableCell>
                 </TableRow>
               ))}
