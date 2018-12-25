@@ -36,7 +36,6 @@ class Profile extends Component {
   };
 
   saveUserName = user => {
-    console.log(user);
     this.save(user, Roles[user.role].toLowerCase());
   };
 
