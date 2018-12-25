@@ -1,0 +1,1 @@
+ALTER TABLE economic_officer ADD email VARCHAR(1000);
