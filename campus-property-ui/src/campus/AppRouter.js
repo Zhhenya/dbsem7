@@ -8,10 +8,9 @@ import HomeForm from "./HomeForm";
 import { CreateRequestForm } from "./worker";
 import { AccountantInventoryForm, AccountantLetterForm, AccountantRequestListForm } from "./accountant";
 import InventoryListForm from "./inventory/InventoryListForm";
-import ObjectPropertyForm from "./objectProperty/ObjectPropertyForm";
 import { OfficerRequestListForm } from "./officer";
 import ObjectPropertyTableForm from "./objectProperty/table/ObjectPropertyTableForm";
-import AddObjectPropertyForm from "./objectProperty/AddObjectPropertyForm"
+import AddObjectPropertyForm from "./objectProperty/AddObjectPropertyForm";
 import ResultInventoryListForm from "./resultInventory/ResultInventoryListForm";
 import Profile from "./account/Profile";
 import BuildingListForm from "./building/BuildingListForm";
@@ -19,6 +18,7 @@ import BuildingEditForm from "./building/BuildingEditForm";
 import BuildingCreateForm from "./building/BuildingCreateForm";
 import RoomEditForm from "./building/room/RoomEditForm";
 import RoomCreateForm from "./building/room/RoomCreateForm";
+import EditObjectPropertyForm from "./objectProperty/EditObjectPropertyForm";
 
 const AppRouter = () => {
   return (
@@ -29,10 +29,10 @@ const AppRouter = () => {
 
       <Route exact path="/admin/create" component={AdminCreateForm} />
       <Route exact path="/request/list" component={RequestListForm} />
-      <Route exact path="/objectProperty" component={ObjectPropertyForm} />
       <Route exact path="/objectProperty/table" component={ObjectPropertyTableForm} />
       <Route exact path="/request/create" component={CreateRequestForm} />
       <Route exact path="/object/add" component={AddObjectPropertyForm} />
+      <Route exact path="/object/edit/:id" component={EditObjectPropertyForm} />
       <Route exact path="/login" component={LoginForm} />
       <Route exact path="/inventory/" component={InventoryListForm} />
       <Route exact path="/admin/create/account" component={WorkerAccountForm} />

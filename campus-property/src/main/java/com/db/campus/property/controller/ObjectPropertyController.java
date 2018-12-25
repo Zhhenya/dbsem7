@@ -3,8 +3,8 @@ package com.db.campus.property.controller;
 import com.db.campus.property.dto.*;
 import com.db.campus.property.service.builder.BuildingAddressService;
 import com.db.campus.property.service.object.ObjectPropertyService;
-import com.db.campus.property.service.room.RoomService;
 import com.db.campus.property.service.officer.OfficerService;
+import com.db.campus.property.service.room.RoomService;
 import com.db.campus.property.service.state.StateObjectPropertyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +23,7 @@ public class ObjectPropertyController {
 
     @Autowired
     public ObjectPropertyController(ObjectPropertyService objectPropertyService,
-                                    RoomService roomService) {
+                                    RoomService roomService,
                                     BuildingAddressService buildingAddressService,
                                     StateObjectPropertyService stateObjectPropertyService,
                                     OfficerService officerService) {
@@ -64,13 +64,19 @@ public class ObjectPropertyController {
         return objectPropertyService.fetchObjectList();
     }
 
+    @RequestMapping(value = "object/{id}")
+    @ResponseBody
+    public ObjectPropertyDto fetchObject(@PathVariable("id") long objectId) {
+        return objectPropertyService.fetch(objectId);
+    }
+
     @RequestMapping("object/economicOfficers")
     @ResponseBody
     public List<EconomicOfficerDto> fetchEconomicOfficerList(){
         return officerService.findAll();
     }
 
-    @RequestMapping(value = "object/add", method = RequestMethod.POST)
+    @RequestMapping(value = "object/save", method = RequestMethod.POST)
     @ResponseBody
     public void save(@RequestBody ObjectPropertyDto objectPropertyDto){
         objectPropertyService.save(objectPropertyDto);
