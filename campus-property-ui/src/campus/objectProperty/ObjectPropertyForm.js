@@ -51,7 +51,7 @@ const VALIDATION_SCHEMA = Yup.object().shape({
   cost: Yup.number().required("Поле не может быть пустым"),
   room: Yup.object().required("Поле не может быть пустым"),
   economicOfficer: Yup.object().required("Поле не может быть пустым"),
-  state: Yup.string().required("Поле не может быть пустым"),
+  state: Yup.string().required("Поле не может быть пустым")
 });
 
 class ObjectPropertyForm extends Component {
@@ -65,7 +65,7 @@ class ObjectPropertyForm extends Component {
     error: null,
     loadingRooms: false,
     selectedBuilding: this.props.initialValues
-      ? this.props.initialValues.building
+      ? this.props.initialValues.room.building
       : null
   };
 
@@ -158,7 +158,7 @@ class ObjectPropertyForm extends Component {
     this.setState({ error: null });
   };
   render() {
-    const { classes, initialValues } = this.props;
+    const { classes, initialValues, readOnly } = this.props;
     const {
       rooms,
       buildings,
@@ -200,6 +200,7 @@ class ObjectPropertyForm extends Component {
                   <FormGroup>
                     <FormControl className={classes.margin} fullWidth>
                       <InputField
+                        readOnly={readOnly}
                         name="propertyNumber"
                         label="Инвентарный номер"
                         classes={classes}
@@ -209,6 +210,7 @@ class ObjectPropertyForm extends Component {
                     </FormControl>
                     <FormControl className={classes.margin} fullWidth>
                       <InputField
+                        readOnly={readOnly}
                         name="caption"
                         label="Название"
                         classes={classes}
@@ -218,6 +220,7 @@ class ObjectPropertyForm extends Component {
                     </FormControl>
                     <FormControl className={classes.margin} fullWidth>
                       <InputField
+                        readOnly={readOnly}
                         name="maker"
                         label="Поставщик"
                         classes={classes}
@@ -228,6 +231,7 @@ class ObjectPropertyForm extends Component {
                     <FormControl className={classes.margin} fullWidth>
                       <FormGroup>
                         <InputField
+                          readOnly={readOnly}
                           name="date"
                           label="Дата приема"
                           type="date"
@@ -237,6 +241,7 @@ class ObjectPropertyForm extends Component {
                     </FormControl>
                     <FormControl className={classes.margin} fullWidth>
                       <InputField
+                        readOnly={readOnly}
                         name="cost"
                         label="Стоимость"
                         classes={classes}
@@ -248,73 +253,66 @@ class ObjectPropertyForm extends Component {
                 </Grid>
                 <Grid item xs={6}>
                   <FormGroup>
-
-                  <FormControl
-                    className={classes.margin}
-                  >
-                    <AutocompleteSelectField
-                      name="building"
-                      options={buildings}
-                      displayLabel="Адрес здания"
-                      label="address"
-                      placeholder="Введите адрес здания"
-                      onChange={value => {
-                        this.changeBuilding(value.value);
-                      }}
-                    />
-                  </FormControl>
-                  <FormControl
-                    className={classes.margin}
-                  >
-                    {loadingRooms ? (
-                      <CircularProgress className={classes.progress} />
-                    ) : (
+                    <FormControl className={classes.margin}>
                       <AutocompleteSelectField
-                        name="room"
-                        options={rooms}
-                        label="number"
-                        displayLabel="Комната"
-                        placeholder="Введите номер комнаты"
+                        value={this.state.selectedBuilding}
+                        options={readOnly ? [this.state.selectedBuilding] : buildings}
+                        displayLabel="Адрес здания"
+                        label="address"
+                        placeholder="Введите адрес здания"
+                        onChange={value => {
+                          this.changeBuilding(value.value);
+                        }}
                       />
-                    )}
-                  </FormControl>
-                  <FormControl
-                    className={classes.margin}
-                  >
-                    <AutocompleteSelectField
-                      name="state"
-                      options={states}
-                      displayLabel="Состояние"
-                      placeholder="Выберите состояние"
-                    />
-                  </FormControl>
-                  <FormControl
-                    className={classes.margin}
-                  >
-                    <AutocompleteSelectField
-                      name="economicOfficer"
-                      options={officers}
-                      displayLabel="Материально ответственное лицо"
-                      label="name"
-                      placeholder="Выберите списка"
-                    />
-                  </FormControl>
+                    </FormControl>
+                    <FormControl className={classes.margin}>
+                      {loadingRooms ? (
+                        <CircularProgress className={classes.progress} />
+                      ) : (
+                        <AutocompleteSelectField
+                          name="room"
+                          options={readOnly ? [initialValues.room] : rooms}
+                          label="number"
+                          displayLabel="Комната"
+                          placeholder="Введите номер комнаты"
+                        />
+                      )}
+                    </FormControl>
+                    <FormControl className={classes.margin}>
+                      <AutocompleteSelectField
+                        name="state"
+                        options={readOnly ? [initialValues.state] : states}
+                        displayLabel="Состояние"
+                        placeholder="Выберите состояние"
+                      />
+                    </FormControl>
+                    <FormControl className={classes.margin}>
+                      <AutocompleteSelectField
+                        name="economicOfficer"
+                        options={readOnly ? [initialValues.economicOfficer] : officers}
+                        displayLabel="Материально ответственное лицо"
+                        label="name"
+                        placeholder="Выберите списка"
+                      />
+                    </FormControl>
                   </FormGroup>
                 </Grid>
-                <Grid container justify="center">
-                  <Grid item xs={12}>
-                    <Divider variant="middle" />
-                    <Button
-                      fullWidth
-                      className={classes.button}
-                      type="submit"
-                      variant="text"
-                      size="large"
-                    >
-                      Сохранить объект
-                    </Button>
+                {!readOnly && (
+                  <Grid container justify="center">
+                    <Grid item xs={12}>
+                      <Divider variant="middle" />
+                      <Button
+                        fullWidth
+                        className={classes.button}
+                        type="submit"
+                        variant="text"
+                        size="large"
+                      >
+                        Сохранить объект
+                      </Button>
+                    </Grid>
                   </Grid>
-                </Grid>
+                )}
               </Grid>
             </Form>
           )}
