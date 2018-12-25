@@ -70,7 +70,6 @@ class CreateRequestForm extends Component {
   };
 
   createRequest = requestObj => {
-    console.log(requestObj);
     request
       .post("request/create", {
         ...requestObj,
@@ -79,9 +78,8 @@ class CreateRequestForm extends Component {
       .then(() => {
         this.setState({ success: true });
       })
-      .catch(reason => {
-        console.log(reason);
-        this.setState({ error: reason });
+      .catch(error => {
+        this.setState({ error });
       });
   };
 

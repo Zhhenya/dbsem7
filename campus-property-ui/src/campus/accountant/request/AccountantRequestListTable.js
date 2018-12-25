@@ -48,7 +48,6 @@ class AccountantRequestListTable extends Component {
           <RequestRecordListDialog
             open={openRecords}
             onClose={() => {
-              console.log("close");
               this.setState({ openRecords: false });
             }}
             records={selectedRequest.requestRecordList}

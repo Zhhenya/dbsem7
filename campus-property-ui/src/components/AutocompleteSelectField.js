@@ -9,11 +9,12 @@ import Paper from "@material-ui/core/Paper/Paper";
 import Typography from "@material-ui/core/Typography/Typography";
 import MenuItem from "@material-ui/core/MenuItem/MenuItem";
 import { emphasize } from "@material-ui/core/styles/colorManipulator";
+import { isEqual } from "lodash";
 
 const styles = theme => ({
   root: {
     flexGrow: 1,
-    marginTop: 12
+    marginTop: 16
   },
   input: {
     display: "flex",
@@ -160,6 +161,7 @@ const AutocompleteSelectField = props => {
     classes,
     theme,
     displayLabel,
+    value,
     ...other
   } = props;
   const selectStyles = {
@@ -199,6 +201,15 @@ const AutocompleteSelectField = props => {
                     onChange(selected);
                   }
                 }}
+                value={
+                  options
+                    ? value
+                      ? options.find(option => isEqual(option.value, value))
+                      : options.find(option =>
+                          isEqual(option.value, field.value)
+                        )
+                    : ""
+                }
                 {...other}
               />
             </NoSsr>

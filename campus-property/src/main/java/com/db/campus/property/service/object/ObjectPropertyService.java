@@ -20,4 +20,6 @@ public interface ObjectPropertyService {
 
     ObjectPropertyEntity save(ObjectPropertyDto objectPropertyDto);
 
+    ObjectPropertyDto fetch(Long objectId);
+
 }
