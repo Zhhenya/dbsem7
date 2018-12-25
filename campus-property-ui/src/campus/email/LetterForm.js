@@ -1,14 +1,13 @@
 import React, {Component} from "react";
 import * as request from "../../commons/request";
-import SimpleAlertDialog from "../../commons/dialog/SimpleAlertDialog";
-import {Form, Formik} from "formik";
+import {Form} from "formik";
 import Grid from "@material-ui/core/Grid";
-import FormGroup from "@material-ui/core/FormGroup";
 import FormControl from "@material-ui/core/FormControl";
-import InputField from "../../components/InputField";
 import AutocompleteSelectField from "../../components/AutocompleteSelectField";
 import Divider from "@material-ui/core/Divider";
 import Button from "@material-ui/core/Button";
+import withStyles from "@material-ui/core/styles/withStyles";
+import TextField from "@material-ui/core/TextField";
 
 const styles = theme => ({
     root: {
@@ -27,7 +26,7 @@ const styles = theme => ({
 
 class LetterForm extends Component {
     state = {
-        emailAddress: "",
+        emailAddress: [],
         success: false,
         error: null
     };
@@ -37,118 +36,34 @@ class LetterForm extends Component {
     }
 
     fetchEmail = () => {
-        request.get("accountant/sendEmail").then(requestTypes => {
-            this.setState({requestTypes});
+        request.get("officer/all").then(emailAddress => {
+            this.setState({emailAddress});
         });
     };
 
     render() {
         const {classes} = this.props;
-        const {rooms, buildings, states, economicOfficers, success, error} = this.state;
+        const {emailAddress} = this.state;
         return (
             <React.Fragment>
-                {success && (
-                    <SimpleAlertDialog
-                        title="Сообщение отправлено"
-                        onClose={this.closeFormThenSuccess}
-                        open={success !== null}
-                    />
-                )}
-                {error && (
-                    <SimpleAlertDialog
-                        title="Произошла ошибка"
-                        content={error}
-                        onClose={this.closeErrorDialog}
-                        open={error !== null}
-                    />
-                )}
                 <Form className={classes.container}>
                     <Grid container spacing={15} justify="space-around">
                         <Grid item xs={6}>
-                            <FormGroup>
-                                <FormControl className={classes.margin} fullWidth>
-                                    <InputField
-                                        name="propertyNumber"
-                                        label="Инвентарный номер"
-                                        classes={classes}
-                                        multiline
-                                        fullWidth
-                                    />
-                                </FormControl>
-                                <FormControl className={classes.margin} fullWidth>
-                                    <InputField
-                                        name="caption"
-                                        label="Название"
-                                        classes={classes}
-                                        multiline
-                                        fullWidth
-                                    />
-                                </FormControl>
-                                <FormControl className={classes.margin} fullWidth>
-                                    <InputField
-                                        name="maker"
-                                        label="Поставщик"
-                                        classes={classes}
-                                        multiline
-                                        fullWidth
-                                    />
-                                </FormControl>
-                                <FormControl className={classes.margin} fullWidth>
-                                    <FormGroup>
-                                        <InputField
-                                            name="date"
-                                            label="Дата приема"
-                                            type="date"
-                                            InputLabelProps={{shrink: true}}
-                                        />
-                                    </FormGroup>
-                                </FormControl>
-                                <FormControl className={classes.margin} fullWidth>
-                                    <InputField
-                                        name="cost"
-                                        label="Стоимость"
-                                        classes={classes}
-                                        multiline
-                                        fullWidth
-                                    />
-                                </FormControl>
-                            </FormGroup>
-                        </Grid>
-                        <Grid item xs={6}>
                             <FormControl className={classes.margin} style={{width: "50%"}}>
                                 <AutocompleteSelectField
                                     name="id"
-                                    options={rooms}
-                                    displayLabel="Комната"
-                                    label="number"
-                                    placeholder="Введите номер комнаты"
+                                    options={emailAddress}
+                                    displayLabel="Получатель"
+                                    label="email"
+                                    placeholder="Введите адрес получателя"
                                 />
                             </FormControl>
-                            <FormControl className={classes.margin} style={{width: "50%"}}>
-                                <AutocompleteSelectField
-                                    name="id"
-                                    options={buildings}
-                                    displayLabel="Адрес здания"
-                                    label="address"
-                                    placeholder="Введите адрес здания"
-                                />
-                            </FormControl>
-                            <FormControl className={classes.margin} style={{width: "50%"}}>
-                                <AutocompleteSelectField
-                                    name="id"
-                                    options={states}
-                                    displayLabel="Состояние"
-                                    label="state"
-                                    placeholder="Выберите состояние"
-                                />
-                            </FormControl>
-                            <FormControl className={classes.margin} style={{width: "50%"}}>
-                                <AutocompleteSelectField
-                                    name="id"
-                                    options={economicOfficers}
-                                    displayLabel="Материально ответственное лицо"
-                                    label="name"
-                                    placeholder="Выберите списка"
+                            <FormControl>
+                                <TextField
+                                    placeholder="Введите сообщение"
+                                    multiline={true}
+                                    rows={4}
+                                    rowsMax={7}
                                 />
                             </FormControl>
                         </Grid>
@@ -162,7 +77,7 @@ class LetterForm extends Component {
                                     variant="text"
                                     size="large"
                                 >
-                                    Добавить объект
+                                    Отправить
                                 </Button>
                             </Grid>
                         </Grid>
@@ -173,3 +88,5 @@ class LetterForm extends Component {
         );
     }
 }
+
+export default withStyles(styles)(LetterForm);
