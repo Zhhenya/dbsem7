@@ -10,10 +10,12 @@ import com.db.campus.property.enums.RequestState;
 import com.db.campus.property.exception.PropertyNumberNotFoundException;
 import com.db.campus.property.exception.RequestNotFoundException;
 import com.db.campus.property.service.RandomProviderService;
+import com.db.campus.property.service.cancellation.CancellationActService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -29,6 +31,7 @@ public class RequestServiceImpl implements RequestService {
     private final AccountantRepository accountantRepository;
     private final RandomProviderService randomProviderService;
     private final ObjectPropertyRepository objectPropertyRepository;
+    private final CancellationActService cancellationActService;
 
     @Autowired
     public RequestServiceImpl(RequestConverter requestConverter,
@@ -40,7 +43,8 @@ public class RequestServiceImpl implements RequestService {
                               EconomicOfficerRepository economicOfficerRepository,
                               AccountantRepository accountantRepository,
                               RandomProviderService randomProviderService,
-                              ObjectPropertyRepository objectPropertyRepository) {
+                              ObjectPropertyRepository objectPropertyRepository,
+                              CancellationActService cancellationActService) {
         this.requestConverter = requestConverter;
         this.requestRepository = requestRepository;
         this.typeRequestRepository = typeRequestRepository;
@@ -51,6 +55,7 @@ public class RequestServiceImpl implements RequestService {
         this.accountantRepository = accountantRepository;
         this.randomProviderService = randomProviderService;
         this.objectPropertyRepository = objectPropertyRepository;
+        this.cancellationActService = cancellationActService;
     }
 
     @Transactional(readOnly = true)
@@ -86,6 +91,16 @@ public class RequestServiceImpl implements RequestService {
     @Transactional
     @Override
     public void approve(Long requestId) {
+        setRequestState(requestId, RequestState.APPROVED);
+    }
+
+    @Transactional
+    @Override
+    public void cancelObjects(Long requestId) {
+        RequestEntity request = requestRepository.findById(requestId)
+                                                 .orElseThrow(() -> new RequestNotFoundException(requestId));
+        List<RequestRecordEntity> records = new ArrayList<>(request.getRequestRecords());
+        cancellationActService.create(records, request.getAccountant());
         setRequestState(requestId, RequestState.APPROVED);
     }
 

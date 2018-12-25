@@ -66,6 +66,12 @@ public class RequestController {
         requestService.approve(requestId);
     }
 
+    @RequestMapping(value = "/request/cancelObjects", method = RequestMethod.POST)
+    @ResponseBody
+    public void cancelObjects(@RequestBody Long requestId) {
+        requestService.cancelObjects(requestId);
+    }
+
     @RequestMapping(value = "/request/startProcessing", method = RequestMethod.POST)
     @ResponseBody
     public void startRequestProcessing(@RequestBody Long requestId) {
@@ -83,6 +89,5 @@ public class RequestController {
     public List<RequestDto> getRequestList() {
         return requestService.fetchRequestList();
     }
-
 
 }
