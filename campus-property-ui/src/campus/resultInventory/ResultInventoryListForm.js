@@ -16,11 +16,20 @@ class ResultInventoryListForm extends Component {
   }
 
   fetchTableData = () => {
+    console.log(this.props.match.params);
     request
-      .get(
-        "/inventory/" +
-          this.props.match.params.inventoryId +
-          "/result-inventory/list"
+      .get(() => {
+        if (this.props.match.params.roomId)
+          return "/inventory/" +
+            this.props.match.params.inventoryId +
+            "/result-inventory/" +
+            this.props.match.params.roomId
+        else
+          return "/inventory/" +
+            this.props.match.params.inventoryId +
+            "/result-inventory"
+      }
+
       )
       .then(data => {
         this.setState({ data });

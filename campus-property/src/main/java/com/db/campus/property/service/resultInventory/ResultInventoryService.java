@@ -11,4 +11,6 @@ public interface ResultInventoryService {
 
     List<ResultInventoryDto> fetchResultInventoryListByInventoryId(long inventoryId);
 
+    List<ResultInventoryDto> fetchResultInventoryListByInventoryIdAndRoomId(long inventoryId, long roomId);
+
 }

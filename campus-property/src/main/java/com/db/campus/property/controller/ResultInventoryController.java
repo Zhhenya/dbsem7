@@ -29,9 +29,20 @@ public class ResultInventoryController {
         return resultInventoryService.fetchResultInventoryList();
     }
 
-    @RequestMapping("/inventory/{id}/result-inventory/list")
+    @RequestMapping("/inventory/{inventoryId}/result-inventory")
     @ResponseBody
-    public List<ResultInventoryDto> fetchResultInventoryByInventoryId(@PathVariable("id") long inventoryId) {
+    public List<ResultInventoryDto> fetchResultInventoryByInventoryId(
+            @PathVariable("inventoryId") long inventoryId
+    ) {
         return resultInventoryService.fetchResultInventoryListByInventoryId(inventoryId);
+    }
+
+    @RequestMapping("/inventory/{inventoryId}/result-inventory/{roomId}")
+    @ResponseBody
+    public List<ResultInventoryDto> fetchResultInventoryByInventoryIdAndRoomId(
+            @PathVariable("inventoryId") long inventoryId,
+            @PathVariable("roomId") long roomId
+    ) {
+        return resultInventoryService.fetchResultInventoryListByInventoryIdAndRoomId(inventoryId, roomId);
     }
 }

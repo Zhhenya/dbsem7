@@ -52,6 +52,7 @@ const AppRouter = () => {
       <Route exact path="/accountant/letter" component={AccountantLetterForm} />
       <Route exact path="/cancellation/acts" component={CancellationActListForm} />
       <Route exact path="/inventory/:inventoryId/result-inventory/" component={ResultInventoryListForm}/>
+      <Route exact path="/inventory/:inventoryId/result-inventory/:roomId" component={ResultInventoryListForm}/>
       <Route exact path="/building/list" component={BuildingListForm} />
       <Route exact path="/building/edit/:id" component={BuildingEditForm} />
       <Route exact path="/building/create" component={BuildingCreateForm} />

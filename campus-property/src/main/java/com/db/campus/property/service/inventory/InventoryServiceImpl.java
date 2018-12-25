@@ -2,7 +2,7 @@ package com.db.campus.property.service.inventory;
 
 import com.db.campus.property.converter.InventoryConverter;
 import com.db.campus.property.dao.StoredProcedureProvider;
-import com.db.campus.property.dao.inventory.InventoryRepository;
+import com.db.campus.property.dao.InventoryRepository;
 import com.db.campus.property.dto.InventoryDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
