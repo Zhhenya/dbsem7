@@ -12,6 +12,7 @@ public class EconomicOfficerConverter extends CampusPropertyConverter<EconomicOf
         EconomicOfficerDto workerDto = new EconomicOfficerDto();
         workerDto.setId(economicOfficerEntity.getId());
         workerDto.setName(economicOfficerEntity.getName());
+        workerDto.setEmail(economicOfficerEntity.getEmail());
         return workerDto;
     }
 }
