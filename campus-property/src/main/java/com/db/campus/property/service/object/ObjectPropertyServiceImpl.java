@@ -99,9 +99,15 @@ public class ObjectPropertyServiceImpl implements ObjectPropertyService {
         objectPropertyEntity.setMaker(objectPropertyDto.getMaker());
         objectPropertyEntity.setRoom(roomRepository
                                              .findById(objectPropertyDto.getRoom().getId())
-                                             .orElseThrow(() -> new RoomNotFoundException(objectPropertyDto.getRoom().getId())));
-        objectPropertyEntity.setState(stateRepository.findByName(objectPropertyDto.getState()));
-        return objectPropertyRepository.save(objectPropertyEntity);
+                                             .orElseThrow(() ->
+                                                     new RoomNotFoundException(objectPropertyDto.getRoom().getId())));
+        String state = objectPropertyDto.getState();
+        objectPropertyEntity.setState(stateRepository.findByName(state));
+        ObjectPropertyEntity savedObject = objectPropertyRepository.save(objectPropertyEntity);
+        if (state.equals(ObjectState.CANCELLED.getDisplayName())) {
+
+        }
+        return savedObject;
     }
 
     @Transactional(readOnly = true)

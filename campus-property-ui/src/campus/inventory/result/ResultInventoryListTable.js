@@ -26,6 +26,7 @@ const styles = () => ({
 
 const columns = [
   { title: "Инвентарный номер", key: uniqueId(), property: "propertyNumber" },
+  { title: "Состояние", key: uniqueId(), property: "state" },
   { title: "Название", key: uniqueId(), property: "caption" },
   { title: "Адрес здания", key: uniqueId(), property: "building" },
   { title: "Комната", key: uniqueId(), property: "room" },
@@ -95,6 +96,9 @@ class ResultInventoryListTable extends Component {
                         >
                           <TableCell scope="row">
                             {row.objectProperty.propertyNumber}
+                          </TableCell>
+                          <TableCell scope="row">
+                            {row.objectProperty.state}
                           </TableCell>
                           <TableCell scope="row">
                             {row.objectProperty.caption}

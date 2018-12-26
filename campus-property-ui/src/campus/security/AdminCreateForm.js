@@ -1,7 +1,9 @@
 import request from "../../commons/request";
 import state from "../../commons/stateProvider";
 
-const createAdmin = () => request.get("/admin/create");
+const createAdmin = () => {
+  request.get("/admin/create");
+};
 
 const AdminCreateForm = () => {
   createAdmin();

@@ -1,12 +1,11 @@
 package com.db.campus.property.controller;
 
 import com.db.campus.property.dto.CancellationActDto;
+import com.db.campus.property.dto.CancellationObjectDto;
 import com.db.campus.property.dto.CancellationProtocolRecordDto;
 import com.db.campus.property.service.cancellation.CancellationActService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -18,6 +17,13 @@ public class CancellationActController {
     @Autowired
     public CancellationActController(CancellationActService cancellationActService) {
         this.cancellationActService = cancellationActService;
+    }
+
+    @RequestMapping(value = "/cancellation/object", method = RequestMethod.POST)
+    @ResponseBody
+    public Boolean cancelOneObject(@RequestBody CancellationObjectDto objectDto) {
+        cancellationActService.create(objectDto);
+        return true;
     }
 
     @RequestMapping("/cancellation/act/all")
