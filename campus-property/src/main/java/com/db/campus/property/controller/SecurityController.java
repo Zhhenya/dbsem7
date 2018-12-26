@@ -73,6 +73,12 @@ public class SecurityController {
         return true;
     }
 
+    @RequestMapping("/admin/users")
+    @ResponseBody
+    public List<UserAccountDto> getAllUsers() {
+        return securityService.getAllUsers();
+    }
+
     @RequestMapping("/roles")
     @ResponseBody
     public List<String> fetchAvailableRoles() {

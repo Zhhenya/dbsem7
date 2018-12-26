@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 import Storage from "@material-ui/icons/Storage";
 import Store from "@material-ui/icons/Store";
 import EventNote from "@material-ui/icons/EventNote";
-import Assignment from "@material-ui/icons/Assignment";
+import AssignmentTurnedIn from "@material-ui/icons/AssignmentTurnedIn";
 
 const LinkToRequests = props => <Link to="/officer/request/list" {...props} />;
 const LinkToPropertyTable = props => (
@@ -50,9 +50,9 @@ const OfficerMenu = () => {
       <List>
         <ListItem button component={LinkToInventoryList}>
           <ListItemIcon>
-            <Assignment />
+            <AssignmentTurnedIn />
           </ListItemIcon>
-          <ListItemText primary={"Результаты инвентаризаций"} />
+          <ListItemText primary={"Инвентаризации"} />
         </ListItem>
       </List>
     </React.Fragment>
