@@ -7,6 +7,7 @@ import TableCell from "@material-ui/core/TableCell/TableCell";
 import TableBody from "@material-ui/core/TableBody/TableBody";
 import Table from "@material-ui/core/Table/Table";
 import { uniqueId } from "lodash";
+import Roles from "../enums/Roles";
 
 const styles = theme => ({
   root: {
@@ -20,7 +21,6 @@ const styles = theme => ({
 
 const columns = [
   { title: "Логин", key: uniqueId(), property: "login" },
-  { title: "Пароль", key: uniqueId(), property: "password" },
   { title: "Роль", key: uniqueId(), property: "role" }
 ]
 
@@ -42,10 +42,7 @@ const WorkerAccountTable = props => {
               {row.login}
             </TableCell>
             <TableCell scope="row">
-              {row.password}
-            </TableCell>
-            <TableCell scope="row">
-              {row.role.name}
+              {row.role}
             </TableCell>
           </TableRow>
         ))}

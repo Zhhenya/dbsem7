@@ -11,6 +11,8 @@ import Mail from "@material-ui/icons/Mail";
 import AssignmentLate from "@material-ui/icons/AssignmentLate";
 import { Link } from "react-router-dom";
 import Divider from "@material-ui/core/es/Divider/Divider";
+import AssignmentTurnedIn from "@material-ui/icons/AssignmentTurnedIn";
+import AccountBox from "@material-ui/icons/AccountBox"
 
 const LinkToRequests = props => (
   <Link to="/accountant/request/list" {...props} />
@@ -23,6 +25,7 @@ const LinkToLetter = props => <Link to="/accountant/letter" {...props} />;
 const LinkToActList = props => <Link to="/cancellation/acts" {...props} />;
 const LinkToBuildings = props => <Link to="/building/list" {...props} />;
 const LinkToProfiles = props => <Link to="/admin/users" {...props} />;
+const LinkToInventoryList = props => <Link to="/inventory" {...props} />;
 
 const AccountantMenu = () => {
   return (
@@ -30,7 +33,7 @@ const AccountantMenu = () => {
       <List>
         <ListItem button component={LinkToProfiles}>
           <ListItemIcon>
-            <Home />
+            <AccountBox />
           </ListItemIcon>
           <ListItemText primary={"Пользователи"} />
         </ListItem>
@@ -66,6 +69,15 @@ const AccountantMenu = () => {
             <AddBox />
           </ListItemIcon>
           <ListItemText primary={"Зарегистрировать новый объект"} />
+        </ListItem>
+      </List>
+      <Divider />
+      <List>
+        <ListItem button component={LinkToInventoryList}>
+          <ListItemIcon>
+            <AssignmentTurnedIn />
+          </ListItemIcon>
+          <ListItemText primary={"Инвентаризации"} />
         </ListItem>
       </List>
       <Divider />

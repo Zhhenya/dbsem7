@@ -10,7 +10,7 @@ import Mail from "@material-ui/icons/Mail";
 import AssignmentLate from "@material-ui/icons/AssignmentLate";
 import { Link } from "react-router-dom";
 import Divider from "@material-ui/core/es/Divider/Divider";
-import Assignment from "@material-ui/icons/Assignment";
+import AssignmentTurnedIn from "@material-ui/icons/AssignmentTurnedIn"
 
 const LinkToRequests = props => (
   <Link to="/accountant/request/list" {...props} />
@@ -62,9 +62,9 @@ const AccountantMenu = () => {
       <List>
         <ListItem button component={LinkToInventoryList}>
           <ListItemIcon>
-            <Assignment />
+            <AssignmentTurnedIn />
           </ListItemIcon>
-          <ListItemText primary={"Результаты инвентаризаций"} />
+          <ListItemText primary={"Инвентаризации"} />
         </ListItem>
       </List>
       <Divider />
