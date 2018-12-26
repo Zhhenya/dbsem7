@@ -1,13 +1,9 @@
 package com.db.campus.property.controller;
 
-import com.db.campus.property.dto.RequestDto;
 import com.db.campus.property.dto.ResultInventoryDto;
 import com.db.campus.property.service.resultInventory.ResultInventoryService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -19,7 +15,7 @@ public class ResultInventoryController {
     @Autowired
     public ResultInventoryController(
             ResultInventoryService resultInventoryService
-    ) {
+                                    ) {
         this.resultInventoryService = resultInventoryService;
     }
 
@@ -29,9 +25,35 @@ public class ResultInventoryController {
         return resultInventoryService.fetchResultInventoryList();
     }
 
-    @RequestMapping("/inventory/{id}/result-inventory/list")
+    @RequestMapping("/inventory/{inventoryId}/result-inventory")
     @ResponseBody
-    public List<ResultInventoryDto> fetchResultInventoryByInventoryId(@PathVariable("id") long inventoryId) {
+    public List<ResultInventoryDto> fetchResultInventoryByInventoryId(
+            @PathVariable("inventoryId") long inventoryId
+                                                                     ) {
         return resultInventoryService.fetchResultInventoryListByInventoryId(inventoryId);
     }
+
+    @RequestMapping("/inventory/{inventoryId}/result-inventory/{roomId}")
+    @ResponseBody
+    public List<ResultInventoryDto> fetchResultInventoryByInventoryIdAndRoomId(
+            @PathVariable("inventoryId") long inventoryId,
+            @PathVariable("roomId") long roomId
+                                                                              ) {
+        return resultInventoryService.fetchResultInventoryListByInventoryIdAndRoomId(inventoryId, roomId);
+    }
+
+    @RequestMapping("/inventory/{inventoryId}/result-inventory/building/{buildingId}")
+    @ResponseBody
+    public List<ResultInventoryDto> fetchResultInventoryInBuilding(@PathVariable("inventoryId") long inventoryId,
+                                                                   @PathVariable("buildingId") long buildingId) {
+        return resultInventoryService.fetchResultInventoryListInBuilding(inventoryId, buildingId);
+    }
+
+    @RequestMapping("/inventory/result/save")
+    @ResponseBody
+    public Boolean saveResults(@RequestBody List<ResultInventoryDto> inventories) {
+        resultInventoryService.saveResultInventories(inventories);
+        return true;
+    }
+
 }

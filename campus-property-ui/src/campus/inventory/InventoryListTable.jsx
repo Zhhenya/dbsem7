@@ -1,14 +1,16 @@
 import React from "react";
 
 import { withStyles } from "@material-ui/core/styles";
-import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
-import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
 import List from "@material-ui/core/List/List";
 import ListItemLink from "../../components/ListItemLink";
 import * as request from "../../commons/request";
+import { withRouter } from "react-router";
+import Divider from "@material-ui/core/es/Divider/Divider";
+import stateProvider from "../../commons/stateProvider";
+import Roles from "../enums/Roles";
 
 const styles = theme => ({
   root: {
@@ -20,33 +22,37 @@ const styles = theme => ({
   }
 });
 
-const start = () => {
-  request.get("/inventory/init");
+const start = props => {
+  request.get("/inventory/init").then(inventoryId => {
+    props.history.push(
+      "/inventory/" + inventoryId + "/result-inventory/processing"
+    );
+  });
 };
+
+const canStart = () => stateProvider.user.role === Roles.OFFICER;
 
 const InventoryListTable = props => {
   const { classes, data } = props;
   return (
     <React.Fragment>
-      <AppBar position="static" color="default">
-        <Toolbar>
-          <Grid container justify={"flex-start"}>
-            <Typography variant="h6" color="inherit">
-              Список инвентаризаций
-            </Typography>
-          </Grid>
-          <Grid container justify={"flex-end"}>
-            <Button
-              variant="contained"
-              color="primary"
-              className={classes.button}
-              onClick={start}
-            >
-              Начать новую инвентаризацию
-            </Button>
-          </Grid>
-        </Toolbar>
-      </AppBar>
+      <Toolbar>
+        <Typography variant="h6" color="inherit">
+          Список инвентаризаций
+        </Typography>
+        <div style={{ flexGrow: 1 }} />
+        {canStart() && (
+          <Button
+            variant="contained"
+            color="primary"
+            className={classes.button}
+            onClick={() => start(props)}
+          >
+            Начать новую инвентаризацию
+          </Button>
+        )}
+      </Toolbar>
+      <Divider />
       <List>
         {data &&
           data.map(row => {
@@ -67,4 +73,4 @@ const InventoryListTable = props => {
   );
 };
 
-export default withStyles(styles)(InventoryListTable);
+export default withStyles(styles)(withRouter(InventoryListTable));

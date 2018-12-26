@@ -7,6 +7,14 @@ public class ResultInventoryEntityPK implements Serializable {
     private long id;
     private long inventory;
 
+    public ResultInventoryEntityPK(long id, long inventory) {
+        this.id = id;
+        this.inventory = inventory;
+    }
+
+    public ResultInventoryEntityPK() {
+    }
+
     public long getId() {
         return id;
     }

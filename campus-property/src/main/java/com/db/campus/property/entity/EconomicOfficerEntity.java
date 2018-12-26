@@ -9,6 +9,7 @@ import java.util.Objects;
 public class EconomicOfficerEntity {
     private String name;
     private long id;
+    private String email;
     private Collection<ObjectPropertyEntity> objectProperties;
     private Collection<RequestEntity> requests;
     private UserAccountEntity userAccount;
@@ -17,6 +18,16 @@ public class EconomicOfficerEntity {
     @Column(name = "EO_Name", nullable = false, length = 100)
     public String getName() {
         return name;
+    }
+
+    @Basic
+    @Column(name = "email", nullable = false, length = 100)
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public void setName(String eoName) {

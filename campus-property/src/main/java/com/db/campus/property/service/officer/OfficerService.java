@@ -10,4 +10,6 @@ public interface OfficerService {
 
     void save(EconomicOfficerDto workerDto);
 
+    EconomicOfficerDto fetch(Long id);
+
 }

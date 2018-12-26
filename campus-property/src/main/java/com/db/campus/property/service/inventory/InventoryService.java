@@ -10,4 +10,6 @@ public interface InventoryService {
 
     void initInventory();
 
+    Long fetchLastId();
+
 }
