@@ -6,11 +6,13 @@ import ListItemText from "@material-ui/core/ListItemText/ListItemText";
 import EventNote from "@material-ui/icons/EventNote";
 import Storage from "@material-ui/icons/Storage";
 import AddBox from "@material-ui/icons/AddBox";
+import Home from "@material-ui/icons/Home"
 import Mail from "@material-ui/icons/Mail";
 import AssignmentLate from "@material-ui/icons/AssignmentLate";
 import { Link } from "react-router-dom";
 import Divider from "@material-ui/core/es/Divider/Divider";
-import AssignmentTurnedIn from "@material-ui/icons/AssignmentTurnedIn"
+import AssignmentTurnedIn from "@material-ui/icons/AssignmentTurnedIn";
+import AccountBox from "@material-ui/icons/AccountBox"
 
 const LinkToRequests = props => (
   <Link to="/accountant/request/list" {...props} />
@@ -21,11 +23,31 @@ const LinkToPropertyTable = props => (
 const LinkToObjectCreating = props => <Link to="/object/add" {...props} />;
 const LinkToLetter = props => <Link to="/accountant/letter" {...props} />;
 const LinkToActList = props => <Link to="/cancellation/acts" {...props} />;
+const LinkToBuildings = props => <Link to="/building/list" {...props} />;
+const LinkToProfiles = props => <Link to="/admin/users" {...props} />;
 const LinkToInventoryList = props => <Link to="/inventory" {...props} />;
 
 const AccountantMenu = () => {
   return (
     <React.Fragment>
+      <List>
+        <ListItem button component={LinkToProfiles}>
+          <ListItemIcon>
+            <AccountBox />
+          </ListItemIcon>
+          <ListItemText primary={"Пользователи"} />
+        </ListItem>
+      </List>
+      <Divider />
+      <List>
+        <ListItem button component={LinkToBuildings}>
+          <ListItemIcon>
+            <Home />
+          </ListItemIcon>
+          <ListItemText primary={"Здания"} />
+        </ListItem>
+      </List>
+      <Divider />
       <List>
         <ListItem button component={LinkToRequests}>
           <ListItemIcon>
@@ -51,20 +73,20 @@ const AccountantMenu = () => {
       </List>
       <Divider />
       <List>
-        <ListItem button component={LinkToLetter}>
-          <ListItemIcon>
-            <Mail />
-          </ListItemIcon>
-          <ListItemText primary={"Сообщение для взыскания средств"} />
-        </ListItem>
-      </List>
-      <Divider />
-      <List>
         <ListItem button component={LinkToInventoryList}>
           <ListItemIcon>
             <AssignmentTurnedIn />
           </ListItemIcon>
           <ListItemText primary={"Инвентаризации"} />
+        </ListItem>
+      </List>
+      <Divider />
+      <List>
+        <ListItem button component={LinkToLetter}>
+          <ListItemIcon>
+            <Mail />
+          </ListItemIcon>
+          <ListItemText primary={"Сообщение для взыскания средств"} />
         </ListItem>
       </List>
       <Divider />

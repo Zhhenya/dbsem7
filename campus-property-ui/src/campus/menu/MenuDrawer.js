@@ -7,6 +7,7 @@ import stateProvider from "../../commons/stateProvider";
 import AccountantMenu from "./AcountantMenu";
 import Roles from "../enums/Roles";
 import OfficerMenu from "./OfficerMenu";
+import AdminMenu from "./AdminMenu";
 
 const getMenuList = () => {
   switch (stateProvider.user.role) {
@@ -14,6 +15,8 @@ const getMenuList = () => {
       return <AccountantMenu />;
     case Roles.OFFICER:
       return <OfficerMenu />;
+    case Roles.ADMIN:
+      return <AdminMenu />;
     default:
       return null;
   }

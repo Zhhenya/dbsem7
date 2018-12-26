@@ -4,6 +4,7 @@ import Roles from "./enums/Roles";
 import { WorkerHomeForm } from "./worker";
 import { AccountantHomeForm } from "./accountant";
 import { OfficerHomeForm } from "./officer";
+import AdminHomeForm from "./admin/AdminHomeForm";
 
 const HomeForm = () => {
   const { user } = stateProvider;
@@ -18,6 +19,8 @@ const HomeForm = () => {
       return <AccountantHomeForm />;
     case Roles.OFFICER:
       return <OfficerHomeForm />;
+    case Roles.ADMIN:
+      return <AdminHomeForm />
     default:
       return null;
   }

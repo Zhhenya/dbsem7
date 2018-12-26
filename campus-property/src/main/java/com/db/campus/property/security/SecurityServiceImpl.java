@@ -1,5 +1,8 @@
 package com.db.campus.property.security;
 
+import com.db.campus.property.converter.UserAccountConverter;
+import com.db.campus.property.dao.UserRepository;
+import com.db.campus.property.dto.UserAccountDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +17,8 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.constraints.Size;
+import java.util.List;
 
 @Service
 public class SecurityServiceImpl implements SecurityService {
@@ -21,14 +26,20 @@ public class SecurityServiceImpl implements SecurityService {
     private final AuthenticationManager authenticationManager;
     private final UserDetailsServiceImpl userDetailsService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final UserAccountConverter userAccountConverter;
+    private final UserRepository userRepository;
 
     @Autowired
     public SecurityServiceImpl(AuthenticationManager authenticationManager,
                                UserDetailsServiceImpl userDetailsService,
-                               BCryptPasswordEncoder bCryptPasswordEncoder) {
+                               BCryptPasswordEncoder bCryptPasswordEncoder,
+                               UserAccountConverter userAccountConverter,
+                               UserRepository userRepository) {
         this.authenticationManager = authenticationManager;
         this.userDetailsService = userDetailsService;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+        this.userAccountConverter = userAccountConverter;
+        this.userRepository = userRepository;
     }
 
     private static final Logger logger = LoggerFactory.getLogger(SecurityServiceImpl.class);
@@ -67,5 +78,10 @@ public class SecurityServiceImpl implements SecurityService {
     @Override
     public String encodePassword(String password) {
         return bCryptPasswordEncoder.encode(password);
+    }
+
+    @Override
+    public List<UserAccountDto> getAllUsers() {
+        return userAccountConverter.convertAll(userRepository.findAll());
     }
 }
