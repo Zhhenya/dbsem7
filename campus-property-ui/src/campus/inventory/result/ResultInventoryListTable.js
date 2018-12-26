@@ -13,6 +13,9 @@ import Button from "@material-ui/core/Button/Button";
 import { FieldArray, Form, Formik } from "formik";
 import InputField from "../../../components/InputField";
 import ObjectPropertyDialog from "../../objectProperty/ObjectPropertyDialog";
+import * as request from "../../../commons/request";
+import stateProvider from "../../../commons/stateProvider";
+import SimpleAlertDialog from "../../../commons/dialog/SimpleAlertDialog";
 
 const styles = () => ({
   root: {
@@ -35,26 +38,61 @@ const columns = [
 
 class ResultInventoryListTable extends Component {
   state = {
-    selectedObject: null
+    selectedRecord: null,
+    cancelled: false,
+    error: null
   };
-  openObjectForm = selectedObject => {
-    this.setState({ selectedObject });
+  openObjectForm = selectedRecord => {
+    this.setState({ selectedRecord });
   };
-
+  cancelObject = (property, reason) => {
+    request
+      .post("/cancellation/object", {
+        object: property,
+        reason: reason,
+        accountant: stateProvider.user
+      })
+      .then(() => {
+        this.setState({ cancelled: true });
+      })
+      .catch(error => {
+        this.setState({ error });
+      });
+  };
   render() {
     const { onSave, data, editable } = this.props;
-    const { selectedObject } = this.state;
+    const { selectedRecord, cancelled, error } = this.state;
     return (
       <>
-        {selectedObject && (
+        {cancelled && (
+          <SimpleAlertDialog
+            title="Объект списан"
+            onClose={() => {
+              this.setState({cancelled: false});
+            }}
+            open={Boolean(cancelled)}
+          />
+        )}
+        {error && (
+          <SimpleAlertDialog
+            title="Произошла ошибка"
+            content={error}
+            onClose={() => {
+              this.setState({error: null});
+            }}
+            open={Boolean(error)}
+          />
+        )}
+        {selectedRecord && (
           <ObjectPropertyDialog
             onClose={() => {
               this.setState({
-                selectedObject: null
+                selectedRecord: null
               });
             }}
-            open={Boolean(selectedObject)}
-            property={selectedObject}
+            open={Boolean(selectedRecord)}
+            property={selectedRecord.objectProperty}
+            onCancel={(object) => this.cancelObject(object, selectedRecord.result)}
           />
         )}
         <Formik
@@ -91,7 +129,7 @@ class ResultInventoryListTable extends Component {
                         <TableRow
                           key={row.id}
                           onDoubleClick={() =>
-                            this.openObjectForm(row.objectProperty)
+                            this.openObjectForm(row)
                           }
                         >
                           <TableCell scope="row">

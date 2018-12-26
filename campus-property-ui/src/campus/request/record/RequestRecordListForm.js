@@ -19,7 +19,7 @@ const RequestRecordListForm = props => {
         <div>
           {values[name].map((value, index) => (
             <FormGroup row key={value.id}>
-              <FormControl className={classes.margin} style={{ width: "50%" }}>
+              <FormControl className={classes.margin}>
                 <InputField
                   multiline
                   classes={classes}

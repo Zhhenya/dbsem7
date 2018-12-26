@@ -9,6 +9,7 @@ import Typography from "@material-ui/core/es/Typography/Typography";
 import Button from "@material-ui/core/es/Button/Button";
 import { withStyles } from "@material-ui/core";
 import Toolbar from "@material-ui/core/Toolbar/Toolbar";
+import { withRouter } from "react-router";
 
 const styles = theme => ({
   root: {
@@ -210,4 +211,4 @@ class ResultInventoryListForm extends Component {
   }
 }
 
-export default withStyles(styles)(ResultInventoryListForm);
+export default withStyles(styles)(withRouter(ResultInventoryListForm));

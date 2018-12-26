@@ -117,7 +117,7 @@ class ObjectPropertyForm extends Component {
   fetchObjectState = () =>
     new Promise(resolve => {
       request.get("object/state/all").then(states => {
-        this.setState({ states });
+        this.setState({ states: states.filter(state => state !== "Списан") });
         resolve();
       });
     });

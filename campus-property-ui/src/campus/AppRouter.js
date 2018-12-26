@@ -69,11 +69,6 @@ const AppRouter = () => {
       />
       <Route
         exact
-        path="/inventory/:inventoryId/result-inventory/:roomId"
-        component={ResultInventoryListForm}
-      />
-      <Route
-        exact
         path="/cancellation/acts"
         component={CancellationActListForm}
       />
@@ -84,13 +79,18 @@ const AppRouter = () => {
       />
       <Route
         exact
+        path="/inventory/:inventoryId/result-inventory/processing"
+        component={ProcessingInventory}
+      />
+      <Route
+        exact
         path="/inventory/:inventoryId/result-inventory"
         component={ResultInventoryListForm}
       />
       <Route
         exact
-        path="/inventory/:inventoryId/result-inventory/processing"
-        component={ProcessingInventory}
+        path="/inventory/:inventoryId/result-inventory/:roomId"
+        component={ResultInventoryListForm}
       />
       <Route exact path="/building/list" component={BuildingListForm} />
       <Route exact path="/building/edit/:id" component={BuildingEditForm} />

@@ -7,6 +7,9 @@ import Table from "@material-ui/core/Table/Table";
 import { uniqueId } from "lodash";
 import { withStyles } from "@material-ui/core";
 import ObjectPropertyDialog from "../objectProperty/ObjectPropertyDialog";
+import * as request from "../../commons/request";
+import stateProvider from "../../commons/stateProvider";
+import SimpleAlertDialog from "../../commons/dialog/SimpleAlertDialog";
 
 const columns = [
   { title: "Причина", key: uniqueId(), property: "reason" },
@@ -20,23 +23,59 @@ const columns = [
 
 class CancellationRecordTable extends Component {
   state = {
-    selectedProperty: null
+    selectedProperty: null,
+    cancelled: false,
+    error: null
+  };
+  cancelObject = (property, reason) => {
+    request
+      .post("/cancellation/object", {
+        object: property,
+        reason: reason,
+        accountant: stateProvider.user
+      })
+      .then(() => {
+        this.setState({ cancelled: true });
+      })
+      .catch(error => {
+        this.setState({ error });
+      });
   };
   render() {
     const { classes, data } = this.props;
-    const { selectedProperty } = this.state;
+    const { selectedRecord, cancelled, error } = this.state;
     return (
       <>
-        {selectedProperty && (
+        {cancelled && (
+          <SimpleAlertDialog
+            title="Объект списан"
+            onClose={() => {
+              this.setState({cancelled: false});
+            }}
+            open={Boolean(cancelled)}
+          />
+        )}
+        {error && (
+          <SimpleAlertDialog
+            title="Произошла ошибка"
+            content={error}
+            onClose={() => {
+              this.setState({error: null});
+            }}
+            open={Boolean(error)}
+          />
+        )}
+        {selectedRecord && (
           <ObjectPropertyDialog
             onClose={() => {
               this.setState({
                 objectDialogOpened: false,
-                selectedProperty: null
+                selectedRecord: null
               });
             }}
-            open={Boolean(selectedProperty)}
-            property={selectedProperty}
+            open={Boolean(selectedRecord)}
+            property={selectedRecord.object}
+            onCancel={(object) => this.cancelObject(object, selectedRecord.result)}
           />
         )}
         <Table className={classes.table}>
@@ -55,7 +94,7 @@ class CancellationRecordTable extends Component {
                   key={row.id}
                   onDoubleClick={() => {
                     this.setState({
-                      selectedProperty: row.object
+                      selectedRecord: row
                     });
                   }}
                 >

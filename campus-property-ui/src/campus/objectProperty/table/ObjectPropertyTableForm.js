@@ -13,6 +13,7 @@ import { withRouter } from "react-router";
 import Toolbar from "@material-ui/core/Toolbar/Toolbar";
 import stateProvider from "../../../commons/stateProvider";
 import Roles from "../../enums/Roles";
+import Grid from "@material-ui/core/Grid/Grid";
 
 const styles = theme => ({
   root: {
@@ -107,33 +108,39 @@ class ObjectPropertyTableForm extends Component {
             this.setState({ filter });
           }}
         />
-        <Toolbar>
-          <Typography variant="h6" color="inherit">
-            Объекты учета
-          </Typography>
-          <div style={{ flexGrow: 1 }} />
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={this.changeFilterVisibility}
-            className={classes.button}
-          >
-            Фильтр
-            <FilterList className={classes.rightIcon} />
-          </Button>
-          {this.canAdd() && (
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={this.createObject}
-              className={classes.button}
-            >
-              Зарегистрировать новый объект
-              <AddIcon className={classes.rightIcon} />
-            </Button>
-          )}
-        </Toolbar>
-        <ObjectPropertyTable data={objects} />
+        <Grid container>
+          <Grid item xs={12}>
+            <Toolbar>
+              <Typography variant="h6" color="inherit">
+                Объекты учета
+              </Typography>
+              <div style={{ flexGrow: 1 }} />
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={this.changeFilterVisibility}
+                className={classes.button}
+              >
+                Фильтр
+                <FilterList className={classes.rightIcon} />
+              </Button>
+              {this.canAdd() && (
+                <Button
+                  variant="contained"
+                  color="primary"
+                  onClick={this.createObject}
+                  className={classes.button}
+                >
+                  Зарегистрировать новый объект
+                  <AddIcon className={classes.rightIcon} />
+                </Button>
+              )}
+            </Toolbar>
+          </Grid>
+          <Grid item xs={12}>
+            <ObjectPropertyTable data={objects} />
+          </Grid>
+        </Grid>
       </>
     );
   }

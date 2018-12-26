@@ -118,7 +118,7 @@ class CreateRequestForm extends Component {
           render={({ values }) => (
             <Form className={classes.container}>
               <Grid container spacing={16} justify="space-around">
-                <Grid item xs={6}>
+                <Grid item xs={5}>
                   <FormGroup>
                     <FormControl className={classes.margin} fullWidth>
                       <InputField

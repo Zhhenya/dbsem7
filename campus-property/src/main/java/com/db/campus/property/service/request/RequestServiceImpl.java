@@ -63,7 +63,7 @@ public class RequestServiceImpl implements RequestService {
     public List<RequestDto> fetchWorkerRequestList(Long universityWorkerId, RequestState requestState) {
         return requestConverter.convertAll(
                 requestRepository.findAllByUniversityWorker_IdAndStateRequest_Name(universityWorkerId,
-                                                                                   requestState.getDisplayName()));
+                        requestState.getDisplayName()));
     }
 
     @Transactional(readOnly = true)
@@ -71,7 +71,7 @@ public class RequestServiceImpl implements RequestService {
     public List<RequestDto> fetchAccountantRequestList(Long accountantId, RequestState requestState) {
         return requestConverter.convertAll(
                 requestRepository.findAllByAccountant_IdAndStateRequest_Name(accountantId,
-                                                                             requestState.getDisplayName()));
+                        requestState.getDisplayName()));
     }
 
     @Transactional(readOnly = true)
@@ -79,7 +79,7 @@ public class RequestServiceImpl implements RequestService {
     public List<RequestDto> fetchOfficerRequestList(Long officerId, RequestState requestState) {
         return requestConverter.convertAll(
                 requestRepository.findAllByEconomicOfficer_IdAndStateRequest_Name(officerId,
-                                                                                  requestState.getDisplayName()));
+                        requestState.getDisplayName()));
     }
 
     @Transactional(readOnly = true)
@@ -98,7 +98,7 @@ public class RequestServiceImpl implements RequestService {
     @Override
     public void cancelObjects(Long requestId) {
         RequestEntity request = requestRepository.findById(requestId)
-                                                 .orElseThrow(() -> new RequestNotFoundException(requestId));
+                .orElseThrow(() -> new RequestNotFoundException(requestId));
         List<RequestRecordEntity> records = new ArrayList<>(request.getRequestRecords());
         cancellationActService.create(records, request.getAccountant());
         setRequestState(requestId, RequestState.APPROVED);
@@ -116,19 +116,19 @@ public class RequestServiceImpl implements RequestService {
         setRequestState(requestId, RequestState.READY);
     }
 
-    @Transactional
     @Override
     public RequestRecordEntity save(RequestRecordDto requestRecordDto, RequestEntity requestEntity) {
         RequestRecordEntity requestRecordEntity = new RequestRecordEntity();
         requestRecordEntity.setNote(requestRecordDto.getNote());
         String propertyNumber = requestRecordDto.getObjectProperty().getPropertyNumber();
         if (!propertyNumber.isEmpty()) {
-            requestRecordEntity.setObjectProperty(objectPropertyRepository
-                                                          .findByPropertyNumber(propertyNumber)
-                                                          .orElseThrow(() -> new PropertyNumberNotFoundException(propertyNumber)));
+            requestRecordEntity.setObjectProperty(
+                    objectPropertyRepository
+                            .findByPropertyNumber(propertyNumber)
+                            .orElseThrow(() -> new PropertyNumberNotFoundException(propertyNumber)));
         }
         requestRecordEntity.setRequest(requestEntity);
-        return requestRecordRepository.saveAndFlush(requestRecordEntity);
+        return requestRecordRepository.save(requestRecordEntity);
     }
 
     @Transactional
@@ -154,7 +154,7 @@ public class RequestServiceImpl implements RequestService {
 
     private void setRequestState(long requestId, RequestState requestState) {
         RequestEntity requestEntity = requestRepository.findById(requestId)
-                                                       .orElseThrow(() -> new RequestNotFoundException(requestId));
+                .orElseThrow(() -> new RequestNotFoundException(requestId));
         requestEntity.setStateRequest(stateRequestRepository.findByName(requestState.getDisplayName()));
         requestRepository.save(requestEntity);
     }
